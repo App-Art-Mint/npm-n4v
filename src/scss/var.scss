@@ -1,0 +1,71 @@
+// Global Vars
+$lib: n4v;
+$dash: #{'-'};
+$dot: #{'.'};
+$hash: #{'#'};
+$disabled: #{'[disabled]'};
+$controls: #{'[aria-controls]'};
+$expanded: #{'[aria-expanded]'};
+$tabbable: #{'[tabindex]'};
+$delay-base: 0;
+$delay-step: 100;
+
+// Functions
+@function prefix ($base) {
+    @return $lib + $dash + $base;
+}
+
+@function css-prefix ($base) {
+    @return $dash + $dash + prefix($base);
+}
+
+@function css-var ($base) {
+    @return var(css-prefix($base));
+}
+
+@function class($base) {
+    @return $dot + prefix($base);
+}
+
+@function id ($base) {
+    @return $hash + prefix($base);
+}
+
+@function neg ($base) {
+    @return ':not(' + $base + ')';
+}
+
+@function controls ($id) {
+    @return '[aria-controls=' + prefix($id) + ']';
+}
+
+@function expanded ($bool) {
+    @return '[aria-expanded=' + $bool + ']';
+}
+
+@function ms ($val) {
+    @return $val * 1ms;
+}
+
+@function px ($val) {
+    @return $val * 1px;
+}
+
+// Maps
+$delay: (
+    instant: $delay-base + $delay-step * 0,
+    fast: $delay-base + $delay-step * 1,
+    med-fast: $delay-base + $delay-step * 2,
+    default: $delay-base + $delay-step * 3,
+    med-slow: $delay-base + $delay-step * 4,
+    slow: $delay-base + $delay-step * 5
+);
+
+// Mixins
+@mixin css-var ($key, $val) {
+    #{css-prefix($key)}: $val;
+}
+
+@mixin css-var-ref ($key1, $key2) {
+    @include css-var($key1, css-var($key2));
+}

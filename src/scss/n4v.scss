@@ -1,0 +1,128 @@
+@charset 'utf-8';
+
+@use 'global';
+@use 'css-var';
+
+@import 'var';
+
+#{class(sr-only)} {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+#{class(getting-height)} {
+    display: flex !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+#{id(header)} {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: css-var(fg);
+    background-color: css-var(header-bg);
+
+    &#{class(js)} {
+        align-items: center;
+        flex-direction: row;
+        height: css-var(height);
+        padding: calc((css-var(height) - css-var(btn-height)) / 2);
+
+        #{controls(wrapper)} {
+            display: inline-block;
+        }
+
+        #{$controls + neg(controls(wrapper))} {
+            & + ul {
+                display: none;
+                flex-direction: column;
+                height: 0;
+                overflow: hidden;
+                transition: height css-var(delay-default), margin css-var(delay-default);
+                
+                &#{class(anime)} {
+                    display: flex;
+                }
+            }
+            
+            &#{expanded(true)} {
+                & + ul {
+                    display: flex;
+                }
+            }
+            
+            &#{$expanded + neg(expanded(true))} {
+                & + ul {
+                    margin: 0;
+                }
+            }
+        }
+
+        &#{class(fixed)} {
+            #{id(wrapper)} {
+                position: fixed;
+                top: css-var(height);
+                left: 0;
+                height: 0;
+                overflow: auto;
+                
+                &#{class(open)} {
+                    height: calc(100vh - css-var(height));
+                }
+            }
+        }
+        
+        #{id(wrapper)} {
+            background: css-var(bg);
+        }
+    }
+
+    &#{class(fixed)} {
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+    
+    nav {
+        & > ul {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+    
+    ul {
+        list-style: none;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        padding-left: 0;
+    }
+    
+    a, button {
+        display: flex;
+        align-items: center;
+        padding: calc((css-var(height) - css-var(btn-height)) / 2);
+    }
+    
+    #{controls(wrapper)} {
+        display: none;
+    }
+    
+    #{id(logo)} {
+        margin: calc((css-var(height) - css-var(btn-height)) / 2);
+        padding: 0;
+    }
+
+    #{id(wrapper)} {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        transition: height css-var(delay-default);
+    }
+}

@@ -1,0 +1,27 @@
+@use 'sass:math';
+
+@import 'var';
+
+:root {
+    @include css-var(delay-instant, ms(map-get($delay, instant)));
+    @include css-var(delay-fast, ms(map-get($delay, fast)));
+    @include css-var(delay-med-fast, ms(map-get($delay, med-fast)));
+    @include css-var(delay-default, ms(map-get($delay, default)));
+    @include css-var(delay-med-slow, ms(map-get($delay, med-slow)));
+    @include css-var(delay-slow, ms(map-get($delay, slow)));
+    
+    $height: 50;
+    @include css-var(height, px($height));
+    $btn-margin: 7;
+    $btn-height: $height - $btn-margin * 2;
+    @include css-var(btn-height, $btn-height * 1px);
+    $btn-bar-height: math.div($btn-height, 12);
+    @include css-var(btn-bar-height, $btn-bar-height * 1px);
+    $btn-side-padding: $btn-bar-height * 2;
+    @include css-var(btn-side-padding, $btn-side-padding * 1px);
+    
+    @include css-var(fg, black);
+    @include css-var(bg, white);
+    @include css-var(header-bg, lightgray);
+    @include css-var-ref(menu-bg, bg);
+}

@@ -1,0 +1,14 @@
+@import 'var';
+
+// Export to TypeScript
+:export {
+    lib: $lib;
+    controls: $controls;
+    disabled: $disabled;
+    expanded: $expanded;
+    tabbable: $tabbable;
+
+    @each $key, $val in $delay {
+        delay-#{$key}: $val;
+    }
+}

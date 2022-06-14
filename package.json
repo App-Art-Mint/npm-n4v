@@ -1,0 +1,58 @@
+{
+  "name": "@sunderapps/n4v",
+  "version": "0.0.1",
+  "description": "Navigation 4 Virtuosos - Accessible, Responsive Navbars",
+  "browser": "./src/ts/n4v.ts",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "serve": "webpack serve",
+    "test": "karma start test/karma.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sunder-Apps/n4v.git"
+  },
+  "keywords": [
+    "navbar",
+    "virtuosos",
+    "generator",
+    "validator",
+    "accessibility"
+  ],
+  "author": "Samuel T Underwood",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Sunder-Apps/n4v/issues"
+  },
+  "homepage": "https://github.com/Sunder-Apps/n4v#readme",
+  "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@babel/preset-env": "^7.18.2",
+    "@types/node": "^17.0.42",
+    "@types/webpack": "^5.28.0",
+    "babel-loader": "^8.2.5",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.7.1",
+    "jasmine-core": "^4.2.0",
+    "karma": "^6.3.20",
+    "karma-babel-preprocessor": "^8.0.2",
+    "karma-chrome-launcher": "^3.1.1",
+    "karma-jasmine": "^5.0.1",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-typescript-preprocessor": "^0.4.0",
+    "karma-webpack": "^5.0.0",
+    "mini-css-extract-plugin": "^2.6.0",
+    "sass": "^1.52.3",
+    "sass-loader": "^13.0.0",
+    "ts-loader": "^9.3.0",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.3",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.2"
+  }
+}

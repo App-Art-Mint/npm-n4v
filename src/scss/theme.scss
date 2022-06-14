@@ -1,0 +1,76 @@
+@use 'sass:math';
+
+@import 'var';
+
+*, *::before, *::after {
+    font-family: 'Palanquin', sans-serif;
+}
+
+html, body {
+    margin: 0;
+}
+
+button {
+    cursor: pointer;
+}
+
+#{id(header)} {
+    nav {
+        a, button {
+            outline-offset: -2px;
+        }
+    }
+    
+    a, button {
+        width: 100%;
+        height: 2em;
+        margin: 0;
+        border: 0;
+        color: css-var(fg);
+        background: transparent;
+        font-size: 1em;
+    }
+    
+    #{controls(wrapper)} {
+        position: relative;
+        width: css-var(btn-height);
+        height: css-var(btn-height);
+        margin: calc((css-var(height) - css-var(btn-height)) / 2);
+        overflow: hidden;
+        
+        &::before, &::after {
+            content: '';
+            position: absolute;
+            width: calc(css-var(btn-height) - css-var(btn-side-padding) * 2);
+            height: 0;
+            transform: translate(-50%, (-50% * 5));
+            transform-origin: top left;
+            border-bottom: solid css-var(btn-bar-height) css-var(fg);
+            transition: transform css-var(delay-med-slow) linear, height css-var(delay-default) linear css-var(delay-fast), border css-var(delay-default) linear css-var(delay-fast);
+        }
+
+        &::after {
+            height: calc(css-var(btn-bar-height) * 3);
+            transform: translate(-50%, math.div(-50%, 3));
+            border-top: solid css-var(btn-bar-height) css-var(fg);
+        }
+        
+        &#{expanded(true)} {
+            &::before, &::after {
+                transform: rotate(45deg) translate(-50%, -50%);
+                transition: transform css-var(delay-default) linear css-var(delay-fast), height css-var(delay-med-slow), border css-var(delay-med-slow);
+            }
+            
+            &::after {
+                height: 0;
+                transform:  rotate(-45deg) translate(-50%, -50%);
+                border-top: solid 0 transparent;
+            }
+        }
+    }
+    
+    #{id(logo)} {
+        width: css-var(btn-height);
+        height: css-var(btn-height);
+    }
+}
