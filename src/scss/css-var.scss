@@ -14,11 +14,11 @@
     @include css-var(height, px($height));
     $btn-margin: 7;
     $btn-height: $height - $btn-margin * 2;
-    @include css-var(btn-height, $btn-height * 1px);
+    @include css-var(btn-height, px($btn-height));
     $btn-bar-height: math.div($btn-height, 12);
-    @include css-var(btn-bar-height, $btn-bar-height * 1px);
+    @include css-var(btn-bar-height, px($btn-bar-height));
     $btn-side-padding: $btn-bar-height * 2;
-    @include css-var(btn-side-padding, $btn-side-padding * 1px);
+    @include css-var(btn-side-padding, px($btn-side-padding));
     
     @include css-var(fg, black);
     @include css-var(bg, white);

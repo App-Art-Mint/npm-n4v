@@ -63,7 +63,7 @@ $delay: (
 
 // Mixins
 @mixin css-var ($key, $val) {
-    #{css-prefix($key)}: $val;
+    #{css-prefix($key)}: #{$val};
 }
 
 @mixin css-var-ref ($key1, $key2) {

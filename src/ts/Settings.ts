@@ -1,4 +1,4 @@
-import v4r from '../scss/v4r.scss';
+import { v4r } from '../scss/v4r.scss';
 
 class Settings {
     delay = {

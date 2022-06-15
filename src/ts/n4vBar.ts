@@ -3,7 +3,7 @@ import Settings from './Settings';
 import ThrottleOptions from './ThrottleOptions';
 
 class n4vBar {
-    #el: {[key: string]: HTMLElement | null};
+    #el: {[key: string]: HTMLElement | null} = {};
     #sel: Selectors = new Selectors();
     #set: Settings = new Settings();
 
@@ -17,7 +17,6 @@ class n4vBar {
     }
 
     attachElements () : void {
-        this.#el = {};
         this.#el.header = document.getElementById(this.#sel.ids.header);
         this.#el.mobileButton = this.#el.header?.querySelector(this.#sel.controls(this.#sel.ids.wrapper)) || null;
         this.#el.wrapper = document.getElementById(this.#sel.ids.wrapper);

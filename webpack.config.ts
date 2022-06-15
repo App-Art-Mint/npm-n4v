@@ -29,8 +29,7 @@ const serverConfig: devServer.Configuration = {
 const config: webpack.Configuration = {
     mode: isDev ? 'development' : 'production',
     entry: {
-        n4v: './src/ts/n4v.ts',
-        g3n: './src/ts/g3n.ts'
+        n4v: './src/ts/n4v.ts'
     },
     output: {
         path: path.resolve(__dirname, './dist'),
