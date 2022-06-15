@@ -11,9 +11,9 @@ class n4vBar {
     constructor () {
         this.attachElements();
         this.attachEvents();
+        this.enableJavascript();
 
-        this.#el.header?.classList.add(this.#sel.classes.js);
-        this.#el.header?.classList.add(this.#sel.classes.fixed);
+        this.setMobileMenu();
     }
 
     attachElements () : void {
@@ -36,7 +36,11 @@ class n4vBar {
         });
 
         this.#el.mobileButton?.addEventListener('mousedown', this.throttle(this.eToggleMobileMenu.bind(this), this.#set.delay.slow, new ThrottleOptions(true, false)) as EventListenerOrEventListenerObject);
-        this.#el.mobileButton?.click();
+    }
+
+    enableJavascript () : void {
+        this.#el.header?.classList.add(this.#sel.classes.js);
+        this.#el.header?.classList.add(this.#sel.classes.fixed);
     }
 
     // Utility
