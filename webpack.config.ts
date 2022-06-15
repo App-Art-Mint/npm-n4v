@@ -69,11 +69,7 @@ const config: webpack.Configuration = {
                     {
                         loader: 'css-loader',
                         options: {
-                            sourceMap: isDev,
-                            modules: {
-                                auto: (resourcePath: string) => resourcePath.endsWith('v4r.scss'),
-                                exportLocalsConvention: 'camelCase'
-                            }
+                            sourceMap: isDev
                         }
                     },
                     {

@@ -1,12 +1,10 @@
-import { v4r } from '../scss/v4r.scss';
-
 class Selectors {
-    #lib: string = v4r.lib;
+    #lib: string = 'n4v';
     #pre: string = `${this.#lib}-`;
-    #controls: string = v4r.controls;
-    #disabled: string = v4r.disabled;
-    #expanded: string = v4r.expanded;
-    #tabbable: string = v4r.tabbable;
+    #controls: string = '[aria-controls]';
+    #disabled: string = '[disabled]';
+    #expanded: string = '[aria-expanded]';
+    #tabbable: string = '[tabindex]';
     #hasLink: string = '[href]';
     #hasId: string = '[id]';
     #noTab: string = '[tabindex^="-"]';
