@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N4V Test</title>
+    <link rel="stylesheet" href="./css/n4v.css" />
+</head>
+<body>
+    <header id="n4v-header">
+        <a href="#n4v-main-content" class="n4v-sr-only">Skip to Main Content</a>
+        <button type="button" aria-controls="n4v-wrapper" aria-expanded="true" aria-label="Close Menu"></button>
+        <a id="n4v-logo" href="/"><img src="https://via.placeholder.com/36x36.png/000/fff/?text=logo" alt="Example1 - Homepage"></a>
+        <div id="n4v-wrapper" class="n4v-open">
+            <nav aria-label="main">
+                <ul>
+                    <li>
+                        <button type="button" aria-controls="n4v-classrooms" aria-expanded="true">Classrooms</button>
+                        <ul id="n4v-classrooms">
+                            <li><a href="/classrooms/infant-room-i">Infant I Room</a></li>
+                            <li><a href="/classrooms/infant-room-ii">Infant II Room</a></li>
+                            <li><a href="/classrooms/toddler-room">Toddler Room</a></li>
+                            <li><a href="/classrooms/twos-room">Twos' Room</a></li>
+                            <li><a href="/classrooms/threes-room">Threes' Room</a></li>
+                            <li><a href="/classrooms/fours-room">Fours' Room</a></li>
+                            <li><a href="/classrooms/fives-room">Fives' Room</a></li>
+                            <li><a href="/classrooms/school-age-programs">School Age Programs</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <button type="button" aria-controls="n4v-for-parents" aria-expanded="true">For Parents</button>
+                        <ul id="n4v-for-parents">
+                            <li><a href="/for-parents/info-for-parents">Info for Parents</a></li>
+                            <li><a href="/for-parents/after-school-care">After-School Care</a></li>
+                            <li><a href="/for-parents/camp-caring-place">Camp Caring Place</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/government">Government</a></li>
+                </ul>
+            </nav>
+            <nav aria-label="buttons">
+                <ul>
+                    <li><a href="/contact-us">Contact Us / Location</a></li>
+                </ul>
+            </nav>
+        </div>
+        <h2 id="n4v-main-content" class="n4v-sr-only">Main Content</h2>
+    </header>
+    <script src="./js/n4v.js"></script> 
+</body>
+</html>
