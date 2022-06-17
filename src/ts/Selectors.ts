@@ -38,7 +38,11 @@ class Selectors {
     }
 
     controls (id?: string | null) : string {
-        return id ? `[aria-controls="${id}"]` : '[aria-controls]';
+        return id ? `[aria-controls="${id}"]` : this.#controls;
+    }
+
+    expanded (bool?: boolean | null) : string {
+        return typeof bool === 'boolean' ? `[aria-expanded="${bool}"]` : this.#expanded;
     }
 }
 

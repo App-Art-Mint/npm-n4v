@@ -3,9 +3,9 @@ import Settings from './Settings';
 import ThrottleOptions from './ThrottleOptions';
 
 class n4vBar {
-    #el: {[key: string]: HTMLElement | null} = {};
-    #sel: Selectors = new Selectors();
-    #set: Settings = new Settings();
+    el: {[key: string]: HTMLElement | null} = {};
+    sel: Selectors = new Selectors();
+    set: Settings = new Settings();
 
     // Initializers
     constructor () {
@@ -17,35 +17,35 @@ class n4vBar {
     }
 
     attachElements () : void {
-        this.#el.header = document.getElementById(this.#sel.ids.header);
-        this.#el.mobileButton = this.#el.header?.querySelector(this.#sel.controls(this.#sel.ids.wrapper)) || null;
-        this.#el.wrapper = document.getElementById(this.#sel.ids.wrapper);
+        this.el.header = document.getElementById(this.sel.ids.header);
+        this.el.mobileButton = this.el.header?.querySelector(this.sel.controls(this.sel.ids.wrapper)) || null;
+        this.el.wrapper = document.getElementById(this.sel.ids.wrapper);
     }
 
     attachEvents () : void {
-        let focusables: NodeListOf<HTMLElement> | undefined = this.#el.header?.querySelectorAll(this.#sel.focusable),
+        let focusables: NodeListOf<HTMLElement> | undefined = this.el.header?.querySelectorAll(this.sel.focusable),
             lastFocusable: HTMLElement | undefined = focusables?.[focusables?.length - 1];
         lastFocusable?.addEventListener('keydown', this.throttle(this.eWrapTab.bind(this)) as EventListenerOrEventListenerObject);
         focusables?.forEach((focusable: HTMLElement) => {
             focusable.addEventListener('keydown', this.throttle(this.eHandleKeypress.bind(this)) as EventListenerOrEventListenerObject);
         });
 
-        let menuButtons: NodeListOf<HTMLElement> | undefined = this.#el.header?.querySelectorAll(this.#sel.controls() + this.#sel.not(this.#sel.controls(this.#sel.ids.wrapper)));
+        let menuButtons: NodeListOf<HTMLElement> | undefined = this.el.header?.querySelectorAll(this.sel.controls() + this.sel.not(this.sel.controls(this.sel.ids.wrapper)));
         menuButtons?.forEach((menuButton: HTMLElement) => {
-            menuButton.addEventListener('mousedown', this.throttle(this.eToggleMenu.bind(this), this.#set.delay.slow, new ThrottleOptions(true, false)) as EventListenerOrEventListenerObject);
+            menuButton.addEventListener('mousedown', this.throttle(this.eToggleMenu.bind(this), this.set.delay.slow, new ThrottleOptions(true, false)) as EventListenerOrEventListenerObject);
         });
 
-        this.#el.mobileButton?.addEventListener('mousedown', this.throttle(this.eToggleMobileMenu.bind(this), this.#set.delay.slow, new ThrottleOptions(true, false)) as EventListenerOrEventListenerObject);
+        this.el.mobileButton?.addEventListener('mousedown', this.throttle(this.eToggleMobileMenu.bind(this), this.set.delay.slow, new ThrottleOptions(true, false)) as EventListenerOrEventListenerObject);
     }
 
     enableJavascript () : void {
-        this.#el.header?.classList.add(this.#sel.classes.js);
-        this.#el.header?.classList.add(this.#sel.classes.fixed);
+        this.el.header?.classList.add(this.sel.classes.js);
+        this.el.header?.classList.add(this.sel.classes.fixed);
     }
 
     // Utility
     throttle (func: Function,
-              wait: number = this.#set.delay.default,
+              wait: number = this.set.delay.default,
               options: ThrottleOptions = new ThrottleOptions()) : Function {
         let context: any, args: any, result: any,
             timeout: number, previous: number = 0,
@@ -85,9 +85,9 @@ class n4vBar {
     }
 
     getHeight (el?: HTMLElement) : number {
-        el?.classList.add(this.#sel.classes.gettingHeight);
+        el?.classList.add(this.sel.classes.gettingHeight);
         let height: number = el?.scrollHeight || 0;
-        el?.classList.remove(this.#sel.classes.gettingHeight);
+        el?.classList.remove(this.sel.classes.gettingHeight);
         return height;
     }
 
@@ -96,15 +96,15 @@ class n4vBar {
         let ariaExpanded: string = open ? 'true' : 'false',
             ariaLabel: string = open ? 'close menu' : 'open menu';
 
-        this.#el.mobileButton?.setAttribute('aria-expanded', ariaExpanded);
+        this.el.mobileButton?.setAttribute('aria-expanded', ariaExpanded);
         setTimeout(() => {
-            this.#el.mobileButton?.setAttribute('aria-label', ariaLabel);
-        }, this.#set.delay.fast);
+            this.el.mobileButton?.setAttribute('aria-label', ariaLabel);
+        }, this.set.delay.fast);
 
         if (open) {
-            this.#el.wrapper?.classList.add(this.#sel.classes.open);
+            this.el.wrapper?.classList.add(this.sel.classes.open);
         } else {
-            this.#el.wrapper?.classList.remove(this.#sel.classes.open);
+            this.el.wrapper?.classList.remove(this.sel.classes.open);
             this.closeAllMenus();
         }
     }
@@ -114,17 +114,17 @@ class n4vBar {
         let ariaExpanded: string = open ? 'true' : 'false',
             menu: HTMLElement | null = button?.nextElementSibling as HTMLElement | null;
         if (button && menu) {
-            menu.classList.add(this.#sel.classes.anime);
+            menu.classList.add(this.sel.classes.anime);
             button.setAttribute('aria-expanded', ariaExpanded);
             menu.style.height = open ? this.getHeight(menu) + 'px' : '';
             setTimeout(() => {
-                menu?.classList.remove(this.#sel.classes.anime);
-            }, this.#set.delay.default);
+                menu?.classList.remove(this.sel.classes.anime);
+            }, this.set.delay.default);
         }
     }
 
     closeAllMenus () : void {
-        let menuButtons: NodeListOf<HTMLElement> | undefined = this.#el.wrapper?.querySelectorAll(this.#sel.subMenuButtons);
+        let menuButtons: NodeListOf<HTMLElement> | undefined = this.el.wrapper?.querySelectorAll(this.sel.subMenuButtons);
         menuButtons?.forEach((menuButton: HTMLElement) => {
             this.setMenu(menuButton);
         });
@@ -134,21 +134,21 @@ class n4vBar {
         let activeButton: HTMLElement | null = document.activeElement as HTMLElement | null,
             activeMenu: HTMLElement | null = activeButton?.nextElementSibling as HTMLElement | null,
             showing: boolean = activeButton?.getAttribute('aria-expanded')?.toLowerCase() === 'true';
-        if (activeButton?.getAttribute('aria-controls') === this.#sel.ids.wrapper) {
-            activeMenu = this.#el.wrapper;
+        if (activeButton?.getAttribute('aria-controls') === this.sel.ids.wrapper) {
+            activeMenu = this.el.wrapper;
         }
 
         if (activeButton?.getAttribute('aria-controls') && activeMenu && !showing) {
             activeButton.click();
-            let firstFocusable: HTMLElement | null = activeMenu.querySelector(this.#sel.focusable);
+            let firstFocusable: HTMLElement | null = activeMenu.querySelector(this.sel.focusable);
             firstFocusable?.focus();
         }
     }
 
     closeClosestMenu () : void {
         let activeElement: HTMLElement | null = document.activeElement as HTMLElement | null,
-            activeMenu: HTMLElement | null = activeElement?.closest(this.#sel.subMenu) as HTMLElement | null,
-            activeButton: HTMLElement | null = activeMenu?.previousElementSibling ? activeMenu.previousElementSibling as HTMLElement : this.#el.mobileButton;
+            activeMenu: HTMLElement | null = activeElement?.closest(this.sel.subMenu) as HTMLElement | null,
+            activeButton: HTMLElement | null = activeMenu?.previousElementSibling ? activeMenu.previousElementSibling as HTMLElement : this.el.mobileButton;
         if (activeElement?.getAttribute('aria-controls') && activeElement?.getAttribute('aria-expanded')?.toLowerCase() === 'true') {
             activeButton = activeElement;
         }
@@ -170,8 +170,8 @@ class n4vBar {
     // Events
     eWrapTab (e: KeyboardEvent) : void {
         if (e.key.toLowerCase() === 'tab' && !e.shiftKey) {
-            this.#el.mobileButton?.focus();
-            if (document.activeElement === this.#el.mobileButton) {
+            this.el.mobileButton?.focus();
+            if (document.activeElement === this.el.mobileButton) {
                 e.preventDefault();
             }
         }

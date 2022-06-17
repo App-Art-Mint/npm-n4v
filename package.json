@@ -1,6 +1,6 @@
 {
   "name": "@sunderapps/n4v",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Navigation 4 Virtuosos - Accessible, Responsive Navbars",
   "main": "./src/main.ts",
   "directories": {

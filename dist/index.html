@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N4V Test</title>
+    <title>n4v Example</title>
     <link rel="stylesheet" href="./css/n4v.css" />
     <link rel="stylesheet" href="./css/theme.css" />
 </head>
@@ -12,37 +12,21 @@
     <header id="n4v-header">
         <a href="#n4v-main-content" class="n4v-sr-only">Skip to Main Content</a>
         <button type="button" aria-controls="n4v-wrapper" aria-expanded="true" aria-label="Close Menu"></button>
-        <a id="n4v-logo" href="/"><img src="https://via.placeholder.com/36x36.png/000/fff/?text=logo" alt="Example1 - Homepage"></a>
+        <a id="n4v-logo" routerLink="/" routerLinkActive="n4v-active"><img src="https://via.placeholder.com/36x36.png/000/fff/?text=logo" alt="N4vBar - Homepage"></a>
         <div id="n4v-wrapper" class="n4v-open">
             <nav aria-label="main">
                 <ul>
-                    <li>
-                        <button type="button" aria-controls="n4v-classrooms" aria-expanded="true">Classrooms</button>
-                        <ul id="n4v-classrooms">
-                            <li><a href="/classrooms/infant-room-i">Infant I Room</a></li>
-                            <li><a href="/classrooms/infant-room-ii">Infant II Room</a></li>
-                            <li><a href="/classrooms/toddler-room">Toddler Room</a></li>
-                            <li><a href="/classrooms/twos-room">Twos' Room</a></li>
-                            <li><a href="/classrooms/threes-room">Threes' Room</a></li>
-                            <li><a href="/classrooms/fours-room">Fours' Room</a></li>
-                            <li><a href="/classrooms/fives-room">Fives' Room</a></li>
-                            <li><a href="/classrooms/school-age-programs">School Age Programs</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <button type="button" aria-controls="n4v-for-parents" aria-expanded="true">For Parents</button>
-                        <ul id="n4v-for-parents">
-                            <li><a href="/for-parents/info-for-parents">Info for Parents</a></li>
-                            <li><a href="/for-parents/after-school-care">After-School Care</a></li>
-                            <li><a href="/for-parents/camp-caring-place">Camp Caring Place</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/government">Government</a></li>
+                    <li><a routerLink="/about" routerLinkActive="n4v-active">About</a></li>
+                    <li><a routerLink="/docs" routerLinkActive="n4v-active">Docs</a></li>
+                    <li><a routerLink="/getting-started" routerLinkActive="n4v-active">Getting Started</a></li>
+                    <li><a routerLink="/generator" routerLinkActive="n4v-active">HTML Generator</a></li>
+                    <li><a routerLink="/blog" routerLinkActive="n4v-active">Blog</a></li>
                 </ul>
             </nav>
-            <nav aria-label="buttons">
+            <nav aria-label="test">
                 <ul>
-                    <li><a href="/contact-us">Contact Us / Location</a></li>
+                    <li><a routerLink="/home" routerLinkActive="n4v-active">Home</a></li>
+                    <li><a routerLink="/404" routerLinkActive="n4v-active">404</a></li>
                 </ul>
             </nav>
         </div>
