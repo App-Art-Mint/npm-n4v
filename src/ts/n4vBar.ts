@@ -1,11 +1,8 @@
-import Selectors from './Selectors';
-import Settings from './Settings';
-import ThrottleOptions from './ThrottleOptions';
+import n4vSelectors from './selectors';
+import n4vSettings from './settings';
 
 class n4vBar {
     el: {[key: string]: HTMLElement | null} = {};
-    sel: Selectors = new Selectors();
-    set: Settings = new Settings();
 
     // Initializers
     constructor () {
@@ -17,40 +14,40 @@ class n4vBar {
     }
 
     attachElements () : void {
-        this.el.header = document.getElementById(this.sel.ids.header);
-        this.el.mobileButton = this.el.header?.querySelector(this.sel.controls(this.sel.ids.wrapper)) || null;
-        this.el.wrapper = document.getElementById(this.sel.ids.wrapper);
+        this.el.header = document.getElementById(n4vSelectors.ids.header);
+        this.el.mobileButton = this.el.header?.querySelector(n4vSelectors.controls(n4vSelectors.ids.wrapper)) || null;
+        this.el.wrapper = document.getElementById(n4vSelectors.ids.wrapper);
     }
 
     attachEvents () : void {
-        let focusables: NodeListOf<HTMLElement> | undefined = this.el.header?.querySelectorAll(this.sel.focusable),
+        let focusables: NodeListOf<HTMLElement> | undefined = this.el.header?.querySelectorAll(n4vSelectors.focusable),
             lastFocusable: HTMLElement | undefined = focusables?.[focusables?.length - 1];
-        lastFocusable?.addEventListener('keydown', this.throttle(this.eWrapTab.bind(this)) as EventListenerOrEventListenerObject);
+        lastFocusable?.addEventListener('keydown', n4vBar.throttle(this.eWrapTab.bind(this)) as EventListenerOrEventListenerObject);
         focusables?.forEach((focusable: HTMLElement) => {
-            focusable.addEventListener('keydown', this.throttle(this.eHandleKeypress.bind(this)) as EventListenerOrEventListenerObject);
+            focusable.addEventListener('keydown', n4vBar.throttle(this.eHandleKeypress.bind(this)) as EventListenerOrEventListenerObject);
         });
 
-        let menuButtons: NodeListOf<HTMLElement> | undefined = this.el.header?.querySelectorAll(this.sel.controls() + this.sel.not(this.sel.controls(this.sel.ids.wrapper)));
+        let menuButtons: NodeListOf<HTMLElement> | undefined = this.el.header?.querySelectorAll(n4vSelectors.controls() + n4vSelectors.not(n4vSelectors.controls(n4vSelectors.ids.wrapper)));
         menuButtons?.forEach((menuButton: HTMLElement) => {
-            menuButton.addEventListener('mousedown', this.throttle(this.eToggleMenu.bind(this), this.set.delay.slow, new ThrottleOptions(true, false)) as EventListenerOrEventListenerObject);
+            menuButton.addEventListener('mousedown', n4vBar.throttle(this.eToggleMenu.bind(this), n4vSettings.delay.slow, { trailing: false }) as EventListenerOrEventListenerObject);
         });
 
-        this.el.mobileButton?.addEventListener('mousedown', this.throttle(this.eToggleMobileMenu.bind(this), this.set.delay.slow, new ThrottleOptions(true, false)) as EventListenerOrEventListenerObject);
+        this.el.mobileButton?.addEventListener('mousedown', n4vBar.throttle(this.eToggleMobileMenu.bind(this), n4vSettings.delay.slow, { trailing: false }) as EventListenerOrEventListenerObject);
     }
 
     enableJavascript () : void {
-        this.el.header?.classList.add(this.sel.classes.js);
-        this.el.header?.classList.add(this.sel.classes.fixed);
+        this.el.header?.classList.add(n4vSelectors.classes.js);
+        this.el.header?.classList.add(n4vSelectors.classes.fixed);
     }
 
     // Utility
-    throttle (func: Function,
-              wait: number = this.set.delay.default,
-              options: ThrottleOptions = new ThrottleOptions()) : Function {
+    static throttle (func: Function,
+                     wait: number = n4vSettings.delay.default,
+                     options?: {[key: string]: boolean}) : Function {
         let context: any, args: any, result: any,
             timeout: number, previous: number = 0,
             later: Function = function () {
-                previous = options.leading === false ? 0 : new Date().getTime();
+                previous = options?.leading === false ? 0 : new Date().getTime();
                 timeout = 0;
                 result = func.apply(context, args);
                 if (!timeout) {
@@ -59,7 +56,7 @@ class n4vBar {
             },
             throttled: Function = function (this: any): any {
                 let now: number = new Date().getTime();
-                if (!previous && options.leading === false) {
+                if (!previous && options?.leading === false) {
                     previous = now;
                 }
                 let remaining: number = wait - now + previous;
@@ -75,7 +72,7 @@ class n4vBar {
                     if (!timeout) {
                         context = args = null;
                     }
-                } else if (!timeout && options.trailing !== false) {
+                } else if (!timeout && options?.trailing !== false) {
                     timeout = window.setTimeout(later, remaining);
                 }
                 return result;
@@ -84,10 +81,10 @@ class n4vBar {
         return throttled;
     }
 
-    getHeight (el?: HTMLElement) : number {
-        el?.classList.add(this.sel.classes.gettingHeight);
+    static getHeight (el?: HTMLElement) : number {
+        el?.classList.add(n4vSelectors.classes.gettingHeight);
         let height: number = el?.scrollHeight || 0;
-        el?.classList.remove(this.sel.classes.gettingHeight);
+        el?.classList.remove(n4vSelectors.classes.gettingHeight);
         return height;
     }
 
@@ -99,12 +96,12 @@ class n4vBar {
         this.el.mobileButton?.setAttribute('aria-expanded', ariaExpanded);
         setTimeout(() => {
             this.el.mobileButton?.setAttribute('aria-label', ariaLabel);
-        }, this.set.delay.fast);
+        }, n4vSettings.delay.fast);
 
         if (open) {
-            this.el.wrapper?.classList.add(this.sel.classes.open);
+            this.el.wrapper?.classList.add(n4vSelectors.classes.open);
         } else {
-            this.el.wrapper?.classList.remove(this.sel.classes.open);
+            this.el.wrapper?.classList.remove(n4vSelectors.classes.open);
             this.closeAllMenus();
         }
     }
@@ -114,17 +111,17 @@ class n4vBar {
         let ariaExpanded: string = open ? 'true' : 'false',
             menu: HTMLElement | null = button?.nextElementSibling as HTMLElement | null;
         if (button && menu) {
-            menu.classList.add(this.sel.classes.anime);
+            menu.classList.add(n4vSelectors.classes.anime);
             button.setAttribute('aria-expanded', ariaExpanded);
-            menu.style.height = open ? this.getHeight(menu) + 'px' : '';
+            menu.style.height = open ? n4vBar.getHeight(menu) + 'px' : '';
             setTimeout(() => {
-                menu?.classList.remove(this.sel.classes.anime);
-            }, this.set.delay.default);
+                menu?.classList.remove(n4vSelectors.classes.anime);
+            }, n4vSettings.delay.default);
         }
     }
 
     closeAllMenus () : void {
-        let menuButtons: NodeListOf<HTMLElement> | undefined = this.el.wrapper?.querySelectorAll(this.sel.subMenuButtons);
+        let menuButtons: NodeListOf<HTMLElement> | undefined = this.el.wrapper?.querySelectorAll(n4vSelectors.subMenuButtons);
         menuButtons?.forEach((menuButton: HTMLElement) => {
             this.setMenu(menuButton);
         });
@@ -134,20 +131,20 @@ class n4vBar {
         let activeButton: HTMLElement | null = document.activeElement as HTMLElement | null,
             activeMenu: HTMLElement | null = activeButton?.nextElementSibling as HTMLElement | null,
             showing: boolean = activeButton?.getAttribute('aria-expanded')?.toLowerCase() === 'true';
-        if (activeButton?.getAttribute('aria-controls') === this.sel.ids.wrapper) {
+        if (activeButton?.getAttribute('aria-controls') === n4vSelectors.ids.wrapper) {
             activeMenu = this.el.wrapper;
         }
 
         if (activeButton?.getAttribute('aria-controls') && activeMenu && !showing) {
             activeButton.click();
-            let firstFocusable: HTMLElement | null = activeMenu.querySelector(this.sel.focusable);
+            let firstFocusable: HTMLElement | null = activeMenu.querySelector(n4vSelectors.focusable);
             firstFocusable?.focus();
         }
     }
 
     closeClosestMenu () : void {
         let activeElement: HTMLElement | null = document.activeElement as HTMLElement | null,
-            activeMenu: HTMLElement | null = activeElement?.closest(this.sel.subMenu) as HTMLElement | null,
+            activeMenu: HTMLElement | null = activeElement?.closest(n4vSelectors.subMenu) as HTMLElement | null,
             activeButton: HTMLElement | null = activeMenu?.previousElementSibling ? activeMenu.previousElementSibling as HTMLElement : this.el.mobileButton;
         if (activeElement?.getAttribute('aria-controls') && activeElement?.getAttribute('aria-expanded')?.toLowerCase() === 'true') {
             activeButton = activeElement;

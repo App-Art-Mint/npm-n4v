@@ -16,9 +16,9 @@
   --n4v-btn-height: 36px;
   --n4v-btn-bar-height: 3px;
   --n4v-btn-side-padding: 6px;
-  --n4v-fg: black;
-  --n4v-bg: white;
-  --n4v-header-bg: lightgray;
+  --n4v-fg: #ddd;
+  --n4v-bg: #1a1a2e;
+  --n4v-header-bg: #0F3460;
   --n4v-menu-bg: var(--n4v-bg);
 }
 

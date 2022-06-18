@@ -20,8 +20,8 @@
     $btn-side-padding: $btn-bar-height * 2;
     @include css-var(btn-side-padding, px($btn-side-padding));
     
-    @include css-var(fg, black);
-    @include css-var(bg, white);
-    @include css-var(header-bg, lightgray);
+    @include css-var(fg, #ddd);
+    @include css-var(bg, #1a1a2e);
+    @include css-var(header-bg, #0F3460);
     @include css-var-ref(menu-bg, bg);
 }

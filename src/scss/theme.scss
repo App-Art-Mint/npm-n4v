@@ -1,5 +1,7 @@
 @use 'sass:math';
 
+@use 'global';
+
 @import 'var';
 @import url('https://fonts.googleapis.com/css2?family=Palanquin:wght@200;400;600&display=swap');
 
@@ -9,9 +11,11 @@
 
 html, body {
     margin: 0;
+    color: css-var(fg);
+    background: css-var(bg);
 }
 
-button {
+button, a[routerLink] {
     cursor: pointer;
 }
 

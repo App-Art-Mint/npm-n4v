@@ -1,59 +1,23 @@
-// Global Vars
+@use 'sass:string';
+
+// Variables
 $lib: n4v;
 $dash: #{'-'};
+$pre: #{$lib}#{$dash};
 $dot: #{'.'};
 $hash: #{'#'};
-$disabled: #{'[disabled]'};
 $controls: #{'[aria-controls]'};
 $expanded: #{'[aria-expanded]'};
+$disabled: #{'[disabled]'};
 $tabbable: #{'[tabindex]'};
+$has-link: #{'[href]'};
+$has-router-link: #{'[routerLink]'};
+$has-id: #{'[id]'};
+$no-tab: #{'[tabindex^="-"]'};
+$sub-menu-buttons: #{'button'}#{$controls};
+$sub-menu: #{$sub-menu-buttons}#{' + ul'}#{$has-id};
 $delay-base: 0;
 $delay-step: 100;
-
-// Functions
-@function prefix ($base) {
-    @return $lib + $dash + $base;
-}
-
-@function css-prefix ($base) {
-    @return $dash + $dash + prefix($base);
-}
-
-@function css-var ($base) {
-    @return var(css-prefix($base));
-}
-
-@function class($base) {
-    @return $dot + prefix($base);
-}
-
-@function id ($base) {
-    @return $hash + prefix($base);
-}
-
-@function neg ($base) {
-    @return ':not(' + $base + ')';
-}
-
-@function controls ($id) {
-    @return '[aria-controls=' + prefix($id) + ']';
-}
-
-@function expanded ($bool) {
-    @return '[aria-expanded=' + $bool + ']';
-}
-
-@function ms ($val) {
-    @return $val * 1ms;
-}
-
-@function px ($val) {
-    @return $val * 1px;
-}
-
-@function strip-unit($value) {
-    @return math.div($value, $value * 0 + 1);
-}
 
 // Maps
 $delay: (
@@ -64,6 +28,111 @@ $delay: (
     med-slow: $delay-base + $delay-step * 4,
     slow: $delay-base + $delay-step * 5
 );
+
+// Functions
+@function prefix ($base) {
+    @if (type-of($base) != 'string') {
+        @error 'The prefix function requires a string value.';
+    }
+
+    $base: string.to-lower-case($base);
+
+    @if (string.index($base, $pre) != 1) {
+        $base: $pre + $base;
+    }
+
+    @return $base;
+}
+
+@function css-prefix ($base) {
+    @if (type-of($base) != 'string') {
+        @error 'The css-prefix function requires a string value.';
+    }
+
+    @while (string.index($base, $dash) == 1) {
+        $base: string.slice($base, 2);
+    }
+
+    @return $dash + $dash + prefix($base);
+}
+
+@function css-var ($base) {
+    @if (type-of($base) != 'string') {
+        @error 'The css-var function requires a string value.';
+    }
+
+    @return var(css-prefix($base));
+}
+
+@function neg ($base) {
+    @if (type-of($base) != 'string') {
+        @error 'The neg function requires a string value.';
+    }
+
+    @return ':not(' + $base + ')';
+}
+
+@function class($base) {
+    @if (type-of($base) != 'string') {
+        @error 'The class function requires a string value.';
+    }
+
+    @return $dot + prefix($base);
+}
+
+@function id ($base) {
+    @if (type-of($base) != 'string') {
+        @error 'The id function requires a string value.';
+    }
+
+    @return $hash + prefix($base);
+}
+
+@function controls ($id) {
+    @if (type-of($id) != 'string') {
+        @error 'The controls function requires a string value.';
+    }
+
+    @return '[aria-controls=' + prefix($id) + ']';
+}
+
+@function expanded ($bool) {
+    @if (type-of($bool) == 'string') {
+        $bool: string.to-lower-case($bool);
+
+        @if not($bool == 'true' or $bool == 'false') {
+            @error 'The expanded function requires a boolean value.';
+        }
+    } @else if (type-of($bool) != 'bool') {
+        @error 'The expanded function requires a boolean value.';
+    }
+    
+    @return '[aria-expanded=' + $bool + ']';
+}
+
+@function ms ($val) {
+    @if (type-of($val) != 'number') {
+        @error 'The ms function requires a number value.';
+    }
+
+    @return $val * 1ms;
+}
+
+@function px ($val) {
+    @if (type-of($val) != 'number') {
+        @error 'The px function requires a number value.';
+    }
+
+    @return $val * 1px;
+}
+
+@function strip-unit($val) {
+    @if (type-of($val) != 'number') {
+        @error 'The strip-unit function requires a number value.';
+    }
+
+    @return math.div($val, $val * 0 + 1);
+}
 
 // Mixins
 @mixin css-var ($key, $val) {
@@ -80,15 +149,24 @@ $delay: (
     $u3: unit($min-size);
     $u4: unit($max-size);
 
-    @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
-        & {
-            #{$prop}: $min-size;
-            @media (min-width: $min-vw) {
-                #{$prop}: calc(#{$min-size} + #{strip-unit($max-size - $min-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
-            }
-            @media (min-width: $max-vw) {
-                #{$prop}: $max-size;
-            }
+
+    @if (type-of($prop) != 'string') {
+        @error 'The fluid mixin requires a string for the $prop argument.';
+    }
+    @if not(type-of($u1) == 'string' and type-of($u2) == 'string' and type-of($u3) == 'string' and type-of($u4) == 'string') {
+        @error 'The fluid mixin requires numbers for the width and size arguments.';
+    }
+    @if not($u1 == $u2 and $u1 == $u3 and $u1 == $u4) {
+        @error 'The fluid mixin requires width and size arguments with the same units.';
+    }
+
+    & {
+        #{$prop}: $min-size;
+        @media (min-width: $min-vw) {
+            #{$prop}: calc(#{$min-size} + #{strip-unit($max-size - $min-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+        }
+        @media (min-width: $max-vw) {
+            #{$prop}: $max-size;
         }
     }
 }
