@@ -118,3 +118,6 @@
   width: 100%;
   transition: height var(--n4v-delay-default);
 }
+#n4v-header .n4v-instant {
+  transition: none !important;
+}

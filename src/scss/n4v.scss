@@ -126,4 +126,8 @@
         width: 100%;
         transition: height css-var(delay-default);
     }
+
+    #{class(instant)} {
+        transition: none !important;
+    }
 }

@@ -7,31 +7,118 @@
     <title>n4v Example</title>
     <link rel="stylesheet" href="./css/n4v.css" />
     <link rel="stylesheet" href="./css/theme.css" />
+    <style>
+        #n4v-placeholder-img {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: auto;
+            opacity: 0;
+            transition: opacity 500ms;
+        }
+
+        #n4v-placeholder-img.n4v-visible {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
     <header id="n4v-header">
         <a href="#n4v-main-content" class="n4v-sr-only">Skip to Main Content</a>
         <button type="button" aria-controls="n4v-wrapper" aria-expanded="true" aria-label="Close Menu"></button>
-        <a id="n4v-logo" routerLink="/" routerLinkActive="n4v-active"><img src="https://via.placeholder.com/36x36.png/000/fff/?text=logo" alt="N4vBar - Homepage"></a>
+        <a id="n4v-logo" href="/"><img src="https://via.placeholder.com/36x36.png/000/fff/?text=logo" alt="N4vBar - Homepage"></a>
         <div id="n4v-wrapper" class="n4v-open">
             <nav aria-label="main">
                 <ul>
-                    <li><a routerLink="/about" routerLinkActive="n4v-active">About</a></li>
-                    <li><a routerLink="/docs" routerLinkActive="n4v-active">Docs</a></li>
-                    <li><a routerLink="/getting-started" routerLinkActive="n4v-active">Getting Started</a></li>
-                    <li><a routerLink="/generator" routerLinkActive="n4v-active">HTML Generator</a></li>
-                    <li><a routerLink="/blog" routerLinkActive="n4v-active">Blog</a></li>
+                    <li>
+                        <button type="button" aria-controls="n4v-intro" aria-expanded="true">Intro</button>
+                        <ul id="n4v-intro">
+                            <li><a href="/">About</a></li>
+                            <li><a href="/">Docs</a></li>
+                            <li>
+                                <button type="button" aria-controls="n4v-sub1" aria-expanded="true">Intro</button>
+                                <ul id="n4v-sub1">
+                                    <li><a href="/">About1</a></li>
+                                    <li>
+                                        <button type="button" aria-controls="n4v-sub2" aria-expanded="true">Intro</button>
+                                        <ul id="n4v-sub2">
+                                            <li><a href="/">About2</a></li>
+                                            <li><a href="/">Docs2</a></li>
+                                            <li><a href="/">Getting Started2</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="/">Docs1</a></li>
+                                    <li><a href="/">Getting Started1</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="/">Getting Started</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <button type="button" aria-controls="n4v-apps" aria-expanded="true">Apps</button>
+                        <ul>
+                            <li><a href="/">HTML Generator</a></li>
+                            <li><a href="/">Blog</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
             <nav aria-label="test">
                 <ul>
-                    <li><a routerLink="/home" routerLinkActive="n4v-active">Home</a></li>
-                    <li><a routerLink="/404" routerLinkActive="n4v-active">404</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/">404</a></li>
                 </ul>
             </nav>
         </div>
         <h2 id="n4v-main-content" class="n4v-sr-only">Main Content</h2>
     </header>
-    <script src="./js/n4v.js"></script> 
+    <h1 id="n4v-title" style="margin-top: calc(50px + 1em);text-align: center;">Home Page</h1>
+    <script src="./js/n4v.js"></script>
+    <script>
+        var navbar = new n4v();
+
+        function randomInt (min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min) + min);
+        }
+
+        function randomImage () {
+            var img = document.getElementById('n4v-placeholder-img'),
+                width = randomInt(400, 500),
+                height = randomInt(200, 300);
+            img.classList.remove('n4v-visible');
+            setTimeout(() => {
+                img.src = 'https://placekitten.com/' + width + '/' + height + '/';
+            }, 500);
+            setTimeout(() => {
+                img.classList.add('n4v-visible');
+            }, 1000);
+        }
+
+        function loadImage () {
+            console.log('loadImage');
+            var img = document.createElement('img');
+            img.id = 'n4v-placeholder-img';
+            document.getElementsByTagName('body')[0].append(img);
+            randomImage();
+        }
+
+        function updatePage (e) {
+            e.preventDefault();
+            var title = document.getElementById('n4v-title'),
+                text = e.target.innerText;
+            title.innerText = text;
+            navbar.setMobileMenu();
+            randomImage();
+        }
+
+        var links = document.querySelectorAll('a[href]');
+        links.forEach((link) => {
+            link.addEventListener('click', updatePage);
+        });
+
+        document.addEventListener('DOMContentLoaded', loadImage);
+    </script>
 </body>
 </html>

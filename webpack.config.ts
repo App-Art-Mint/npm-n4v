@@ -29,13 +29,18 @@ const serverConfig: devServer.Configuration = {
 const config: webpack.Configuration = {
     mode: isDev ? 'development' : 'production',
     entry: {
-        n4v: './src/ts/n4v.ts',
+        n4v: './src/ts/n4vBar.ts',
         theme: './src/scss/theme.scss'
     },
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: `js/[name]${min}.js`,
-        chunkFilename: `js/[name].[chunkhash].chunk.${min}.js`
+        chunkFilename: `js/[name].[chunkhash].chunk.${min}.js`,
+        library: {
+            name: 'n4v',
+            type: 'var',
+            export: 'default'
+        }
     },
     module: {
         rules: [

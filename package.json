@@ -1,6 +1,6 @@
 {
   "name": "@sunderapps/n4v",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Navigation 4 Virtuosos - Accessible, Responsive Navbars",
   "main": "./src/main.ts",
   "directories": {
@@ -21,7 +21,8 @@
     "virtuosos",
     "generator",
     "validator",
-    "accessibility"
+    "accessibility",
+    "responsive"
   ],
   "author": "Samuel T Underwood",
   "license": "MIT",
