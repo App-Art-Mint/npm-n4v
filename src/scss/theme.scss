@@ -36,6 +36,7 @@ button, a[routerLink] {
         font-size: 1em;
     }
     
+    // This has issues with screens at different dpi
     #{controls(wrapper)} {
         position: relative;
         width: css-var(btn-height);

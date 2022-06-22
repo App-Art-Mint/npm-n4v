@@ -29,7 +29,7 @@ const serverConfig: devServer.Configuration = {
 const config: webpack.Configuration = {
     mode: isDev ? 'development' : 'production',
     entry: {
-        n4v: './src/ts/n4vBar.ts',
+        n4v: './src/ts/n4vbar.ts',
         theme: './src/scss/theme.scss'
     },
     output: {
