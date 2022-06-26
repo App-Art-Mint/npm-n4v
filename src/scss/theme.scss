@@ -5,6 +5,25 @@
 @import 'var';
 @import url('https://fonts.googleapis.com/css2?family=Palanquin:wght@200;400;600&display=swap');
 
+:root {
+    $height: 50;
+    @include css-var(height, px($height));
+    $btn-margin: 7;
+    $btn-height: $height - $btn-margin * 2;
+    @include css-var(btn-height, px($btn-height));
+    $btn-bar-height: math.div($btn-height, 12);
+    @include css-var(btn-bar-height, px($btn-bar-height));
+    $btn-side-padding: $btn-bar-height * 2;
+    @include css-var(btn-side-padding, px($btn-side-padding));
+    
+    @include css-var(fg, #ddd);
+    @include css-var(bg, #1a1a2e);
+    @include css-var(header-bg, #0F3460);
+    @include css-var-ref(menu-bg, bg);
+    @include css-var(link, #2276dd);
+    @include css-var(link-visited, #0F3460);
+}
+
 *, *::before, *::after {
     font-family: 'Palanquin', sans-serif;
 }

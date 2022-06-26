@@ -28,6 +28,13 @@ $delay: (
     med-slow: $delay-base + $delay-step * 4,
     slow: $delay-base + $delay-step * 5
 );
+$break: (
+    xs: 480,
+    sm: 768,
+    md: 1024,
+    lg: 1200,
+    xl: 1440
+);
 
 // Functions
 @function prefix ($base) {
@@ -143,12 +150,27 @@ $delay: (
     @include css-var($key1, css-var($key2));
 }
 
-@mixin fluid($prop, $min-vw, $max-vw, $min-size, $max-size) {
+@mixin break ($min, $max:null) {
+    @if not(map-has-key($break, $min) and (type-of($map) == 'null' or map-has-key($break, $max))) {
+        @error 'The break mixin requires one or two of the following values: #{map-keys($break)}';
+    }
+
+    @if (map-has-key($break, $max)) {
+        @media (min-width: map-get($break, $min)) and (max-width: map-get($break, $max)) {
+            @content;
+        }
+    } @else {
+        @media (min-width: map-get($break, $min)) {
+            @content;
+        }
+    }
+}
+
+@mixin fluid ($prop, $min-vw, $max-vw, $min-size, $max-size) {
     $u1: unit($min-vw);
     $u2: unit($max-vw);
     $u3: unit($min-size);
     $u4: unit($max-size);
-
 
     @if (type-of($prop) != 'string') {
         @error 'The fluid mixin requires a string for the $prop argument.';
