@@ -4,10 +4,19 @@ import n4vSelectors from './selectors';
 import n4vSettings from './settings';
 import n4vUtil from './util';
 
-class n4vBar {
+/**
+ * Main n4vbar functionality
+ * @public
+ */
+export default class n4vBar {
+    /**
+     * Frequently-referenced elements
+     */
     el: {[key: string]: HTMLElement | null} = {};
 
-    // Initializers
+    /**
+     * Initializes and closes the menu
+     */
     constructor () {
         this.attachElements();
         this.attachEvents();
@@ -16,12 +25,18 @@ class n4vBar {
         this.setMobileMenu();
     }
 
+    /**
+     * Adds elements to {@link el | `this.el`}
+     */
     attachElements () : void {
         this.el.header = document.getElementById(n4vSelectors.ids.header);
         this.el.mobileButton = this.el.header?.querySelector(n4vSelectors.controls(n4vSelectors.ids.wrapper)) || null;
         this.el.wrapper = document.getElementById(n4vSelectors.ids.wrapper);
     }
 
+    /**
+     * Adds events to the dom
+     */
     attachEvents () : void {
         window.addEventListener('resize', n4vUtil.throttle(this.eHandleResize.bind(this), n4vSettings.delay.default, { trailing: false }) as EventListenerOrEventListenerObject);
         window.addEventListener('scroll', n4vUtil.throttle(this.eHandleScroll.bind(this), n4vSettings.delay.default, { trailing: false }) as EventListenerOrEventListenerObject);
@@ -41,12 +56,18 @@ class n4vBar {
         this.el.mobileButton?.addEventListener('mousedown', n4vUtil.throttle(this.eToggleMobileMenu.bind(this), n4vSettings.delay.slow, { trailing: false }) as EventListenerOrEventListenerObject);
     }
 
+    /**
+     * Adds classes that inform the styles that javascript is enabled
+     */
     enableJavascript () : void {
         this.el.header?.classList.add(n4vSelectors.classes.js);
         this.el.header?.classList.add(n4vSelectors.classes.fixed);
     }
 
-    // Functionality
+    /**
+     * Sets the state of the mobile menu
+     * @param open - `true` to open the menu or `false` to close it
+     */
     setMobileMenu (open: boolean = false) : void {
         let ariaExpanded: string = open ? 'true' : 'false',
             ariaLabel: string = open ? 'close menu' : 'open menu';
@@ -64,10 +85,18 @@ class n4vBar {
         }
     }
 
+    /**
+     * Toggles the state of the mobile menu
+     */
     toggleMobileMenu () : void {
         this.setMobileMenu(this.el.mobileButton?.getAttribute('aria-expanded')?.toLowerCase() === 'false');
     }
 
+    /**
+     * Sets the state of the provided button's menu
+     * @param button - Button element to set
+     * @param open - `true` to open the menu or `false` to close it
+     */
     setMenu (button?: HTMLElement | null,
              open: boolean = false) : void {
         let ariaExpanded: string = open ? 'true' : 'false',
@@ -83,11 +112,19 @@ class n4vBar {
         }
     }
 
-    toggleMenu (button?: HTMLElement | null) {
+    /**
+     * Toggles the state of the provided button's menu
+     * @param button - Button element to toggle
+     */
+    toggleMenu (button?: HTMLElement | null) : void {
         this.setMenu(button, button?.getAttribute('aria-expanded')?.toLowerCase() !== 'true');
     }
 
-    closeSubMenus (button?: HTMLElement | null) {
+    /**
+     * Closes all submenus of the provided button's menu
+     * @param button - Button element of the parent menu
+     */
+    closeSubMenus (button?: HTMLElement | null) : void {
         let menu: HTMLElement | null | undefined = button?.nextElementSibling as HTMLElement,
             subMenus: NodeListOf<HTMLElement> = menu?.querySelectorAll(n4vSelectors.subMenuButtons) as NodeListOf<HTMLElement>;
         subMenus.forEach((child: HTMLElement) => {
@@ -98,6 +135,9 @@ class n4vBar {
         });
     }
 
+    /**
+     * Closes all submenus of the n4vbar
+     */
     closeAllMenus () : void {
         let menuButtons: NodeListOf<HTMLElement> | undefined = this.el.wrapper?.querySelectorAll(n4vSelectors.subMenuButtons);
         menuButtons?.forEach((menuButton: HTMLElement) => {
@@ -105,6 +145,9 @@ class n4vBar {
         });
     }
 
+    /**
+     * Opens the menu closest to the document's focus
+     */
     openClosestMenu () : void {
         let activeButton: HTMLElement | null = document.activeElement as HTMLElement | null,
             activeMenu: HTMLElement | null = activeButton?.nextElementSibling as HTMLElement | null,
@@ -120,6 +163,9 @@ class n4vBar {
         }
     }
 
+    /**
+     * Closes the menu closest to the document's focus
+     */
     closeClosestMenu () : void {
         let activeElement: HTMLElement | null = document.activeElement as HTMLElement | null,
             activeMenu: HTMLElement | null = activeElement?.closest(n4vSelectors.subMenu) as HTMLElement | null,
@@ -134,6 +180,9 @@ class n4vBar {
         }
     }
 
+    /**
+     * Toggles the menu closest to the document's focus
+     */
     toggleClosestMenu () : void {
         if (document.activeElement?.getAttribute('aria-expanded')?.toLowerCase() === 'true') {
             this.closeClosestMenu();
@@ -142,15 +191,24 @@ class n4vBar {
         }
     }
 
-    // Events
+    /**
+     * Closes the mobile menu when the window resizes
+     */
     eHandleResize () : void {
         this.setMobileMenu();
     }
 
+    /**
+     * Closes all submenus when the page is scrolled
+     */
     eHandleScroll () : void {
         this.closeAllMenus();
     }
 
+    /**
+     * Sends the focus to the menu button after tabbing past the last menu item
+     * @param e - Keyboard event
+     */
     eWrapTab (e: KeyboardEvent) : void {
         if (e.key.toLowerCase() === 'tab' && !e.shiftKey) {
             this.el.mobileButton?.focus();
@@ -160,6 +218,10 @@ class n4vBar {
         }
     }
 
+    /**
+     * Handles keypresses on n4vbar buttons
+     * @param e - Keyboard event
+     */
     eHandleButtonKeypress (e: KeyboardEvent) : void {
         let target = e.target as HTMLElement,
             subMenu = target.closest('li');
@@ -182,6 +244,10 @@ class n4vBar {
         }
     }
 
+    /**
+     * Handles keypresses on n4vbar links
+     * @param e - Keyboard event
+     */
     eHandleLinkKeypress (e: KeyboardEvent) : void {
         switch (e.key.toLowerCase()) {
             case 'escape':
@@ -198,6 +264,10 @@ class n4vBar {
         }
     }
 
+    /**
+     * Handles keypresses on the n4vbar
+     * @param e - Keyboard event
+     */
     eHandleKeypress (e: KeyboardEvent) : void {
         if (e.key.toLowerCase() !== 'tab') {
             e.preventDefault();
@@ -213,13 +283,18 @@ class n4vBar {
         }
     }
 
+    /**
+     * Toggles the mobile menu
+     */
     eToggleMobileMenu () : void {
         this.toggleMobileMenu();
     }
 
+    /**
+     * Toggles the clicked submenu
+     * @param e - Mouse event
+     */
     eToggleMenu (e: MouseEvent) : void {
         this.toggleMenu(e.target as HTMLElement | null);
     }
-}
-
-export default n4vBar;
+};
