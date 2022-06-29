@@ -1,10 +1,6 @@
 /*!************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/scss/n4v.scss ***!
   \************************************************************************************************************/
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
 :root {
   --n4v-delay-instant: 0ms;
   --n4v-delay-fast: 100ms;
@@ -112,4 +108,26 @@
 }
 #n4v-header .n4v-instant {
   transition: none !important;
+}
+#n4v-header #n4v-widgets {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: var(--n4v-height);
+}
+#n4v-header .n4v-dropdown {
+  background: var(--n4v-header-bg);
+}
+#n4v-header .n4v-dropdown button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--n4v-height);
+  height: var(--n4v-height);
+  padding: calc((var(--n4v-height) - var(--n4v-btn-height)) / 2);
+}
+#n4v-header .n4v-dropdown li {
+  padding: calc((var(--n4v-height) - var(--n4v-btn-height)) / 2);
+  line-height: 1;
+  cursor: pointer;
 }

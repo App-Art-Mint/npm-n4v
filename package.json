@@ -1,6 +1,6 @@
 {
   "name": "@sunderapps/n4v",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Navigation 4 Virtuosos - Accessible, Responsive Navbars",
   "main": "./src/main.ts",
   "directories": {
@@ -11,7 +11,9 @@
     "build:dev": "webpack --config webpack.dev.ts",
     "build:prod": "webpack --config webpack.prod.ts",
     "build:docs": "typedoc",
-    "watch": "webpack --watch --config webpack.dev.ts",
+    "watch": "npm run watch:dev",
+    "watch:dev": "webpack --watch --config webpack.dev.ts",
+    "watch:prod": "webpack --watch --config webpack.prod.ts",
     "watch:docs": "typedoc --watch",
     "serve": "webpack serve --config webpack.dev.ts",
     "test": "karma start test/karma.conf.js"

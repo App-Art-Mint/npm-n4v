@@ -141,6 +141,22 @@ $break: (
     @return math.div($val, $val * 0 + 1);
 }
 
+@function delay($key) {
+    @if not(map-has-key($delay, $key)) {
+        @error 'The delay function requires one of the following values: #{map-keys($delay)}';
+    }
+
+    @return ms(map-get($delay, $key));
+}
+
+@function break($key) {
+    @if not(map-has-key($break, $key)) {
+        @error 'The break function requires one of the following values: #{map-keys($break)}';
+    }
+
+    @return px(map-get($break, $key));
+}
+
 // Mixins
 @mixin css-var ($key, $val) {
     #{css-prefix($key)}: #{$val};
@@ -151,16 +167,16 @@ $break: (
 }
 
 @mixin break ($min, $max:null) {
-    @if not(map-has-key($break, $min) and (type-of($map) == 'null' or map-has-key($break, $max))) {
+    @if not(map-has-key($break, $min) and (type-of($max) == 'null' or map-has-key($break, $max))) {
         @error 'The break mixin requires one or two of the following values: #{map-keys($break)}';
     }
 
     @if (map-has-key($break, $max)) {
-        @media (min-width: map-get($break, $min)) and (max-width: map-get($break, $max)) {
+        @media (min-width: break($min)) and (max-width: break($max)) {
             @content;
         }
     } @else {
-        @media (min-width: map-get($break, $min)) {
+        @media (min-width: break($min)) {
             @content;
         }
     }

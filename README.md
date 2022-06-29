@@ -1,4 +1,4 @@
-# n4v - An accessible, responsive navbar library (prod)
+# n4v - An accessible, responsive navbar library
 
 ## Hosting
 

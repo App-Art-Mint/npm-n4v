@@ -1,9 +1,15 @@
 @charset 'utf-8';
 
-@use 'global';
-@use 'css-var';
-
 @import 'var';
+
+:root {
+    @include css-var(delay-instant, delay(instant));
+    @include css-var(delay-fast, delay(fast));
+    @include css-var(delay-med-fast, delay(med-fast));
+    @include css-var(delay-default, delay(default));
+    @include css-var(delay-med-slow, delay(med-slow));
+    @include css-var(delay-slow, delay(slow));
+}
 
 #{class(sr-only)} {
     position: absolute;
@@ -129,5 +135,31 @@
 
     #{class(instant)} {
         transition: none !important;
+    }
+
+    #{id(widgets)} {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: css-var(height);
+    }
+    
+    #{class(dropdown)} {
+        background: css-var(header-bg);
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: css-var(height);
+            height: css-var(height);
+            padding: calc((css-var(height) - css-var(btn-height)) / 2);
+        }
+
+        li {
+            padding: calc((css-var(height) - css-var(btn-height)) / 2);
+            line-height: 1;
+            cursor: pointer;
+        }
     }
 }
