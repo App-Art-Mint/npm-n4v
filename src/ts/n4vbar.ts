@@ -1,3 +1,6 @@
+/**
+ * Imports
+ */
 import '../scss/n4v.scss';
 
 import n4vSelectors from './selectors';
@@ -48,7 +51,7 @@ export default class n4vBar {
             focusable.addEventListener('keydown', n4vUtil.throttle(this.eHandleKeypress.bind(this)) as EventListenerOrEventListenerObject);
         });
 
-        let menuButtons: NodeListOf<HTMLElement> | undefined = this.el.header?.querySelectorAll(n4vSelectors.controls() + n4vSelectors.not(n4vSelectors.controls(n4vSelectors.ids.wrapper)));
+        let menuButtons: NodeListOf<HTMLElement> | undefined = this.el.header?.querySelectorAll(n4vSelectors.controls() + n4vSelectors.neg(n4vSelectors.controls(n4vSelectors.ids.wrapper)));
         menuButtons?.forEach((menuButton: HTMLElement) => {
             menuButton.addEventListener('mousedown', n4vUtil.throttle(this.eToggleMenu.bind(this), n4vSettings.delay.slow, { trailing: false }) as EventListenerOrEventListenerObject);
         });
@@ -104,9 +107,9 @@ export default class n4vBar {
         if (button && menu) {
             button.setAttribute('aria-expanded', ariaExpanded);
             if (open) {
-                n4vUtil.slideDown(menu);
+                n4vUtil.show(menu);
             } else {
-                n4vUtil.slideUp(menu);
+                n4vUtil.hide(menu);
                 this.closeSubMenus(button);
             }
         }
@@ -297,4 +300,4 @@ export default class n4vBar {
     eToggleMenu (e: MouseEvent) : void {
         this.toggleMenu(e.target as HTMLElement | null);
     }
-};
+}

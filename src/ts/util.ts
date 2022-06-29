@@ -1,7 +1,21 @@
+/**
+ * Imports
+ */
 import n4vSelectors from "./selectors";
 import n4vSettings from "./settings";
 
-class n4vUtil {
+/**
+ * Utility function
+ * @public
+ */
+export default abstract class n4vUtil {
+    /**
+     * Ensures that a function `func` is called at most every `wait` milliseconds with optional leading and trailing calls
+     * @param func - the function to throttle
+     * @param wait - the amount of time between function calls
+     * @param options - leading and trailing options: default = { leading: true, trailing, true }
+     * @returns - the throttled function
+     */
     static throttle (func: Function,
                      wait: number = n4vSettings.delay.default,
                      options?: {[key: string]: boolean}) : Function {
@@ -42,6 +56,11 @@ class n4vUtil {
         return throttled;
     }
 
+    /**
+     * Gets the height in pixels of the provided element
+     * @param el - the element whose height will be measured
+     * @returns - the height of the provided element in pixels
+     */
     static getHeight (el?: HTMLElement | null) : number {
         el?.classList.add(n4vSelectors.classes.gettingHeight);
         let height: number = el?.scrollHeight || 0;
@@ -49,7 +68,11 @@ class n4vUtil {
         return height;
     }
 
-    static slideDown (el?: HTMLElement | null) : void {
+    /**
+     * Sets the element's height to its `innerHeight`, then to `auto` after a delay
+     * @param el - the element whose height will be set
+     */
+    static show (el?: HTMLElement | null) : void {
         if (el) {
             el.classList.add(n4vSelectors.classes.anime);
             el.style.height = `${this.getHeight(el)}px`;
@@ -60,7 +83,11 @@ class n4vUtil {
         }
     }
 
-    static slideUp (el?: HTMLElement | null) : void {
+    /**
+     * Sets the element's height to 0
+     * @param el - the element whose height will be set
+     */
+    static hide (el?: HTMLElement | null) : void {
         if (el) {
             el.classList.add(n4vSelectors.classes.anime);
             let height = this.getHeight(el),
@@ -79,5 +106,3 @@ class n4vUtil {
         }
     }
 }
-
-export default n4vUtil;

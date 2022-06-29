@@ -1,11 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
-import devServer from 'webpack-dev-server';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
-
-const isDev: boolean = true;
-const min: string = isDev ? '' : '.min';
 
 const babelConfig = {
     presets: [
@@ -18,24 +14,13 @@ const babelConfig = {
     ]
 };
 
-const serverConfig: devServer.Configuration = {
-    static: {
-        directory: path.join(__dirname, 'dist'),
-    },
-    compress: true,
-    port: 42069
-};
-
 const config: webpack.Configuration = {
-    mode: isDev ? 'development' : 'production',
     entry: {
         n4v: './src/ts/n4vbar.ts',
         theme: './src/scss/theme.scss'
     },
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: `js/[name]${min}.js`,
-        chunkFilename: `js/[name].[chunkhash].chunk.${min}.js`,
         library: {
             name: 'n4v',
             type: 'var',
@@ -73,26 +58,16 @@ const config: webpack.Configuration = {
                 use: [
                     MiniCssExtractPlugin.loader,
                     {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: isDev
-                        }
+                        loader: 'css-loader'
                     },
                     {
-                        loader: "sass-loader",
-                        options: {
-                            sourceMap: isDev
-                        }
+                        loader: "sass-loader"
                     }
                 ]
             }
         ]
     },
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: `css/[name]${min}.css`,
-            chunkFilename: `css/[name].[chunkhash].chunk.${min}.css`
-        }),
         new CopyWebpackPlugin({
             patterns: [
                 './src/index.html'
@@ -101,8 +76,7 @@ const config: webpack.Configuration = {
     ],
     resolve: {
         extensions: ['.ts', 'tsx', '.js'],
-    },
-    devServer: serverConfig
+    }
 }
 
 export default config;

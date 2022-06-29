@@ -24,14 +24,11 @@
     @include css-var(link-visited, #0F3460);
 }
 
-*, *::before, *::after {
-    font-family: 'Palanquin', sans-serif;
-}
-
 html, body {
     margin: 0;
     color: css-var(fg);
     background: css-var(bg);
+    font-family: 'Palanquin', sans-serif;
 }
 
 button, a[routerLink] {
