@@ -14,9 +14,15 @@
 import n4vBar from "./ts/n4vbar";
 import n4vSelectors from './ts/selectors';
 import n4vSettings from './ts/settings';
+import n4vUtil from './ts/util';
 
 /**
  * Exports
  */
-export { n4vBar, n4vSelectors, n4vSettings };
+export { 
+    n4vBar,
+    n4vSelectors,
+    n4vSettings,
+    n4vUtil
+};
 export default n4vBar;

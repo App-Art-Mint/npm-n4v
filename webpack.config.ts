@@ -15,11 +15,14 @@ const babelConfig = {
 };
 
 const config: webpack.Configuration = {
+    mode: 'production',
     entry: {
         n4v: './src/ts/n4vbar.ts',
         theme: './src/scss/theme.scss'
     },
     output: {
+        filename: 'js/[name].min.js',
+        chunkFilename: 'js/[name].[chunkhash].chunk.min.js',
         path: path.resolve(__dirname, './dist'),
         library: {
             name: 'n4v',
@@ -72,6 +75,10 @@ const config: webpack.Configuration = {
             patterns: [
                 './src/index.html'
             ]
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'css/[name].min.css',
+            chunkFilename: 'css/[name].[chunkhash].chunk.min.css'
         })
     ],
     resolve: {
