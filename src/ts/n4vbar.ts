@@ -1,8 +1,6 @@
 /**
  * Imports
  */
-import '../scss/n4v.scss';
-
 import n4vSelectors from './selectors';
 import n4vSettings from './settings';
 import n4vUtil from './util';

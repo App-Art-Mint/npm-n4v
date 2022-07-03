@@ -17,7 +17,8 @@ const babelConfig = {
 const config: webpack.Configuration = {
     mode: 'production',
     entry: {
-        n4v: './src/ts/n4vbar.ts',
+        main: './src/main.ts',
+        n4v: './src/scss/n4v.scss',
         theme: './src/scss/theme.scss'
     },
     output: {

@@ -2,7 +2,7 @@
 
 # Compiled output
 /dist/js/*
-!/dist/js/n4v.*
+!/dist/js/main.*
 /tmp
 /out-tsc
 /bazel-out

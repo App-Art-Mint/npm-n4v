@@ -13,7 +13,7 @@ export default abstract class n4vUtil {
      * Ensures that a function `func` is called at most every `wait` milliseconds with optional leading and trailing calls
      * @param func - the function to throttle
      * @param wait - the amount of time between function calls
-     * @param options - leading and trailing options: default = { leading: true, trailing, true }
+     * @param options - leading and trailing options: default = \{ leading: true, trailing, true \}
      * @returns - the throttled function
      */
     static throttle (func: Function,
