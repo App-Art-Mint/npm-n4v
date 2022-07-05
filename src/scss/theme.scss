@@ -1,8 +1,8 @@
 @charset 'utf-8';
 
 @use 'sass:math';
+@use 'var' as *;
 
-@import 'var';
 @import url('https://fonts.googleapis.com/css2?family=Palanquin:wght@200;400;600&display=swap');
 
 :root {

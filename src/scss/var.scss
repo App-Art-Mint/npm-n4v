@@ -1,23 +1,23 @@
 @use 'sass:string';
 
 // Variables
-$lib: n4v;
+$lib: n4v !default;
 $dash: #{'-'};
 $pre: #{$lib}#{$dash};
 $dot: #{'.'};
 $hash: #{'#'};
-$controls: #{'[aria-controls]'};
-$expanded: #{'[aria-expanded]'};
 $disabled: #{'[disabled]'};
-$tabbable: #{'[tabindex]'};
+$has-controls: #{'[aria-controls]'};
+$has-expanded: #{'[aria-expanded]'};
 $has-link: #{'[href]'};
 $has-router-link: #{'[routerLink]'};
 $has-id: #{'[id]'};
-$no-tab: #{'[tabindex^="-"]'};
-$sub-menu-buttons: #{'button'}#{$controls};
+$not-tabbable: #{'[tabindex^="-"]'};
+$tabbable: #{'[tabindex]'}#{neg($not-tabbable)};
+$sub-menu-buttons: #{'button'}#{$has-controls};
 $sub-menu: #{$sub-menu-buttons}#{' + ul'}#{$has-id};
-$delay-base: 0;
-$delay-step: 100;
+$delay-base: 0 !default;
+$delay-step: 100 !default;
 
 // Maps
 $delay: (
@@ -27,14 +27,15 @@ $delay: (
     default: $delay-base + $delay-step * 3,
     med-slow: $delay-base + $delay-step * 4,
     slow: $delay-base + $delay-step * 5
-);
+) !default;
+
 $break: (
     xs: 480,
     sm: 768,
     md: 1024,
     lg: 1200,
     xl: 1440
-);
+) !default;
 
 // Functions
 @function prefix ($base) {

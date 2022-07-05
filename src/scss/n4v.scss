@@ -1,6 +1,6 @@
 @charset 'utf-8';
 
-@import 'var';
+@use 'var' as *;
 
 :root {
     @include css-var(delay-instant, delay(instant));
@@ -45,7 +45,7 @@
             display: inline-block;
         }
 
-        #{$controls + neg(controls(wrapper))} {
+        #{$has-controls + neg(controls(wrapper))} {
             & + ul {
                 display: none;
                 flex-direction: column;
@@ -64,7 +64,7 @@
                 }
             }
             
-            &#{$expanded + neg(expanded(true))} {
+            &#{$has-expanded + neg(expanded(true))} {
                 & + ul {
                     margin: 0;
                 }

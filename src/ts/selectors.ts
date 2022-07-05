@@ -1,5 +1,6 @@
 /**
  * CSS-selector helpers
+ * @public
  */
 export default abstract class n4vSelectors {
     /**

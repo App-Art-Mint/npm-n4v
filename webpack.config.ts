@@ -65,7 +65,7 @@ const config: webpack.Configuration = {
                         loader: 'css-loader'
                     },
                     {
-                        loader: "sass-loader"
+                        loader: 'sass-loader'
                     }
                 ]
             }
@@ -83,7 +83,7 @@ const config: webpack.Configuration = {
         })
     ],
     resolve: {
-        extensions: ['.ts', 'tsx', '.js'],
+        extensions: ['.ts', '.tsx', '.js'],
     }
 }
 
