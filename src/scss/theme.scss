@@ -1,10 +1,16 @@
+/// theme.scss - Base theme for the n4v library
+/// @author Sam Underwood - Sunder Apps
+/// 
+/// @group Themes
 @charset 'utf-8';
 
+/// Imports
 @use 'sass:math';
 @use 'var' as *;
 
 @import url('https://fonts.googleapis.com/css2?family=Palanquin:wght@200;400;600&display=swap');
 
+/// CSS variables
 :root {
     $height: 50;
     @include css-var(height, px($height));
@@ -24,6 +30,7 @@
     @include css-var(link-visited, #0F3460);
 }
 
+/// Styles
 *, *::before, *::after {
     box-sizing: border-box;
 }

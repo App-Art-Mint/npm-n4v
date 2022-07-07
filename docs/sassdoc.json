@@ -1,0 +1,2041 @@
+[
+  {
+    "description": "Prefixes the provided string with the library name if it isn't already\n",
+    "commentRange": {
+      "start": 126,
+      "end": 133
+    },
+    "context": {
+      "type": "function",
+      "name": "prefix",
+      "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The prefix function requires a string value.';\n    }\n\n    $base: string.to-lower-case($base);\n\n    @if (string.index($base, $pre) != 1) {\n        $base: $pre + $base;\n    }\n\n    @return $base;\n",
+      "line": {
+        "start": 134,
+        "end": 146
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "prefix(header) // -> n4v-header",
+        "description": "prefix function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "base",
+        "description": "the string to be prefixed"
+      }
+    ],
+    "return": {
+      "type": "String",
+      "description": "a prefixed string"
+    },
+    "access": "public",
+    "require": [
+      {
+        "type": "variable",
+        "name": "pre"
+      },
+      {
+        "type": "variable",
+        "name": "pre"
+      }
+    ],
+    "throw": [
+      "The prefix function requires a string value."
+    ],
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Prefixes the provided string with two dashes and the library name if it isn't already\n",
+        "context": {
+          "type": "function",
+          "name": "css-prefix",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The css-prefix function requires a string value.';\n    }\n\n    @while (string.index($base, $dash) == 1) {\n        $base: string.slice($base, 2);\n    }\n\n    @return $dash + $dash + prefix($base);\n",
+          "line": {
+            "start": 156,
+            "end": 166
+          }
+        }
+      },
+      {
+        "description": "Creates a class selector with the library prefix\n",
+        "context": {
+          "type": "function",
+          "name": "class",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The class function requires a string value.';\n    }\n\n    @return $dot + prefix($base);\n",
+          "line": {
+            "start": 208,
+            "end": 214
+          }
+        }
+      },
+      {
+        "description": "Creates an id selector with the library prefix\n",
+        "context": {
+          "type": "function",
+          "name": "id",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The id function requires a string value.';\n    }\n\n    @return $hash + prefix($base);\n",
+          "line": {
+            "start": 224,
+            "end": 230
+          }
+        }
+      },
+      {
+        "description": "Creates an aria-controls selector with the library prefix\n",
+        "context": {
+          "type": "function",
+          "name": "controls",
+          "code": "\n    @if (type-of($id) != 'string') {\n        @error 'The controls function requires a string value.';\n    }\n\n    @return '[aria-controls=' + prefix($id) + ']';\n",
+          "line": {
+            "start": 240,
+            "end": 246
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Prefixes the provided string with two dashes and the library name if it isn't already\n",
+    "commentRange": {
+      "start": 148,
+      "end": 155
+    },
+    "context": {
+      "type": "function",
+      "name": "css-prefix",
+      "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The css-prefix function requires a string value.';\n    }\n\n    @while (string.index($base, $dash) == 1) {\n        $base: string.slice($base, 2);\n    }\n\n    @return $dash + $dash + prefix($base);\n",
+      "line": {
+        "start": 156,
+        "end": 166
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "css-prefix(background) // -> --n4v-background",
+        "description": "css-prefix function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "base",
+        "description": "the string to be prefixed"
+      }
+    ],
+    "return": {
+      "type": "String",
+      "description": "a prefixed string"
+    },
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "prefix"
+      },
+      {
+        "type": "variable",
+        "name": "dash"
+      },
+      {
+        "type": "variable",
+        "name": "dash"
+      },
+      {
+        "type": "variable",
+        "name": "dash"
+      }
+    ],
+    "throw": [
+      "The css-prefix function requires a string value."
+    ],
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Creates a CSS-var call for the prefixed `$base`\n",
+        "context": {
+          "type": "function",
+          "name": "css-var",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The css-var function requires a string value.';\n    }\n\n    @return var(css-prefix($base));\n",
+          "line": {
+            "start": 176,
+            "end": 182
+          }
+        }
+      },
+      {
+        "description": "Creates a prefixed CSS var definition\n",
+        "context": {
+          "type": "mixin",
+          "name": "css-var",
+          "code": "\n    #{css-prefix($key)}: #{$val};\n",
+          "line": {
+            "start": 359,
+            "end": 361
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Creates a CSS-var call for the prefixed `$base`\n",
+    "commentRange": {
+      "start": 168,
+      "end": 175
+    },
+    "context": {
+      "type": "function",
+      "name": "css-var",
+      "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The css-var function requires a string value.';\n    }\n\n    @return var(css-prefix($base));\n",
+      "line": {
+        "start": 176,
+        "end": 182
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "css-var(background) // -> var(--n4v-background)",
+        "description": "css-var function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "base",
+        "description": "the CSS-var to create a call for"
+      }
+    ],
+    "return": {
+      "type": "String",
+      "description": "a CSS-var call"
+    },
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "css-prefix"
+      }
+    ],
+    "throw": [
+      "The css-var function requires a string value."
+    ],
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Creates a prefixed CSS var reference\n",
+        "context": {
+          "type": "mixin",
+          "name": "css-var-ref",
+          "code": "\n    @include css-var($key1, css-var($key2));\n",
+          "line": {
+            "start": 372,
+            "end": 374
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Negates a provided CSS-selector\n",
+    "commentRange": {
+      "start": 184,
+      "end": 191
+    },
+    "context": {
+      "type": "function",
+      "name": "neg",
+      "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The neg function requires a string value.';\n    }\n\n    @return ':not(' + $base + ')';\n",
+      "line": {
+        "start": 192,
+        "end": 198
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "neg(.n4v-open) // -> :not(.n4v-open)",
+        "description": "neg function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "base",
+        "description": "the CSS-selector to negate"
+      }
+    ],
+    "return": {
+      "type": "String",
+      "description": "a negated CSS-selector"
+    },
+    "access": "public",
+    "require": [],
+    "throw": [
+      "The neg function requires a string value."
+    ],
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "Creates a class selector with the library prefix\n",
+    "commentRange": {
+      "start": 200,
+      "end": 207
+    },
+    "context": {
+      "type": "function",
+      "name": "class",
+      "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The class function requires a string value.';\n    }\n\n    @return $dot + prefix($base);\n",
+      "line": {
+        "start": 208,
+        "end": 214
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "class(open) // -> .n4v-open",
+        "description": "class function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "base",
+        "description": "the name of the class"
+      }
+    ],
+    "return": {
+      "type": "String",
+      "description": "a class selector"
+    },
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "prefix"
+      },
+      {
+        "type": "variable",
+        "name": "dot"
+      }
+    ],
+    "throw": [
+      "The class function requires a string value."
+    ],
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "Creates an id selector with the library prefix\n",
+    "commentRange": {
+      "start": 216,
+      "end": 223
+    },
+    "context": {
+      "type": "function",
+      "name": "id",
+      "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The id function requires a string value.';\n    }\n\n    @return $hash + prefix($base);\n",
+      "line": {
+        "start": 224,
+        "end": 230
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "id(header) // -> #n4v-header",
+        "description": "id function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "base",
+        "description": "the name of the id"
+      }
+    ],
+    "return": {
+      "type": "String",
+      "description": "an id selector"
+    },
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "prefix"
+      },
+      {
+        "type": "variable",
+        "name": "hash"
+      }
+    ],
+    "throw": [
+      "The id function requires a string value."
+    ],
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "Creates an aria-controls selector with the library prefix\n",
+    "commentRange": {
+      "start": 232,
+      "end": 239
+    },
+    "context": {
+      "type": "function",
+      "name": "controls",
+      "code": "\n    @if (type-of($id) != 'string') {\n        @error 'The controls function requires a string value.';\n    }\n\n    @return '[aria-controls=' + prefix($id) + ']';\n",
+      "line": {
+        "start": 240,
+        "end": 246
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "controls(header) // -> [aria-controls=n4v-header]",
+        "description": "controls function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "id",
+        "description": "the id of the controlled element"
+      }
+    ],
+    "return": {
+      "type": "String",
+      "description": "an aria-controls selector"
+    },
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "prefix"
+      }
+    ],
+    "throw": [
+      "The controls function requires a string value."
+    ],
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "Creates an aria-expanded selector\n",
+    "commentRange": {
+      "start": 248,
+      "end": 255
+    },
+    "context": {
+      "type": "function",
+      "name": "expanded",
+      "code": "\n    @if (type-of($bool) == 'string') {\n        $bool: string.to-lower-case($bool);\n\n        @if not($bool == 'true' or $bool == 'false') {\n            @error 'The expanded function requires a boolean value.';\n        }\n    } @else if (type-of($bool) != 'bool') {\n        @error 'The expanded function requires a boolean value.';\n    }\n    \n    @return '[aria-expanded=' + $bool + ']';\n",
+      "line": {
+        "start": 256,
+        "end": 268
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "expanded(true) // -> [aria-expanded=true]",
+        "description": "expanded function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "Bool",
+        "name": "bool",
+        "description": "the value of the selector"
+      }
+    ],
+    "return": {
+      "type": "String",
+      "description": "an aria-expanded selector"
+    },
+    "access": "public",
+    "require": [],
+    "throw": [
+      "The expanded function requires a boolean value."
+    ],
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "Converts a number to ms\n",
+    "commentRange": {
+      "start": 270,
+      "end": 277
+    },
+    "context": {
+      "type": "function",
+      "name": "ms",
+      "code": "\n    @if (type-of($val) != 'number') {\n        @error 'The ms function requires a number value.';\n    }\n\n    @return $val * 1ms;\n",
+      "line": {
+        "start": 278,
+        "end": 284
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "ms(100) // -> 100ms",
+        "description": "ms function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "Number",
+        "name": "val",
+        "description": "the number of ms to return"
+      }
+    ],
+    "return": {
+      "type": "Number",
+      "description": "the number as ms"
+    },
+    "access": "public",
+    "require": [],
+    "throw": [
+      "The ms function requires a number value."
+    ],
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Returns the requested delay value as ms\n",
+        "context": {
+          "type": "function",
+          "name": "delay",
+          "code": "\n    @if not(map-has-key($delay, $key)) {\n        @error 'The delay function requires one of the following values: #{map-keys($delay)}';\n    }\n\n    @return ms(map-get($delay, $key));\n",
+          "line": {
+            "start": 326,
+            "end": 332
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Converts a number to px\n",
+    "commentRange": {
+      "start": 286,
+      "end": 293
+    },
+    "context": {
+      "type": "function",
+      "name": "px",
+      "code": "\n    @if (type-of($val) != 'number') {\n        @error 'The px function requires a number value.';\n    }\n\n    @return $val * 1px;\n",
+      "line": {
+        "start": 294,
+        "end": 300
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "px(100) // -> 100px",
+        "description": "px function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "Number",
+        "name": "val",
+        "description": "the number of px to return"
+      }
+    ],
+    "return": {
+      "type": "Number",
+      "description": "the number as px"
+    },
+    "access": "public",
+    "require": [],
+    "throw": [
+      "The px function requires a number value."
+    ],
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Returns the requested breakpoint value as px\n",
+        "context": {
+          "type": "function",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $key)) {\n        @error 'The break function requires one of the following values: #{map-keys($break)}';\n    }\n\n    @return px(map-get($break, $key));\n",
+          "line": {
+            "start": 342,
+            "end": 348
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Removes the unit from the given value\n",
+    "commentRange": {
+      "start": 302,
+      "end": 309
+    },
+    "context": {
+      "type": "function",
+      "name": "strip-unit",
+      "code": "\n    @if (type-of($val) != 'number') {\n        @error 'The strip-unit function requires a number value.';\n    }\n\n    @return math.div($val, $val * 0 + 1);\n",
+      "line": {
+        "start": 310,
+        "end": 316
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "strip-unit(100px) // -> 100",
+        "description": "strip-unit function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "Number",
+        "name": "val",
+        "description": "the value to strip"
+      }
+    ],
+    "return": {
+      "type": "Number",
+      "description": "the number without units"
+    },
+    "access": "public",
+    "require": [],
+    "throw": [
+      "The strip-unit function requires a number value."
+    ],
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Generates a property with a fluid value between specified screen sizes\n",
+        "context": {
+          "type": "mixin",
+          "name": "fluid",
+          "code": "\n    $u1: unit($min-vw);\n    $u2: unit($max-vw);\n    $u3: unit($min-size);\n    $u4: unit($max-size);\n\n    @if (type-of($prop) != 'string') {\n        @error 'The fluid mixin requires a string for the $prop argument.';\n    }\n    @if not(type-of($u1) == 'string' and type-of($u2) == 'string' and type-of($u3) == 'string' and type-of($u4) == 'string') {\n        @error 'The fluid mixin requires numbers for the width and size arguments.';\n    }\n    @if not($u1 == $u2 and $u1 == $u3 and $u1 == $u4) {\n        @error 'The fluid mixin requires width and size arguments with the same units.';\n    }\n\n    & {\n        #{$prop}: $min-size;\n        @media (min-width: $min-vw) {\n            #{$prop}: calc(#{$min-size} + #{strip-unit($max-size - $min-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));\n        }\n        @media (min-width: $max-vw) {\n            #{$prop}: $max-size;\n        }\n    }\n",
+          "line": {
+            "start": 423,
+            "end": 448
+          }
+        }
+      },
+      {
+        "description": "Generates a property with a fluid value between specified screen sizes\n",
+        "context": {
+          "type": "mixin",
+          "name": "fluid",
+          "code": "\n    $u1: unit($min-vw);\n    $u2: unit($max-vw);\n    $u3: unit($min-size);\n    $u4: unit($max-size);\n\n    @if (type-of($prop) != 'string') {\n        @error 'The fluid mixin requires a string for the $prop argument.';\n    }\n    @if not(type-of($u1) == 'string' and type-of($u2) == 'string' and type-of($u3) == 'string' and type-of($u4) == 'string') {\n        @error 'The fluid mixin requires numbers for the width and size arguments.';\n    }\n    @if not($u1 == $u2 and $u1 == $u3 and $u1 == $u4) {\n        @error 'The fluid mixin requires width and size arguments with the same units.';\n    }\n\n    & {\n        #{$prop}: $min-size;\n        @media (min-width: $min-vw) {\n            #{$prop}: calc(#{$min-size} + #{strip-unit($max-size - $min-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));\n        }\n        @media (min-width: $max-vw) {\n            #{$prop}: $max-size;\n        }\n    }\n",
+          "line": {
+            "start": 423,
+            "end": 448
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Returns the requested delay value as ms\n",
+    "commentRange": {
+      "start": 318,
+      "end": 325
+    },
+    "context": {
+      "type": "function",
+      "name": "delay",
+      "code": "\n    @if not(map-has-key($delay, $key)) {\n        @error 'The delay function requires one of the following values: #{map-keys($delay)}';\n    }\n\n    @return ms(map-get($delay, $key));\n",
+      "line": {
+        "start": 326,
+        "end": 332
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "delay(default) // -> 300ms",
+        "description": "delay function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "Number",
+        "name": "key",
+        "description": "the key of the delay to use"
+      }
+    ],
+    "return": {
+      "type": "Number",
+      "description": "the delay value as ms"
+    },
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "ms"
+      },
+      {
+        "type": "variable",
+        "name": "delay"
+      },
+      {
+        "type": "variable",
+        "name": "delay"
+      },
+      {
+        "type": "variable",
+        "name": "delay"
+      }
+    ],
+    "throw": [
+      "The delay function requires one of the following values: #{map-keys($delay)}"
+    ],
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "Returns the requested breakpoint value as px\n",
+    "commentRange": {
+      "start": 334,
+      "end": 341
+    },
+    "context": {
+      "type": "function",
+      "name": "break",
+      "code": "\n    @if not(map-has-key($break, $key)) {\n        @error 'The break function requires one of the following values: #{map-keys($break)}';\n    }\n\n    @return px(map-get($break, $key));\n",
+      "line": {
+        "start": 342,
+        "end": 348
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "break(md) // -> 1024px",
+        "description": "break function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "Number",
+        "name": "key",
+        "description": "the key of the breakpoint to use"
+      }
+    ],
+    "return": {
+      "type": "Number",
+      "description": "the breakpoint value as px"
+    },
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "px"
+      },
+      {
+        "type": "variable",
+        "name": "break"
+      },
+      {
+        "type": "variable",
+        "name": "break"
+      },
+      {
+        "type": "variable",
+        "name": "break"
+      }
+    ],
+    "throw": [
+      "The break function requires one of the following values: #{map-keys($break)}"
+    ],
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Wraps the provided content in a media query\n",
+        "context": {
+          "type": "mixin",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $min) and (type-of($max) == 'null' or map-has-key($break, $max))) {\n        @error 'The break mixin requires one or two of the following values: #{map-keys($break)}';\n    }\n\n    @if (map-has-key($break, $max)) {\n        @media (min-width: break($min)) and (max-width: break($max)) {\n            @content;\n        }\n    } @else {\n        @media (min-width: break($min)) {\n            @content;\n        }\n    }\n",
+          "line": {
+            "start": 387,
+            "end": 401
+          }
+        }
+      },
+      {
+        "description": "Wraps the provided content in a media query\n",
+        "context": {
+          "type": "mixin",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $min) and (type-of($max) == 'null' or map-has-key($break, $max))) {\n        @error 'The break mixin requires one or two of the following values: #{map-keys($break)}';\n    }\n\n    @if (map-has-key($break, $max)) {\n        @media (min-width: break($min)) and (max-width: break($max)) {\n            @content;\n        }\n    } @else {\n        @media (min-width: break($min)) {\n            @content;\n        }\n    }\n",
+          "line": {
+            "start": 387,
+            "end": 401
+          }
+        }
+      },
+      {
+        "description": "Wraps the provided content in a media query\n",
+        "context": {
+          "type": "mixin",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $min) and (type-of($max) == 'null' or map-has-key($break, $max))) {\n        @error 'The break mixin requires one or two of the following values: #{map-keys($break)}';\n    }\n\n    @if (map-has-key($break, $max)) {\n        @media (min-width: break($min)) and (max-width: break($max)) {\n            @content;\n        }\n    } @else {\n        @media (min-width: break($min)) {\n            @content;\n        }\n    }\n",
+          "line": {
+            "start": 387,
+            "end": 401
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Delay variables\n",
+    "commentRange": {
+      "start": 94,
+      "end": 101
+    },
+    "context": {
+      "type": "variable",
+      "name": "delay",
+      "value": "(\n    instant: $delay-base + $delay-step * 0,\n    fast: $delay-base + $delay-step * 1,\n    med-fast: $delay-base + $delay-step * 2,\n    default: $delay-base + $delay-step * 3,\n    med-slow: $delay-base + $delay-step * 4,\n    slow: $delay-base + $delay-step * 5\n)",
+      "scope": "default",
+      "line": {
+        "start": 102,
+        "end": 109
+      }
+    },
+    "group": [
+      "maps"
+    ],
+    "property": [
+      {
+        "type": "Number",
+        "name": "$delay.instant",
+        "default": "0",
+        "description": "Instant: the quickest delay; close or equal to 0"
+      },
+      {
+        "type": "Number",
+        "name": "$delay.fast",
+        "default": "100",
+        "description": "Fast: delays that happen quickly"
+      },
+      {
+        "type": "Number",
+        "name": "$delay.med-fast",
+        "default": "200",
+        "description": "Med-Fast: delays that happen faster"
+      },
+      {
+        "type": "Number",
+        "name": "$delay.default",
+        "default": "300",
+        "description": "Default: delays that are average"
+      },
+      {
+        "type": "Number",
+        "name": "$delay.med-slow",
+        "default": "400",
+        "description": "Med-Slow: delays that happen slower"
+      },
+      {
+        "type": "Number",
+        "name": "$delay.slow",
+        "default": "500",
+        "description": "Slow: delays that happen slowly"
+      }
+    ],
+    "access": "public",
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Returns the requested delay value as ms\n",
+        "context": {
+          "type": "function",
+          "name": "delay",
+          "code": "\n    @if not(map-has-key($delay, $key)) {\n        @error 'The delay function requires one of the following values: #{map-keys($delay)}';\n    }\n\n    @return ms(map-get($delay, $key));\n",
+          "line": {
+            "start": 326,
+            "end": 332
+          }
+        }
+      },
+      {
+        "description": "Returns the requested delay value as ms\n",
+        "context": {
+          "type": "function",
+          "name": "delay",
+          "code": "\n    @if not(map-has-key($delay, $key)) {\n        @error 'The delay function requires one of the following values: #{map-keys($delay)}';\n    }\n\n    @return ms(map-get($delay, $key));\n",
+          "line": {
+            "start": 326,
+            "end": 332
+          }
+        }
+      },
+      {
+        "description": "Returns the requested delay value as ms\n",
+        "context": {
+          "type": "function",
+          "name": "delay",
+          "code": "\n    @if not(map-has-key($delay, $key)) {\n        @error 'The delay function requires one of the following values: #{map-keys($delay)}';\n    }\n\n    @return ms(map-get($delay, $key));\n",
+          "line": {
+            "start": 326,
+            "end": 332
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Breakpoint variables\n",
+    "commentRange": {
+      "start": 111,
+      "end": 117
+    },
+    "context": {
+      "type": "variable",
+      "name": "break",
+      "value": "(\n    xs: 480,\n    sm: 768,\n    md: 1024,\n    lg: 1200,\n    xl: 1440\n)",
+      "scope": "default",
+      "line": {
+        "start": 118,
+        "end": 124
+      }
+    },
+    "group": [
+      "maps"
+    ],
+    "property": [
+      {
+        "type": "Number",
+        "name": "$break.xs",
+        "default": "480",
+        "description": "Extra-Small: mobile devices"
+      },
+      {
+        "type": "Number",
+        "name": "$break.sm",
+        "default": "768",
+        "description": "Small: small tablets, landscape mobiles"
+      },
+      {
+        "type": "Number",
+        "name": "$break.md",
+        "default": "1024",
+        "description": "Medium: small desktops, large tablets"
+      },
+      {
+        "type": "Number",
+        "name": "$break.lg",
+        "default": "1200",
+        "description": "Large: large desktops, landscape tablets"
+      },
+      {
+        "type": "Number",
+        "name": "$break.xl",
+        "default": "1440",
+        "description": "Extra-Large: larger desktops"
+      }
+    ],
+    "access": "public",
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Returns the requested breakpoint value as px\n",
+        "context": {
+          "type": "function",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $key)) {\n        @error 'The break function requires one of the following values: #{map-keys($break)}';\n    }\n\n    @return px(map-get($break, $key));\n",
+          "line": {
+            "start": 342,
+            "end": 348
+          }
+        }
+      },
+      {
+        "description": "Returns the requested breakpoint value as px\n",
+        "context": {
+          "type": "function",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $key)) {\n        @error 'The break function requires one of the following values: #{map-keys($break)}';\n    }\n\n    @return px(map-get($break, $key));\n",
+          "line": {
+            "start": 342,
+            "end": 348
+          }
+        }
+      },
+      {
+        "description": "Returns the requested breakpoint value as px\n",
+        "context": {
+          "type": "function",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $key)) {\n        @error 'The break function requires one of the following values: #{map-keys($break)}';\n    }\n\n    @return px(map-get($break, $key));\n",
+          "line": {
+            "start": 342,
+            "end": 348
+          }
+        }
+      },
+      {
+        "description": "Wraps the provided content in a media query\n",
+        "context": {
+          "type": "mixin",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $min) and (type-of($max) == 'null' or map-has-key($break, $max))) {\n        @error 'The break mixin requires one or two of the following values: #{map-keys($break)}';\n    }\n\n    @if (map-has-key($break, $max)) {\n        @media (min-width: break($min)) and (max-width: break($max)) {\n            @content;\n        }\n    } @else {\n        @media (min-width: break($min)) {\n            @content;\n        }\n    }\n",
+          "line": {
+            "start": 387,
+            "end": 401
+          }
+        }
+      },
+      {
+        "description": "Wraps the provided content in a media query\n",
+        "context": {
+          "type": "mixin",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $min) and (type-of($max) == 'null' or map-has-key($break, $max))) {\n        @error 'The break mixin requires one or two of the following values: #{map-keys($break)}';\n    }\n\n    @if (map-has-key($break, $max)) {\n        @media (min-width: break($min)) and (max-width: break($max)) {\n            @content;\n        }\n    } @else {\n        @media (min-width: break($min)) {\n            @content;\n        }\n    }\n",
+          "line": {
+            "start": 387,
+            "end": 401
+          }
+        }
+      },
+      {
+        "description": "Wraps the provided content in a media query\n",
+        "context": {
+          "type": "mixin",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $min) and (type-of($max) == 'null' or map-has-key($break, $max))) {\n        @error 'The break mixin requires one or two of the following values: #{map-keys($break)}';\n    }\n\n    @if (map-has-key($break, $max)) {\n        @media (min-width: break($min)) and (max-width: break($max)) {\n            @content;\n        }\n    } @else {\n        @media (min-width: break($min)) {\n            @content;\n        }\n    }\n",
+          "line": {
+            "start": 387,
+            "end": 401
+          }
+        }
+      },
+      {
+        "description": "Wraps the provided content in a media query\n",
+        "context": {
+          "type": "mixin",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $min) and (type-of($max) == 'null' or map-has-key($break, $max))) {\n        @error 'The break mixin requires one or two of the following values: #{map-keys($break)}';\n    }\n\n    @if (map-has-key($break, $max)) {\n        @media (min-width: break($min)) and (max-width: break($max)) {\n            @content;\n        }\n    } @else {\n        @media (min-width: break($min)) {\n            @content;\n        }\n    }\n",
+          "line": {
+            "start": 387,
+            "end": 401
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Creates a prefixed CSS var definition\n",
+    "commentRange": {
+      "start": 350,
+      "end": 358
+    },
+    "context": {
+      "type": "mixin",
+      "name": "css-var",
+      "code": "\n    #{css-prefix($key)}: #{$val};\n",
+      "line": {
+        "start": 359,
+        "end": 361
+      }
+    },
+    "group": [
+      "mixins"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "@include css-var(bg, black) // -> --n4v-bg: black;",
+        "description": "css-var mixin"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "key",
+        "description": "the key of the CSS var"
+      },
+      {
+        "type": "Any",
+        "name": "val",
+        "description": "the value of the CSS var"
+      }
+    ],
+    "output": "a prefixed CSS var definition",
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "css-prefix"
+      }
+    ],
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Creates a prefixed CSS var reference\n",
+        "context": {
+          "type": "mixin",
+          "name": "css-var-ref",
+          "code": "\n    @include css-var($key1, css-var($key2));\n",
+          "line": {
+            "start": 372,
+            "end": 374
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Creates a prefixed CSS var reference\n",
+    "commentRange": {
+      "start": 363,
+      "end": 371
+    },
+    "context": {
+      "type": "mixin",
+      "name": "css-var-ref",
+      "code": "\n    @include css-var($key1, css-var($key2));\n",
+      "line": {
+        "start": 372,
+        "end": 374
+      }
+    },
+    "group": [
+      "mixins"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "@include css-var-ref(fill, bg) // -> --n4v-fill: var(--n4v-bg);",
+        "description": "css-var-ref mixin"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "key1",
+        "description": "the key of the new CSS var to define"
+      },
+      {
+        "type": "String",
+        "name": "key2",
+        "description": "the key of the referenced CSS var"
+      }
+    ],
+    "output": "a prefixed CSS var reference",
+    "access": "public",
+    "require": [
+      {
+        "type": "mixin",
+        "name": "css-var"
+      },
+      {
+        "type": "function",
+        "name": "css-var"
+      }
+    ],
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "Wraps the provided content in a media query\n",
+    "commentRange": {
+      "start": 376,
+      "end": 386
+    },
+    "context": {
+      "type": "mixin",
+      "name": "break",
+      "code": "\n    @if not(map-has-key($break, $min) and (type-of($max) == 'null' or map-has-key($break, $max))) {\n        @error 'The break mixin requires one or two of the following values: #{map-keys($break)}';\n    }\n\n    @if (map-has-key($break, $max)) {\n        @media (min-width: break($min)) and (max-width: break($max)) {\n            @content;\n        }\n    } @else {\n        @media (min-width: break($min)) {\n            @content;\n        }\n    }\n",
+      "line": {
+        "start": 387,
+        "end": 401
+      }
+    },
+    "group": [
+      "mixins"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "@include break(md) {    // ->   @media (min-width: 1024px) {\n    display: none;      //          display: none;\n}                       //      }",
+        "description": "break mixin"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "min",
+        "description": "the key of the breakpoint to use with min-width"
+      },
+      {
+        "type": "String",
+        "name": "max",
+        "description": "the key of the breakpoint to use with max-width"
+      }
+    ],
+    "output": "the provided content wrapped in a media query",
+    "access": "public",
+    "content": "",
+    "require": [
+      {
+        "type": "function",
+        "name": "break"
+      },
+      {
+        "type": "function",
+        "name": "break"
+      },
+      {
+        "type": "function",
+        "name": "break"
+      },
+      {
+        "type": "variable",
+        "name": "break"
+      },
+      {
+        "type": "variable",
+        "name": "break"
+      },
+      {
+        "type": "variable",
+        "name": "break"
+      },
+      {
+        "type": "variable",
+        "name": "break"
+      }
+    ],
+    "throw": [
+      "The break mixin requires one or two of the following values: #{map-keys($break)}"
+    ],
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "Generates a property with a fluid value between specified screen sizes\n",
+    "commentRange": {
+      "start": 403,
+      "end": 422
+    },
+    "context": {
+      "type": "mixin",
+      "name": "fluid",
+      "code": "\n    $u1: unit($min-vw);\n    $u2: unit($max-vw);\n    $u3: unit($min-size);\n    $u4: unit($max-size);\n\n    @if (type-of($prop) != 'string') {\n        @error 'The fluid mixin requires a string for the $prop argument.';\n    }\n    @if not(type-of($u1) == 'string' and type-of($u2) == 'string' and type-of($u3) == 'string' and type-of($u4) == 'string') {\n        @error 'The fluid mixin requires numbers for the width and size arguments.';\n    }\n    @if not($u1 == $u2 and $u1 == $u3 and $u1 == $u4) {\n        @error 'The fluid mixin requires width and size arguments with the same units.';\n    }\n\n    & {\n        #{$prop}: $min-size;\n        @media (min-width: $min-vw) {\n            #{$prop}: calc(#{$min-size} + #{strip-unit($max-size - $min-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));\n        }\n        @media (min-width: $max-vw) {\n            #{$prop}: $max-size;\n        }\n    }\n",
+      "line": {
+        "start": 423,
+        "end": 448
+      }
+    },
+    "group": [
+      "mixins"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "@include fluid(font-size, 480px, 1024px, 18px, 16px);   // ->   & {\n                                                        //          font-size: 16px;\n                                                        //          @media (min-width: 480px) {\n                                                        //              font-size: calc(16px + 2 * ((100vw - 480px) / 544));\n                                                        //          }\n                                                        //          @media (min-width: 1024px) {\n                                                        //              font-size: 18px;\n                                                        //          }\n                                                        //      }",
+        "description": "fluid mixin"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "prop",
+        "description": "the key property whose value will be fluid"
+      },
+      {
+        "type": "String",
+        "name": "min-vw",
+        "description": "the minimum screen width of the fluid property"
+      },
+      {
+        "type": "String",
+        "name": "max-vw",
+        "description": "the maximum screen width of the fluid property"
+      },
+      {
+        "type": "String",
+        "name": "min-size",
+        "description": "the minimum value of the fluid property"
+      },
+      {
+        "type": "String",
+        "name": "max-size",
+        "description": "the maximum value of the fluid property"
+      }
+    ],
+    "output": "the definitions for the property at different screen sizes",
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "strip-unit"
+      },
+      {
+        "type": "function",
+        "name": "strip-unit"
+      }
+    ],
+    "throw": [
+      "The fluid mixin requires a string for the $prop argument.",
+      "The fluid mixin requires numbers for the width and size arguments.",
+      "The fluid mixin requires width and size arguments with the same units."
+    ],
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "CSS variables\n",
+    "commentRange": {
+      "start": 10,
+      "end": 10
+    },
+    "context": {
+      "type": "css",
+      "name": ":root",
+      "value": "@include css-var(delay-instant, delay(instant));\n    @include css-var(delay-fast, delay(fast));\n    @include css-var(delay-med-fast, delay(med-fast));\n    @include css-var(delay-default, delay(default));\n    @include css-var(delay-med-slow, delay(med-slow));\n    @include css-var(delay-slow, delay(slow));",
+      "line": {
+        "start": 11,
+        "end": 172
+      }
+    },
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "file": {
+      "path": "n4v.scss",
+      "name": "n4v.scss"
+    }
+  },
+  {
+    "description": "Styles\n",
+    "commentRange": {
+      "start": 20,
+      "end": 20
+    },
+    "context": {
+      "type": "css",
+      "name": "#{class(sr-only)}",
+      "value": "position: absolute;\n    width: 1px;\n    height: 1px;\n    padding: 0;\n    margin: -1px;\n    overflow: hidden;\n    clip: rect(0, 0, 0, 0);\n    border: 0;",
+      "line": {
+        "start": 21,
+        "end": 172
+      }
+    },
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "file": {
+      "path": "n4v.scss",
+      "name": "n4v.scss"
+    }
+  },
+  {
+    "description": "CSS variables\n",
+    "commentRange": {
+      "start": 13,
+      "end": 13
+    },
+    "context": {
+      "type": "css",
+      "name": ":root",
+      "value": "$height: 50;\n    @include css-var(height, px($height));\n    $btn-margin: 7;\n    $btn-height: $height - $btn-margin * 2;\n    @include css-var(btn-height, px($btn-height));\n    $btn-bar-height: math.div($btn-height, 12);\n    @include css-var(btn-bar-height, px($btn-bar-height));\n    $btn-side-padding: $btn-bar-height * 2;\n    @include css-var(btn-side-padding, px($btn-side-padding));\n    \n    @include css-var(fg, #ddd);\n    @include css-var(bg, #1a1a2e);\n    @include css-var(header-bg, #0F3460);\n    @include css-var-ref(menu-bg, bg);\n    @include css-var(link, #2276dd);\n    @include css-var(link-visited, #0F3460);",
+      "line": {
+        "start": 14,
+        "end": 142
+      }
+    },
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "file": {
+      "path": "theme.scss",
+      "name": "theme.scss"
+    }
+  },
+  {
+    "description": "Styles\n",
+    "commentRange": {
+      "start": 33,
+      "end": 33
+    },
+    "context": {
+      "type": "css",
+      "name": "*, *::before, *::after",
+      "value": "box-sizing: border-box;",
+      "line": {
+        "start": 34,
+        "end": 142
+      }
+    },
+    "access": "public",
+    "group": [
+      "undefined"
+    ],
+    "file": {
+      "path": "theme.scss",
+      "name": "theme.scss"
+    }
+  },
+  {
+    "description": "var.scss - Variables, Functions, and Mixins to import elsewhere\n",
+    "commentRange": {
+      "start": 1,
+      "end": 4
+    },
+    "context": {
+      "type": "css",
+      "name": "/// Imports\n@use 'sass:string';\n\n/// Library name\n/// @group Variables\n/// @type String\n$lib: n4v !default;\n\n/// Dash - variable name separator\n/// @group Variables\n/// @type String\n$dash: #{'-'};\n\n/// Prefix added to selectors\n/// @group Variables\n/// @type String\n$pre: #{$lib}#{$dash};\n\n/// Dot - added to classes\n/// @group Variables\n/// @type String\n$dot: #{'.'};\n\n/// Hash - added to ids\n/// @group Variables\n/// @type String\n$hash: #{'#'};\n\n/// CSS-selector for disabled elements\n/// @group Variables\n/// @type String\n$disabled: #{'[disabled]'};\n\n/// CSS-selector for elements with an aria-controls attribute\n/// @group Variables\n/// @type String\n$has-controls: #{'[aria-controls]'};\n\n/// CSS-selector for elements with an aria-expanded attribute\n/// @group Variables\n/// @type String\n$has-expanded: #{'[aria-expanded]'};\n\n/// CSS-selector for elements with an href attribute\n/// @group Variables\n/// @type String\n$has-link: #{'[href]'};\n\n/// CSS-selector for elements with a routerLink attribute\n/// @group Variables\n/// @type String\n$has-router-link: #{'[routerLink]'};\n\n/// CSS-selector for elements with an id attribute\n/// @group Variables\n/// @type String\n$has-id: #{'[id]'};\n\n/// CSS-selector for elements that aren't tabbable (i.e. tabindex is negative)\n/// @group Variables\n/// @type String\n$not-tabbable: #{'[tabindex^=\"-\"]'};\n\n/// CSS-selector for elements that are tabbable (i.e. tabindex isn't negative)\n/// @group Variables\n/// @type String\n$tabbable: #{'[tabindex]'}#{neg($not-tabbable)};\n\n/// CSS-selector for submenu buttons\n/// @group Variables\n/// @type String\n$sub-menu-buttons: #{'button'}#{$has-controls};\n\n/// CSS-selector for submenus\n/// @group Variables\n/// @type String\n$sub-menu: #{$sub-menu-buttons}#{' + ul'}#{$has-id};\n\n/// Value added to all delay variables\n/// @group Variables\n/// @type Number\n$delay-base: 0 !default;\n\n/// Value added to all delay variables\n/// @group Variables\n/// @type Number\n$delay-step: 100 !default;\n\n/// Delay variables\n/// @group Maps\n/// @prop",
+      "value": "Number",
+      "line": {
+        "start": 96,
+        "end": 448
+      }
+    },
+    "author": [
+      "Sam Underwood - Sunder Apps"
+    ],
+    "group": [
+      "var"
+    ],
+    "access": "public",
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "Library name\n",
+    "commentRange": {
+      "start": 9,
+      "end": 11
+    },
+    "context": {
+      "type": "variable",
+      "name": "lib",
+      "value": "n4v",
+      "scope": "default",
+      "line": {
+        "start": 12,
+        "end": 12
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "Dash - variable name separator\n",
+    "commentRange": {
+      "start": 14,
+      "end": 16
+    },
+    "context": {
+      "type": "variable",
+      "name": "dash",
+      "value": "#{'-'}",
+      "scope": "private",
+      "line": {
+        "start": 17,
+        "end": 17
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Prefixes the provided string with two dashes and the library name if it isn't already\n",
+        "context": {
+          "type": "function",
+          "name": "css-prefix",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The css-prefix function requires a string value.';\n    }\n\n    @while (string.index($base, $dash) == 1) {\n        $base: string.slice($base, 2);\n    }\n\n    @return $dash + $dash + prefix($base);\n",
+          "line": {
+            "start": 156,
+            "end": 166
+          }
+        }
+      },
+      {
+        "description": "Prefixes the provided string with two dashes and the library name if it isn't already\n",
+        "context": {
+          "type": "function",
+          "name": "css-prefix",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The css-prefix function requires a string value.';\n    }\n\n    @while (string.index($base, $dash) == 1) {\n        $base: string.slice($base, 2);\n    }\n\n    @return $dash + $dash + prefix($base);\n",
+          "line": {
+            "start": 156,
+            "end": 166
+          }
+        }
+      },
+      {
+        "description": "Prefixes the provided string with two dashes and the library name if it isn't already\n",
+        "context": {
+          "type": "function",
+          "name": "css-prefix",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The css-prefix function requires a string value.';\n    }\n\n    @while (string.index($base, $dash) == 1) {\n        $base: string.slice($base, 2);\n    }\n\n    @return $dash + $dash + prefix($base);\n",
+          "line": {
+            "start": 156,
+            "end": 166
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Prefix added to selectors\n",
+    "commentRange": {
+      "start": 19,
+      "end": 21
+    },
+    "context": {
+      "type": "variable",
+      "name": "pre",
+      "value": "#{$lib}#{$dash}",
+      "scope": "private",
+      "line": {
+        "start": 22,
+        "end": 22
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Prefixes the provided string with the library name if it isn't already\n",
+        "context": {
+          "type": "function",
+          "name": "prefix",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The prefix function requires a string value.';\n    }\n\n    $base: string.to-lower-case($base);\n\n    @if (string.index($base, $pre) != 1) {\n        $base: $pre + $base;\n    }\n\n    @return $base;\n",
+          "line": {
+            "start": 134,
+            "end": 146
+          }
+        }
+      },
+      {
+        "description": "Prefixes the provided string with the library name if it isn't already\n",
+        "context": {
+          "type": "function",
+          "name": "prefix",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The prefix function requires a string value.';\n    }\n\n    $base: string.to-lower-case($base);\n\n    @if (string.index($base, $pre) != 1) {\n        $base: $pre + $base;\n    }\n\n    @return $base;\n",
+          "line": {
+            "start": 134,
+            "end": 146
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Dot - added to classes\n",
+    "commentRange": {
+      "start": 24,
+      "end": 26
+    },
+    "context": {
+      "type": "variable",
+      "name": "dot",
+      "value": "#{'.'}",
+      "scope": "private",
+      "line": {
+        "start": 27,
+        "end": 27
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Creates a class selector with the library prefix\n",
+        "context": {
+          "type": "function",
+          "name": "class",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The class function requires a string value.';\n    }\n\n    @return $dot + prefix($base);\n",
+          "line": {
+            "start": 208,
+            "end": 214
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Hash - added to ids\n",
+    "commentRange": {
+      "start": 29,
+      "end": 31
+    },
+    "context": {
+      "type": "variable",
+      "name": "hash",
+      "value": "#{'#'}",
+      "scope": "private",
+      "line": {
+        "start": 32,
+        "end": 32
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Creates an id selector with the library prefix\n",
+        "context": {
+          "type": "function",
+          "name": "id",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The id function requires a string value.';\n    }\n\n    @return $hash + prefix($base);\n",
+          "line": {
+            "start": 224,
+            "end": 230
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "CSS-selector for disabled elements\n",
+    "commentRange": {
+      "start": 34,
+      "end": 36
+    },
+    "context": {
+      "type": "variable",
+      "name": "disabled",
+      "value": "#{'[disabled]'}",
+      "scope": "private",
+      "line": {
+        "start": 37,
+        "end": 37
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "CSS-selector for elements with an aria-controls attribute\n",
+    "commentRange": {
+      "start": 39,
+      "end": 41
+    },
+    "context": {
+      "type": "variable",
+      "name": "has-controls",
+      "value": "#{'[aria-controls]'}",
+      "scope": "private",
+      "line": {
+        "start": 42,
+        "end": 42
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "CSS-selector for elements with an aria-expanded attribute\n",
+    "commentRange": {
+      "start": 44,
+      "end": 46
+    },
+    "context": {
+      "type": "variable",
+      "name": "has-expanded",
+      "value": "#{'[aria-expanded]'}",
+      "scope": "private",
+      "line": {
+        "start": 47,
+        "end": 47
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "CSS-selector for elements with an href attribute\n",
+    "commentRange": {
+      "start": 49,
+      "end": 51
+    },
+    "context": {
+      "type": "variable",
+      "name": "has-link",
+      "value": "#{'[href]'}",
+      "scope": "private",
+      "line": {
+        "start": 52,
+        "end": 52
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "CSS-selector for elements with a routerLink attribute\n",
+    "commentRange": {
+      "start": 54,
+      "end": 56
+    },
+    "context": {
+      "type": "variable",
+      "name": "has-router-link",
+      "value": "#{'[routerLink]'}",
+      "scope": "private",
+      "line": {
+        "start": 57,
+        "end": 57
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "CSS-selector for elements with an id attribute\n",
+    "commentRange": {
+      "start": 59,
+      "end": 61
+    },
+    "context": {
+      "type": "variable",
+      "name": "has-id",
+      "value": "#{'[id]'}",
+      "scope": "private",
+      "line": {
+        "start": 62,
+        "end": 62
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "CSS-selector for elements that aren't tabbable (i.e. tabindex is negative)\n",
+    "commentRange": {
+      "start": 64,
+      "end": 66
+    },
+    "context": {
+      "type": "variable",
+      "name": "not-tabbable",
+      "value": "#{'[tabindex^=\"-\"]'}",
+      "scope": "private",
+      "line": {
+        "start": 67,
+        "end": 67
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "CSS-selector for elements that are tabbable (i.e. tabindex isn't negative)\n",
+    "commentRange": {
+      "start": 69,
+      "end": 71
+    },
+    "context": {
+      "type": "variable",
+      "name": "tabbable",
+      "value": "#{'[tabindex]'}#{neg($not-tabbable)}",
+      "scope": "private",
+      "line": {
+        "start": 72,
+        "end": 72
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "CSS-selector for submenu buttons\n",
+    "commentRange": {
+      "start": 74,
+      "end": 76
+    },
+    "context": {
+      "type": "variable",
+      "name": "sub-menu-buttons",
+      "value": "#{'button'}#{$has-controls}",
+      "scope": "private",
+      "line": {
+        "start": 77,
+        "end": 77
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "CSS-selector for submenus\n",
+    "commentRange": {
+      "start": 79,
+      "end": 81
+    },
+    "context": {
+      "type": "variable",
+      "name": "sub-menu",
+      "value": "#{$sub-menu-buttons}#{' + ul'}#{$has-id}",
+      "scope": "private",
+      "line": {
+        "start": 82,
+        "end": 82
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "Value added to all delay variables\n",
+    "commentRange": {
+      "start": 84,
+      "end": 86
+    },
+    "context": {
+      "type": "variable",
+      "name": "delay-base",
+      "value": "0",
+      "scope": "default",
+      "line": {
+        "start": 87,
+        "end": 87
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "Number",
+    "access": "public",
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  },
+  {
+    "description": "Value added to all delay variables\n",
+    "commentRange": {
+      "start": 89,
+      "end": 91
+    },
+    "context": {
+      "type": "variable",
+      "name": "delay-step",
+      "value": "100",
+      "scope": "default",
+      "line": {
+        "start": 92,
+        "end": 92
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "Number",
+    "access": "public",
+    "file": {
+      "path": "var.scss",
+      "name": "var.scss"
+    }
+  }
+]

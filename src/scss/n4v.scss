@@ -1,7 +1,13 @@
+/// n4v.scss - Styles necessary for the function of the n4v library
+/// @author Sam Underwood - Sunder Apps
+/// 
+/// @group Main
 @charset 'utf-8';
 
+/// Imports
 @use 'var' as *;
 
+/// CSS variables
 :root {
     @include css-var(delay-instant, delay(instant));
     @include css-var(delay-fast, delay(fast));
@@ -11,6 +17,7 @@
     @include css-var(delay-slow, delay(slow));
 }
 
+/// Styles
 #{class(sr-only)} {
     position: absolute;
     width: 1px;
