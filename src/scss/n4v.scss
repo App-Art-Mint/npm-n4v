@@ -29,12 +29,6 @@
     border: 0;
 }
 
-#{class(getting-height)} {
-    display: flex !important;
-    height: 0 !important;
-    overflow: hidden !important;
-}
-
 #{id(header)} {
     display: flex;
     flex-direction: column;

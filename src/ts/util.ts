@@ -57,25 +57,13 @@ export default abstract class n4vUtil {
     }
 
     /**
-     * Gets the height in pixels of the provided element
-     * @param el - the element whose height will be measured
-     * @returns - the height of the provided element in pixels
-     */
-    static getHeight (el?: HTMLElement | null) : number {
-        el?.classList.add(n4vSelectors.classes.gettingHeight);
-        let height: number = el?.scrollHeight || 0;
-        el?.classList.remove(n4vSelectors.classes.gettingHeight);
-        return height;
-    }
-
-    /**
      * Sets the element's height to its `innerHeight`, then to `auto` after a delay
      * @param el - the element whose height will be set
      */
     static show (el?: HTMLElement | null) : void {
         if (el) {
             el.classList.add(n4vSelectors.classes.anime);
-            el.style.height = `${this.getHeight(el)}px`;
+            el.style.height = `${el.scrollHeight}px`;
             setTimeout(() => {
                 el.style.height = 'auto';
                 el.classList.remove(n4vSelectors.classes.anime);
@@ -90,7 +78,7 @@ export default abstract class n4vUtil {
     static hide (el?: HTMLElement | null) : void {
         if (el) {
             el.classList.add(n4vSelectors.classes.anime);
-            let height = this.getHeight(el),
+            let height = el.scrollHeight,
                 transition = el.style.transition;
             el.style.transition = '';
             requestAnimationFrame(function () {
