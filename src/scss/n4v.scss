@@ -5,7 +5,7 @@
 @charset 'utf-8';
 
 /// Imports
-@use 'var' as *;
+@use 'imports/var' as *;
 
 /// CSS variables
 :root {
@@ -48,21 +48,11 @@
 
         #{$has-controls + neg(controls(wrapper))} {
             & + ul {
-                display: none;
+                display: flex;
                 flex-direction: column;
                 height: 0;
                 overflow: hidden;
                 transition: height css-var(delay-default), margin css-var(delay-default);
-                
-                &#{class(anime)} {
-                    display: flex;
-                }
-            }
-            
-            &#{expanded(true)} {
-                & + ul {
-                    display: flex;
-                }
             }
             
             &#{$has-expanded + neg(expanded(true))} {
@@ -132,10 +122,6 @@
         flex-direction: column;
         width: 100%;
         transition: height css-var(delay-default);
-    }
-
-    #{class(instant)} {
-        transition: none !important;
     }
 
     #{id(widgets)} {

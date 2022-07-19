@@ -1,9 +1,9 @@
 /**
  * Imports
  */
+import sunUtil from '@sunderapps/util';
 import n4vSelectors from './selectors';
 import n4vSettings from './settings';
-import n4vUtil from './util';
 
 /**
  * Main n4vbar functionality
@@ -39,22 +39,22 @@ export default class n4vBar {
      * Adds events to the dom
      */
     attachEvents () : void {
-        window.addEventListener('resize', n4vUtil.throttle(this.eHandleResize.bind(this), n4vSettings.delay.default, { trailing: false }) as EventListenerOrEventListenerObject);
-        window.addEventListener('scroll', n4vUtil.throttle(this.eHandleScroll.bind(this), n4vSettings.delay.default, { trailing: false }) as EventListenerOrEventListenerObject);
+        window.addEventListener('resize', sunUtil.throttle(this.eHandleResize.bind(this), n4vSettings.delay.default, { trailing: false }) as EventListenerOrEventListenerObject);
+        window.addEventListener('scroll', sunUtil.throttle(this.eHandleScroll.bind(this), n4vSettings.delay.default, { trailing: false }) as EventListenerOrEventListenerObject);
 
         let focusables: NodeListOf<HTMLElement> | undefined = this.el.header?.querySelectorAll(n4vSelectors.focusable),
             lastFocusable: HTMLElement | undefined = focusables?.[focusables?.length - 1];
-        lastFocusable?.addEventListener('keydown', n4vUtil.throttle(this.eWrapTab.bind(this)) as EventListenerOrEventListenerObject);
+        lastFocusable?.addEventListener('keydown', sunUtil.throttle(this.eWrapTab.bind(this)) as EventListenerOrEventListenerObject);
         focusables?.forEach((focusable: HTMLElement) => {
-            focusable.addEventListener('keydown', n4vUtil.throttle(this.eHandleKeypress.bind(this)) as EventListenerOrEventListenerObject);
+            focusable.addEventListener('keydown', sunUtil.throttle(this.eHandleKeypress.bind(this)) as EventListenerOrEventListenerObject);
         });
 
         let menuButtons: NodeListOf<HTMLElement> | undefined = this.el.header?.querySelectorAll(n4vSelectors.controls() + n4vSelectors.neg(n4vSelectors.controls(n4vSelectors.ids.wrapper)));
         menuButtons?.forEach((menuButton: HTMLElement) => {
-            menuButton.addEventListener('mousedown', n4vUtil.throttle(this.eToggleMenu.bind(this), n4vSettings.delay.slow, { trailing: false }) as EventListenerOrEventListenerObject);
+            menuButton.addEventListener('mousedown', sunUtil.throttle(this.eToggleMenu.bind(this), n4vSettings.delay.slow, { trailing: false }) as EventListenerOrEventListenerObject);
         });
 
-        this.el.mobileButton?.addEventListener('mousedown', n4vUtil.throttle(this.eToggleMobileMenu.bind(this), n4vSettings.delay.slow, { trailing: false }) as EventListenerOrEventListenerObject);
+        this.el.mobileButton?.addEventListener('mousedown', sunUtil.throttle(this.eToggleMobileMenu.bind(this), n4vSettings.delay.slow, { trailing: false }) as EventListenerOrEventListenerObject);
     }
 
     /**
@@ -105,9 +105,9 @@ export default class n4vBar {
         if (button && menu) {
             button.setAttribute('aria-expanded', ariaExpanded);
             if (open) {
-                n4vUtil.show(menu);
+                sunUtil.show(menu);
             } else {
-                n4vUtil.hide(menu);
+                sunUtil.hide(menu);
                 this.closeSubMenus(button);
             }
         }

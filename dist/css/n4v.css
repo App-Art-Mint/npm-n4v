@@ -21,12 +21,6 @@
   border: 0;
 }
 
-.n4v-getting-height {
-  display: flex !important;
-  height: 0 !important;
-  overflow: hidden !important;
-}
-
 #n4v-header {
   display: flex;
   flex-direction: column;
@@ -44,17 +38,11 @@
   display: inline-block;
 }
 #n4v-header.n4v-js [aria-controls]:not([aria-controls=n4v-wrapper]) + ul {
-  display: none;
+  display: flex;
   flex-direction: column;
   height: 0;
   overflow: hidden;
   transition: height var(--n4v-delay-default), margin var(--n4v-delay-default);
-}
-#n4v-header.n4v-js [aria-controls]:not([aria-controls=n4v-wrapper]) + ul.n4v-anime {
-  display: flex;
-}
-#n4v-header.n4v-js [aria-controls]:not([aria-controls=n4v-wrapper])[aria-expanded=true] + ul {
-  display: flex;
 }
 #n4v-header.n4v-js [aria-controls]:not([aria-controls=n4v-wrapper])[aria-expanded]:not([aria-expanded=true]) + ul {
   margin: 0;
@@ -106,9 +94,6 @@
   width: 100%;
   transition: height var(--n4v-delay-default);
 }
-#n4v-header .n4v-instant {
-  transition: none !important;
-}
 #n4v-header #n4v-widgets {
   position: absolute;
   top: 0;
@@ -131,3 +116,5 @@
   line-height: 1;
   cursor: pointer;
 }
+
+/*# sourceMappingURL=n4v.css.map*/

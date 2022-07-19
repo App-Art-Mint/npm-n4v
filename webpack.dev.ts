@@ -1,8 +1,7 @@
 import path from 'path';
+import webpack from 'webpack';
 import devServer from 'webpack-dev-server';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import merge from 'webpack-merge';
-import config from './webpack.config';
 
 const serverConfig: devServer.Configuration = {
     static: {
@@ -12,19 +11,19 @@ const serverConfig: devServer.Configuration = {
     port: 42069
 }
 
-const devConfig = merge(config, {
+const dev: webpack.Configuration = {
     mode: 'development',
     output: {
-        filename: 'js/[name].js',
-        chunkFilename: 'js/[name].[chunkhash].chunk.js'
+        filename: 'js/[lc-name].js',
+        chunkFilename: 'js/[lc-name].[chunkhash].chunk.js'
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'css/[name].css',
-            chunkFilename: 'css/[name].[chunkhash].chunk.css'
+            filename: 'css/[lc-name].css',
+            chunkFilename: 'css/[lc-name].[chunkhash].chunk.css'
         })
     ],
     devServer: serverConfig
-});
+};
 
-export default devConfig;
+export default dev;

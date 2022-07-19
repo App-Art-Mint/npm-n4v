@@ -1,28 +1,9 @@
 {
   "name": "@sunderapps/n4v",
-  "version": "0.3.1",
+  "author": "Samuel T Underwood",
+  "version": "0.4.2",
+  "license": "MIT",
   "description": "Navigation 4 Virtuosos - Accessible, Responsive Navbars",
-  "main": "./src/main.ts",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "build": "npm run build:dev && npm run build:prod && npm run build:tsdoc && npm run build:sassdoc",
-    "build:dev": "webpack --config webpack.dev.ts",
-    "build:prod": "webpack",
-    "build:tsdoc": "typedoc",
-    "build:sassdoc": "sassdoc ./src/scss -p > ./docs/sassdoc.json",
-    "watch": "npm run watch:dev",
-    "watch:dev": "webpack --watch --config webpack.dev.ts",
-    "watch:prod": "webpack --watch",
-    "watch:tsdoc": "typedoc --watch",
-    "serve": "webpack serve --config webpack.dev.ts",
-    "test": "karma start test/karma.conf.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Sunder-Apps/n4v.git"
-  },
   "keywords": [
     "navbar",
     "virtuosos",
@@ -31,12 +12,45 @@
     "accessibility",
     "responsive"
   ],
-  "author": "Samuel T Underwood",
-  "license": "MIT",
+  "homepage": "https://www.n4v.bar",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sunder-Apps/n4v.git"
+  },
   "bugs": {
     "url": "https://github.com/Sunder-Apps/n4v/issues"
   },
-  "homepage": "https://github.com/Sunder-Apps/n4v#readme",
+  "main": "./dist/js/index.min.js",
+  "types": "./dist/js/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist/js/**/*",
+    "dist/css/**/*"
+  ],
+  "directories": {
+    "dist": "./dist",
+    "docs": "./docs",
+    "src": "src",
+    "test": "./test"
+  },
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "npm run build:dev && npm run build:prod && npm run build:index:dev && npm run build:index:prod && npm run build:tsdoc && npm run build:sassdoc",
+    "build:dev": "webpack --config webpack.config.dev.ts",
+    "build:prod": "webpack",
+    "build:index:dev": "webpack --config webpack.index.dev.ts",
+    "build:index:prod": "webpack --config webpack.index.ts",
+    "build:tsdoc": "typedoc",
+    "build:sassdoc": "sassdoc ./src/scss -p > ./docs/sassdoc.json",
+    "watch": "npm run watch:dev",
+    "watch:dev": "webpack --watch --config webpack.config.dev.ts",
+    "watch:prod": "webpack --watch",
+    "watch:tsdoc": "typedoc --watch",
+    "serve": "webpack serve --config webpack.config.dev.ts",
+    "clean": "rimraf dist docs"
+  },
   "devDependencies": {
     "@babel/core": "^7.18.2",
     "@babel/preset-env": "^7.18.2",
@@ -45,16 +59,9 @@
     "babel-loader": "^8.2.5",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.1",
-    "jasmine-core": "^4.2.0",
-    "karma": "^6.3.20",
-    "karma-babel-preprocessor": "^8.0.2",
-    "karma-chrome-launcher": "^3.1.1",
-    "karma-jasmine": "^5.0.1",
-    "karma-phantomjs-launcher": "^1.0.4",
-    "karma-typescript-preprocessor": "^0.4.0",
-    "karma-webpack": "^5.0.0",
     "mini-css-extract-plugin": "^2.6.0",
-    "sass": "^1.52.3",
+    "rimraf": "^3.0.2",
+    "sass": "^1.53.0",
     "sass-loader": "^13.0.0",
     "sassdoc": "^2.7.4",
     "ts-loader": "^9.3.0",
@@ -63,10 +70,12 @@
     "typescript": "^4.7.3",
     "webpack": "^5.73.0",
     "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.9.2",
-    "webpack-merge": "^5.8.0"
+    "webpack-dev-server": "^4.9.3",
+    "webpack-lowercase-name": "^1.0.4",
+    "webpack-merge": "^5.8.0",
+    "webpack-remove-empty-scripts": "^0.8.1"
   },
-  "publishConfig": {
-    "access": "public"
+  "dependencies": {
+    "@sunderapps/util": "^0.1.3"
   }
 }
