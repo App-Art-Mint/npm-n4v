@@ -1,7 +1,7 @@
 /**
  * Imports
  */
-import sunUtil from '@sunderapps/util';
+import { sunUtil, sunSide } from '@sunderapps/util';
 import n4vSelectors from './selectors';
 import n4vSettings from './settings';
 
@@ -18,7 +18,12 @@ export default class n4vBar {
     /**
      * Initializes and closes the menu
      */
-    constructor () {
+    constructor (settings?: {[key: string]: any}) {
+        let defaultSettings: {[key: string]: any} = {
+            from: sunSide.Top,
+            fixed: true
+        };
+        n4vSettings.set({ ...defaultSettings, ...settings });
         this.attachElements();
         this.attachEvents();
         this.enableJavascript();
@@ -30,9 +35,10 @@ export default class n4vBar {
      * Adds elements to {@link el | `this.el`}
      */
     attachElements () : void {
-        this.el.header = document.getElementById(n4vSelectors.ids.header);
-        this.el.mobileButton = this.el.header?.querySelector(n4vSelectors.controls(n4vSelectors.ids.wrapper)) || null;
-        this.el.wrapper = document.getElementById(n4vSelectors.ids.wrapper);
+        this.el.body = document.querySelector('body');
+        this.el.header = document.getElementById(n4vSelectors.getId('header'));
+        this.el.mobileButton = this.el.header?.querySelector(n4vSelectors.controls(n4vSelectors.getId('wrapper'))) || null;
+        this.el.wrapper = document.getElementById(n4vSelectors.getId('wrapper'));
     }
 
     /**
@@ -49,7 +55,7 @@ export default class n4vBar {
             focusable.addEventListener('keydown', sunUtil.throttle(this.eHandleKeypress.bind(this)) as EventListenerOrEventListenerObject);
         });
 
-        let menuButtons: NodeListOf<HTMLElement> | undefined = this.el.header?.querySelectorAll(n4vSelectors.controls() + n4vSelectors.neg(n4vSelectors.controls(n4vSelectors.ids.wrapper)));
+        let menuButtons: NodeListOf<HTMLElement> | undefined = this.el.header?.querySelectorAll(n4vSelectors.controls() + n4vSelectors.neg(n4vSelectors.controls(n4vSelectors.ids.wrapper as string)));
         menuButtons?.forEach((menuButton: HTMLElement) => {
             menuButton.addEventListener('mousedown', sunUtil.throttle(this.eToggleMenu.bind(this), n4vSettings.delay.slow, { trailing: false }) as EventListenerOrEventListenerObject);
         });
@@ -61,8 +67,7 @@ export default class n4vBar {
      * Adds classes that inform the styles that javascript is enabled
      */
     enableJavascript () : void {
-        this.el.header?.classList.add(n4vSelectors.classes.js);
-        this.el.header?.classList.add(n4vSelectors.classes.fixed);
+        this.el.header?.classList.add(n4vSelectors.getClass('js'));
     }
 
     /**
@@ -79,9 +84,24 @@ export default class n4vBar {
         }, n4vSettings.delay.fast);
 
         if (open) {
-            this.el.wrapper?.classList.add(n4vSelectors.classes.open);
+            if (n4vSettings.fixed !== true) {
+                window.scroll({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+            }
+            setTimeout(() => {
+                if (this.el.body) {
+                    this.el.body.style.overflow = 'hidden';
+                }
+            }, n4vSettings.from === sunSide.Left ? n4vSettings.delay.default : n4vSettings.delay.instant);
+            this.el.wrapper?.classList.add(n4vSelectors.getClass('open'));
         } else {
-            this.el.wrapper?.classList.remove(n4vSelectors.classes.open);
+            if (this.el.body) {
+                this.el.body.style.overflow = 'auto';
+            }
+            this.el.wrapper?.classList.remove(n4vSelectors.getClass('open'));
             this.closeAllMenus();
         }
     }
@@ -228,7 +248,7 @@ export default class n4vBar {
             subMenu = target.closest('li');
         switch (e.key.toLowerCase()) {
             case 'escape':
-                if (subMenu?.classList.contains(n4vSelectors.classes.open)) {
+                if (subMenu?.classList.contains(n4vSelectors.classes.open as string)) {
                     this.setMenu(subMenu);
                 } else {
                     this.setMobileMenu();

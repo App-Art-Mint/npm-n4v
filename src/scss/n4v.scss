@@ -19,22 +19,24 @@
 
 /// Styles
 #{class(sr-only)} {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    border: 0 !important;
 }
 
 #{id(header)} {
     display: flex;
     flex-direction: column;
+    position: relative;
     width: 100%;
     color: css-var(fg);
     background-color: css-var(header-bg);
+    z-index: 1000;
 
     &#{class(js)} {
         align-items: center;
@@ -63,29 +65,62 @@
         }
 
         &#{class(fixed)} {
-            #{id(wrapper)} {
-                position: fixed;
-                top: css-var(height);
-                left: 0;
-                height: 0;
-                overflow: auto;
-                
-                &#{class(open)} {
-                    height: calc(100vh - css-var(height));
-                }
-            }
+            position: fixed;
+            top: 0;
+            left: 0;
         }
         
         #{id(wrapper)} {
             background: css-var(bg);
+            transition-duration: css-var(delay-default);
+            transition-property: top, right, bottom, left;
+            overflow: auto;
         }
     }
 
-    &#{class(fixed)} {
-        position: fixed;
+    &.sun-right {
+        #{id(wrapper)} {
+            top: css-var(height);
+            right: -100%;
+            left: unset;
+
+            &#{class(open)} {
+                right: 0;
+            }
+        }
+    }
+
+    &.sun-bottom {
+        #{id(wrapper)} {
+            top: unset;
+            bottom: -100%;
+
+            &#{class(open)} {
+                bottom: 0;
+            }
+        }
+    }
+
+    &.sun-left {
+        #{id(wrapper)} {
+            top: css-var(height);
+            left: -100%;
+
+            &#{class(open)} {
+                left: 0;
+            }
+        }
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
         top: 0;
         left: 0;
-        z-index: 42069;
+        width: 100%;
+        height: css-var(height);
+        background: css-var(header-bg);
+        z-index: -1;
     }
     
     nav {
@@ -120,8 +155,17 @@
     #{id(wrapper)} {
         display: flex;
         flex-direction: column;
+        position: fixed;
+        top: -100%;
+        left: 0;
         width: 100%;
-        transition: height css-var(delay-default);
+        height: calc(100vh - css-var(height));
+        transition: none;
+        z-index: -2;
+        
+        &#{class(open)} {
+            top: css-var(height);
+        }
     }
 
     #{id(widgets)} {

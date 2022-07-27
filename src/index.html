@@ -7,6 +7,9 @@
     <title>n4v Example</title>
     <link rel="stylesheet" href="./css/n4v.css" />
     <link rel="stylesheet" href="./css/theme.css" />
+    <noscript>
+        <link rel="stylesheet" href="./css/noscript.css" />
+    </noscript>
     <style>
         #n4v-placeholder-img {
             display: block;
@@ -75,7 +78,7 @@
     <h1 id="n4v-title" style="margin-top: calc(50px + 1em);text-align: center;">Home Page</h1>
     <script src="./js/bar.js"></script>
     <script>
-        var navbar = new n4vBar();
+        var navbar = new n4vBar({ fixed: true, from: 0 });
 
         function randomInt (min, max) {
             min = Math.ceil(min);

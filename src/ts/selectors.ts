@@ -31,7 +31,7 @@ export default abstract class n4vSelectors extends sunSelectors {
     /**
      * Frequently-used ids
      */
-    static ids: {[key: string]: string} = {
+    static ids: {[key: string]: string | {[key: string]: string}} = {
         header: this.prefix('header'),
         logo: this.prefix('logo'),
         wrapper: this.prefix('wrapper'),
@@ -41,9 +41,11 @@ export default abstract class n4vSelectors extends sunSelectors {
     /**
      * Frequently-used classes
      */
-    static classes: {[key: string]: string} = {
+    static classes: {[key: string]: string | {[key: string]: string}} = {
+        ...super.classes,
         srOnly: this.prefix('sr-only'),
         js: this.prefix('js'),
+        ready: this.prefix('ready'),
         fixed: this.prefix('fixed'),
         open: this.prefix('open')
     };

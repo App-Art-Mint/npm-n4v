@@ -1,0 +1,14 @@
+/// noscript.scss - Styles necessary for the function of the n4v library without js
+/// @author Sam Underwood - Sunder Apps
+/// 
+/// @group Main
+@charset 'utf-8';
+
+/// Imports
+@use 'imports/var' as *;
+
+#{id(header)} {
+    #{id(wrapper)} {
+        position: unset !important;
+    }
+}

@@ -24,7 +24,8 @@ const config: webpack.Configuration = {
         Selectors: './src/ts/selectors.ts',
         Settings: './src/ts/settings.ts',
         n4v: './src/scss/n4v.scss',
-        theme: './src/scss/theme.scss'
+        theme: './src/scss/theme.scss',
+        noscript: './src/scss/noscript.scss'
     },
     output: {
         filename: 'js/[lc-name].min.js',

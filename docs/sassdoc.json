@@ -11,7 +11,7 @@
       "value": "@include css-var(delay-instant, delay(instant));\n    @include css-var(delay-fast, delay(fast));\n    @include css-var(delay-med-fast, delay(med-fast));\n    @include css-var(delay-default, delay(default));\n    @include css-var(delay-med-slow, delay(med-slow));\n    @include css-var(delay-slow, delay(slow));",
       "line": {
         "start": 11,
-        "end": 152
+        "end": 196
       }
     },
     "access": "public",
@@ -32,10 +32,10 @@
     "context": {
       "type": "css",
       "name": "#{class(sr-only)}",
-      "value": "position: absolute;\n    width: 1px;\n    height: 1px;\n    padding: 0;\n    margin: -1px;\n    overflow: hidden;\n    clip: rect(0, 0, 0, 0);\n    border: 0;",
+      "value": "position: absolute !important;\n    width: 1px !important;\n    height: 1px !important;\n    padding: 0 !important;\n    margin: -1px !important;\n    overflow: hidden !important;\n    clip: rect(0, 0, 0, 0) !important;\n    border: 0 !important;",
       "line": {
         "start": 21,
-        "end": 152
+        "end": 196
       }
     },
     "access": "public",
