@@ -1,7 +1,7 @@
 {
   "name": "@sunderapps/n4v",
   "author": "Samuel T Underwood",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "license": "MIT",
   "description": "Navigation 4 Virtuosos - Accessible, Responsive Navbars",
   "keywords": [
@@ -36,6 +36,9 @@
   },
   "scripts": {
     "prepare": "npm run build",
+    "preversion": "npm i && npm run test",
+    "version": "npm run build && git add -A",
+    "postversion": "git push && git push --tags && npm publish",
     "build": "npm run build:dev && npm run build:prod && npm run build:index:dev && npm run build:index:prod && npm run build:tsdoc && npm run build:sassdoc",
     "build:dev": "webpack --config webpack.config.dev.ts",
     "build:prod": "webpack",
@@ -48,7 +51,8 @@
     "watch:prod": "webpack --watch",
     "watch:tsdoc": "typedoc --watch",
     "serve": "webpack serve --config webpack.config.dev.ts",
-    "clean": "rimraf dist docs"
+    "clean": "rimraf dist docs",
+    "test": "echo 'Run tests here'"
   },
   "devDependencies": {
     "@babel/core": "^7.18.2",
@@ -75,6 +79,6 @@
     "webpack-remove-empty-scripts": "^0.8.1"
   },
   "dependencies": {
-    "@sunderapps/util": "^0.1.8"
+    "@sunderapps/util": "^0.1.12"
   }
 }
