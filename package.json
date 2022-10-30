@@ -1,7 +1,7 @@
 {
   "name": "@sunderapps/n4v",
   "author": "Samuel T Underwood",
-  "version": "0.4.10",
+  "version": "0.4.11",
   "license": "MIT",
   "description": "Navigation 4 Virtuosos - Accessible, Responsive Navbars",
   "keywords": [
@@ -81,6 +81,6 @@
     "webpack-remove-empty-scripts": "^0.8.1"
   },
   "dependencies": {
-    "@sunderapps/util": "^0.1.20"
+    "@sunderapps/util": "^0.1.21"
   }
 }

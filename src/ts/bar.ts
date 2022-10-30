@@ -29,6 +29,9 @@ export default class n4vBar {
         this.enableJavascript();
 
         this.setMobileMenu();
+
+        let focusables: HTMLElement[] = n4vSelectors.getFocusables(this.el.header as HTMLElement);
+        console.log(focusables);
     }
 
     /**
@@ -39,6 +42,8 @@ export default class n4vBar {
         this.el.header = document.getElementById(n4vSelectors.getId('header'));
         this.el.mobileButton = this.el.header?.querySelector(n4vSelectors.controls(n4vSelectors.getId('wrapper'))) || null;
         this.el.wrapper = document.getElementById(n4vSelectors.getId('wrapper'));
+
+        
     }
 
     /**
