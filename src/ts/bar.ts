@@ -29,9 +29,6 @@ export default class n4vBar {
         this.enableJavascript();
 
         this.setMobileMenu();
-
-        let focusables: HTMLElement[] = n4vSelectors.getFocusables(this.el.header as HTMLElement);
-        console.log(focusables);
     }
 
     /**
@@ -42,30 +39,28 @@ export default class n4vBar {
         this.el.header = document.getElementById(n4vSelectors.getId('header'));
         this.el.mobileButton = this.el.header?.querySelector(n4vSelectors.controls(n4vSelectors.getId('wrapper'))) || null;
         this.el.wrapper = document.getElementById(n4vSelectors.getId('wrapper'));
-
-        
     }
 
     /**
      * Adds events to the dom
      */
     attachEvents () : void {
-        window.addEventListener('resize', sunUtil.throttle(this.eHandleResize.bind(this), n4vSettings.delay.default, { trailing: false }) as EventListenerOrEventListenerObject);
-        window.addEventListener('scroll', sunUtil.throttle(this.eHandleScroll.bind(this), n4vSettings.delay.default, { trailing: false }) as EventListenerOrEventListenerObject);
+        window.addEventListener('resize', sunUtil.throttleEvent(this.eHandleResize.bind(this), n4vSettings.delay.default, { trailing: false }));
+        window.addEventListener('scroll', sunUtil.throttleEvent(this.eHandleScroll.bind(this), n4vSettings.delay.default, { trailing: false }));
 
         let focusables: NodeListOf<HTMLElement> | undefined = this.el.header?.querySelectorAll(n4vSelectors.focusable),
             lastFocusable: HTMLElement | undefined = focusables?.[focusables?.length - 1];
-        lastFocusable?.addEventListener('keydown', sunUtil.throttle(this.eWrapTab.bind(this)) as EventListenerOrEventListenerObject);
+        lastFocusable?.addEventListener('keydown', sunUtil.throttleEvent(this.eWrapTab.bind(this)));
         focusables?.forEach((focusable: HTMLElement) => {
-            focusable.addEventListener('keydown', sunUtil.throttle(this.eHandleKeypress.bind(this)) as EventListenerOrEventListenerObject);
+            focusable.addEventListener('keydown', sunUtil.throttleEvent(this.eHandleKeypress.bind(this)));
         });
 
         let menuButtons: NodeListOf<HTMLElement> | undefined = this.el.header?.querySelectorAll(n4vSelectors.controls() + n4vSelectors.neg(n4vSelectors.controls(n4vSelectors.ids.wrapper as string)));
         menuButtons?.forEach((menuButton: HTMLElement) => {
-            menuButton.addEventListener('mousedown', sunUtil.throttle(this.eToggleMenu.bind(this), n4vSettings.delay.slow, { trailing: false }) as EventListenerOrEventListenerObject);
+            menuButton.addEventListener('mousedown', sunUtil.throttleEvent(this.eToggleMenu.bind(this), n4vSettings.delay.slow, { trailing: false }));
         });
 
-        this.el.mobileButton?.addEventListener('mousedown', sunUtil.throttle(this.eToggleMobileMenu.bind(this), n4vSettings.delay.slow, { trailing: false }) as EventListenerOrEventListenerObject);
+        this.el.mobileButton?.addEventListener('mousedown', sunUtil.throttleEvent(this.eToggleMobileMenu.bind(this), n4vSettings.delay.slow, { trailing: false }));
     }
 
     /**
