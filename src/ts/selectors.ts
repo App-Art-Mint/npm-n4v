@@ -7,7 +7,7 @@ import { sunSelectors } from "@sunderapps/util";
  * CSS-selector helpers
  * @public
  */
-export default abstract class n4vSelectors extends sunSelectors {
+export abstract class n4vSelectors extends sunSelectors {
     /**
      * The library name that will be added as a prefix
      */
@@ -49,4 +49,5 @@ export default abstract class n4vSelectors extends sunSelectors {
         fixed: this.prefix('fixed'),
         open: this.prefix('open')
     };
-}
+};
+export default n4vSelectors;
