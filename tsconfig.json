@@ -101,13 +101,8 @@
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
   "exclude": [
-    "tsconfig.json",
-    "package*.json",
-    "webpack.*.ts",
     "dist/**/*",
-    "docs/**/*",
-    "test/**/*",
-    "node_modules/**/*"
+    "test/**/*"
   ],
   "typedocOptions": {
     "entryPoints": [

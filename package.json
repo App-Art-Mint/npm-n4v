@@ -1,16 +1,19 @@
 {
   "name": "@sunderapps/n4v",
   "author": "Samuel T Underwood",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "license": "MIT",
   "description": "Navigation 4 Virtuosos - Accessible, Responsive Navbars",
   "keywords": [
-    "navbar",
-    "virtuosos",
-    "generator",
-    "validator",
+    "sunderapps",
+    "sunder-apps",
+    "sunder",
     "accessibility",
-    "responsive"
+    "generator",
+    "navbar",
+    "responsive",
+    "validator",
+    "virtuosos"
   ],
   "homepage": "https://www.n4v.bar",
   "repository": {
@@ -20,66 +23,90 @@
   "bugs": {
     "url": "https://github.com/Sunder-Apps/n4v/issues"
   },
-  "main": "./dist/js/index.min.js",
-  "types": "./dist/js/index.d.ts",
-  "publishConfig": {
-    "access": "public"
-  },
+  "main": "dist/js/index.min.js",
+  "types": "dist/js/index.d.ts",
   "files": [
     "dist/**/*.{css,js,d.ts,map}"
   ],
   "directories": {
-    "dist": "./dist",
-    "doc": "./docs",
-    "src": "./src",
-    "test": "./test"
+    "dist": "dist",
+    "doc": "docs",
+    "src": "src",
+    "test": "test"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "config": {
+    "dirs": {
+      "doc": "docs",
+      "src": "src",
+      "scss": "scss",
+      "dist": "dist"
+    },
+    "webpack": "node_modules/@sunderapps/config/dist/js/webpack.config.min.js"
   },
   "scripts": {
-    "update": "npm update --save @sunderapps/util",
-    "prepare": "npm run build",
+    "update": "npm up -D @sunderapps/config && sunderapps-config",
+    "upgrade": "npm i -D @sunderapps/config && sunderapps-config",
+    "prepare": "npm-run-all clean build build:**",
     "preversion": "npm i && npm run test",
     "version": "npm publish && git add -A",
-    "postversion": "git push && git push --tags",
-    "build": "npm run build:dev && npm run build:prod && npm run build:index:dev && npm run build:index:prod && npm run build:tsdoc && npm run build:sassdoc",
-    "build:dev": "webpack --config webpack.config.dev.ts",
-    "build:prod": "webpack",
-    "build:index:dev": "webpack --config webpack.index.dev.ts",
-    "build:index:prod": "webpack --config webpack.index.ts",
+    "postversion": "git push && git push --tags && npm run endversion --if-present",
+    "clean": "rimraf $npm_package_config_dirs_dist $npm_package_config_dirs_doc",
+    "clear": "npm run clean",
+    "build": "webpack --config $npm_package_config_webpack",
+    "build:prod": "cross-env NODE_ENV=production npm run build",
+    "build:index": "cross-env BUILD_MODE=index npm run build",
+    "build:index:prod": "cross-env NODE_ENV=production BUILD_MODE=index npm run build",
+    "build:config": "cross-env BUILD_MODE=config npm run build",
+    "build:config:prod": "cross-env NODE_ENV=production BUILD_MODE=config npm run build",
     "build:tsdoc": "typedoc",
-    "build:sassdoc": "sassdoc ./src/scss -p > ./docs/sassdoc.json",
-    "watch": "npm run watch:dev",
-    "watch:dev": "webpack --watch --config webpack.config.dev.ts",
-    "watch:prod": "webpack --watch",
-    "watch:tsdoc": "typedoc --watch",
-    "serve": "webpack serve --config webpack.config.dev.ts",
-    "clean": "rimraf dist docs",
-    "test": "echo 'Run tests here'"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.18.2",
-    "@babel/preset-env": "^7.18.2",
-    "@types/node": "^17.0.42",
-    "@types/webpack": "^5.28.0",
-    "babel-loader": "^8.2.5",
-    "copy-webpack-plugin": "^11.0.0",
-    "css-loader": "^6.7.1",
-    "mini-css-extract-plugin": "^2.6.0",
-    "rimraf": "^3.0.2",
-    "sass": "^1.53.0",
-    "sass-loader": "^13.0.0",
-    "sassdoc": "^2.7.4",
-    "ts-loader": "^9.3.0",
-    "ts-node": "^10.8.1",
-    "typedoc": "^0.23.2",
-    "typescript": "^4.7.3",
-    "webpack": "^5.73.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.9.3",
-    "webpack-lowercase-name": "^1.0.4",
-    "webpack-merge": "^5.8.0",
-    "webpack-remove-empty-scripts": "^0.8.1"
+    "build:sassdoc": "sassdoc $npm_package_config_dirs_src/$npm_package_config_dirs_scss -p > $npm_package_config_dirs_doc/sassdoc.json",
+    "serve": "webpack serve --config $npm_package_config_webpack",
+    "watch": "npm run build -- --watch",
+    "watch:prod": "cross-env NODE_ENV=production npm run watch",
+    "watch:tsdoc": "npm run build:tsdoc -- --watch",
+    "test": "echo '\nRun tests here!\n'"
   },
   "dependencies": {
-    "@sunderapps/util": "^0.2.0"
+    "@sunderapps/util": "^0.3.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@babel/preset-env": "^7.19.4",
+    "@sunderapps/config": "^0.3.16",
+    "@types/node": "^17.0.42",
+    "@types/webpack": "^5.28.0",
+    "babel-loader": "^9.0.1",
+    "copy-webpack-plugin": "^11.0.0",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.7.1",
+    "jasmine-core": "^4.5.0",
+    "karma": "^6.4.1",
+    "karma-babel-preprocessor": "^8.0.2",
+    "karma-chrome-launcher": "^3.1.1",
+    "karma-jasmine": "^5.1.0",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-typescript-preprocessor": "^0.4.0",
+    "karma-webpack": "^5.0.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "sass": "^1.55.0",
+    "sass-loader": "^13.1.0",
+    "sassdoc": "^2.7.4",
+    "ts-loader": "^9.4.1",
+    "ts-node": "^10.9.1",
+    "typedoc": "^0.23.19",
+    "typescript": "^4.8.4",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1",
+    "webpack-lowercase-name": "^1.0.4",
+    "webpack-merge": "^5.8.0",
+    "webpack-node-externals": "^3.0.0",
+    "webpack-remove-empty-scripts": "^1.0.1",
+    "webpack-shebang-plugin": "^1.1.8"
   }
 }
