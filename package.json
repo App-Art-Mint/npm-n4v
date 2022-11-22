@@ -1,7 +1,7 @@
 {
   "name": "@sunderapps/n4v",
   "author": "Samuel T Underwood",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "license": "MIT",
   "description": "Navigation 4 Virtuosos - Accessible, Responsive Navbars",
   "keywords": [
@@ -44,6 +44,8 @@
       "scss": "scss",
       "dist": "dist"
     },
+    "library": "sun",
+    "prefix": "sun",
     "webpack": "node_modules/@sunderapps/config/dist/js/webpack.config.min.js"
   },
   "scripts": {
@@ -70,12 +72,12 @@
     "test": "echo '\nRun tests here!\n'"
   },
   "dependencies": {
-    "@sunderapps/util": "^0.3.3"
+    "@sunderapps/util": "^0.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
     "@babel/preset-env": "^7.19.4",
-    "@sunderapps/config": "^0.3.16",
+    "@sunderapps/config": "^0.4.8",
     "@types/node": "^17.0.42",
     "@types/webpack": "^5.28.0",
     "babel-loader": "^9.0.1",
