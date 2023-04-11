@@ -1,9 +1,9 @@
 /// var.scss - Variables, Functions, and Mixins to import elsewhere
-/// @author Sam Underwood - Sunder Apps
+/// @author App/Art Mint
 /// 
 /// @group Var
 
 /// Forwards
-@forward '@sunderapps/util/src/scss/imports/util' with (
+@forward '@appartmint/util/src/scss/imports/util' with (
     $lib: n4v
 );

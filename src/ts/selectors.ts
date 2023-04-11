@@ -1,13 +1,13 @@
 /**
  * Imports
  */
-import { sunSelectors } from "@sunderapps/util";
+import { mintSelectors } from "@appartmint/util";
 
 /**
  * CSS-selector helpers
  * @public
  */
-export abstract class n4vSelectors extends sunSelectors {
+export abstract class n4vSelectors extends mintSelectors {
     /**
      * The library name that will be added as a prefix
      */

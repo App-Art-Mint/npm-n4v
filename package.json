@@ -1,13 +1,12 @@
 {
-  "name": "@sunderapps/n4v",
-  "author": "Samuel T Underwood",
-  "version": "0.7.2",
+  "name": "@appartmint/n4v",
+  "author": "App/Art Mint",
+  "version": "0.8.0",
   "license": "MIT",
   "description": "Navigation 4 Virtuosos - Accessible, Responsive Navbars",
   "keywords": [
-    "sunderapps",
-    "sunder-apps",
-    "sunder",
+    "appartmint",
+    "app-art-mint",
     "accessibility",
     "generator",
     "navbar",
@@ -18,10 +17,10 @@
   "homepage": "https://www.n4v.bar",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Sunder-Apps/n4v.git"
+    "url": "git+https://github.com/App-Art-Mint/npm-n4v.git"
   },
   "bugs": {
-    "url": "https://github.com/Sunder-Apps/n4v/issues"
+    "url": "https://github.com/App-Art-Mint/npm-n4v/issues"
   },
   "main": "dist/js/index.min.js",
   "types": "dist/js/index.d.ts",
@@ -46,11 +45,10 @@
     },
     "library": "sun",
     "prefix": "sun",
-    "webpack": "node_modules/@sunderapps/config/dist/js/webpack.config.min.js"
+    "webpack": "node_modules/@appartmint/config/dist/js/webpack.config.min.js"
   },
   "scripts": {
-    "update": "npm up -D @sunderapps/config && sunderapps-config",
-    "upgrade": "npm i -D @sunderapps/config && sunderapps-config",
+    "upgrade": "npm up -D @appartmint/config && mint-config",
     "prepare": "npm-run-all clean build build:**",
     "preversion": "npm i && npm run test",
     "version": "npm publish && git add -A",
@@ -72,12 +70,12 @@
     "test": "echo '\nRun tests here!\n'"
   },
   "dependencies": {
-    "@sunderapps/util": "^0.6.2"
+    "@appartmint/util": "^0.7.0"
   },
   "devDependencies": {
+    "@appartmint/config": "^0.6.3",
     "@babel/core": "^7.19.6",
     "@babel/preset-env": "^7.19.4",
-    "@sunderapps/config": "^0.5.2",
     "@types/node": "^17.0.42",
     "@types/webpack": "^5.28.0",
     "babel-loader": "^9.0.1",

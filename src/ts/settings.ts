@@ -1,18 +1,18 @@
 /**
  * Imports
  */
-import { sunSettings, sunSide } from "@sunderapps/util";
+import { mintSettings, mintSide } from "@appartmint/util";
 import n4vSelectors from "./selectors";
 
 /**
  * Settings management
  * @public
  */
-export abstract class n4vSettings extends sunSettings {
+export abstract class n4vSettings extends mintSettings {
     /**
      * Side of the window the mobile navbar enters from
      */
-     static from?: sunSide;
+     static from?: mintSide;
 
      /**
      * Whether the navbar is fixed or not
@@ -25,7 +25,7 @@ export abstract class n4vSettings extends sunSettings {
      */
     static override set (settings: {[key: string]: any}) : void {
         super.set(settings);
-        if (settings.from || settings.from === sunSide.Top) {
+        if (settings.from || settings.from === mintSide.Top) {
             this.setFrom(settings.from);
         }
         if (typeof settings.fixed === 'boolean') {
@@ -36,12 +36,12 @@ export abstract class n4vSettings extends sunSettings {
     /**
      * Updates the direction the navbar enters from
      */
-     protected static setFrom (from: sunSide) : void {
+     protected static setFrom (from: mintSide) : void {
         if (this.from !== from) {
             this.from = from;
             let header: HTMLElement | null = document.getElementById(n4vSelectors.getId('header'));
             header?.classList.remove(...Object.values(n4vSelectors.classes.sides));
-            header?.classList.add(n4vSelectors.getClass(sunSide[this.from].toLowerCase(), 'sides'));
+            header?.classList.add(n4vSelectors.getClass(mintSide[this.from].toLowerCase(), 'sides'));
         }
     }
 

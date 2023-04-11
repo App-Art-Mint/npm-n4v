@@ -3,8 +3,8 @@
 ## Hosting
 
  - [www.n4v.bar](https://www.n4v.bar)
- - [NPM - @sunderapps/n4v/](https://www.npmjs.com/package/@sunderapps/n4v)
- - [GitHub - Sunder-Apps/n4v/](https://github.com/Sunder-Apps/n4v)
+ - [NPM - @appartmint/n4v/](https://www.npmjs.com/package/@appartmint/n4v)
+ - [GitHub - App-Art-Mint/npm-n4v/](https://github.com/App-Art-Mint/npm-n4v)
 
 ## Development
 
@@ -15,7 +15,7 @@
 3. Clone the <sup>16</sup>[GitHub](https://docs.github.com/en) repository.
 
 ```powershell
-PS C:\proj> git clone https://github.com/Sunder-Apps/n4v.git ./n4v
+PS C:\proj> git clone https://github.com/App-Art-Mint/npm-n4v.git ./npm-n4v
 ```
 
 4. Change directory into the n4v project

@@ -1,5 +1,5 @@
 /// n4v.scss - Styles necessary for the function of the n4v library
-/// @author Sam Underwood - Sunder Apps
+/// @author App/Art Mint
 /// 
 /// @group Main
 @charset 'utf-8';
@@ -78,7 +78,7 @@
         }
     }
 
-    &.sun-right {
+    &.mint-right {
         #{id(wrapper)} {
             top: css-var(height);
             right: -100%;
@@ -90,7 +90,7 @@
         }
     }
 
-    &.sun-bottom {
+    &.mint-bottom {
         #{id(wrapper)} {
             top: unset;
             bottom: -100%;
@@ -101,7 +101,7 @@
         }
     }
 
-    &.sun-left {
+    &.mint-left {
         #{id(wrapper)} {
             top: css-var(height);
             left: -100%;

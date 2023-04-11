@@ -1,7 +1,7 @@
 /**
  * Imports
  */
-import { sunUtil, sunSide } from '@sunderapps/util';
+import { mintUtil, mintSide } from '@appartmint/util';
 import n4vSelectors from './selectors';
 import n4vSettings from './settings';
 
@@ -20,7 +20,7 @@ export default class n4vBar {
      */
     constructor (settings?: {[key: string]: any}) {
         let defaultSettings: {[key: string]: any} = {
-            from: sunSide.Top,
+            from: mintSide.Top,
             fixed: true
         };
         n4vSettings.set({ ...defaultSettings, ...settings });
@@ -45,22 +45,22 @@ export default class n4vBar {
      * Adds events to the dom
      */
     attachEvents () : void {
-        window.addEventListener('resize', sunUtil.throttleEvent(this.eHandleResize.bind(this), n4vSettings.delay.default, { trailing: false }));
-        window.addEventListener('scroll', sunUtil.throttleEvent(this.eHandleScroll.bind(this), n4vSettings.delay.default, { trailing: false }));
+        window.addEventListener('resize', mintUtil.throttleEvent(this.eHandleResize.bind(this), n4vSettings.delay.default, { trailing: false }));
+        window.addEventListener('scroll', mintUtil.throttleEvent(this.eHandleScroll.bind(this), n4vSettings.delay.default, { trailing: false }));
 
         let focusables: NodeListOf<HTMLElement> | undefined = this.el.header?.querySelectorAll(n4vSelectors.focusable),
             lastFocusable: HTMLElement | undefined = focusables?.[focusables?.length - 1];
-        lastFocusable?.addEventListener('keydown', sunUtil.throttleEvent(this.eWrapTab.bind(this)));
+        lastFocusable?.addEventListener('keydown', mintUtil.throttleEvent(this.eWrapTab.bind(this)));
         focusables?.forEach((focusable: HTMLElement) => {
-            focusable.addEventListener('keydown', sunUtil.throttleEvent(this.eHandleKeypress.bind(this)));
+            focusable.addEventListener('keydown', mintUtil.throttleEvent(this.eHandleKeypress.bind(this)));
         });
 
         let menuButtons: NodeListOf<HTMLElement> | undefined = this.el.header?.querySelectorAll(n4vSelectors.controls() + n4vSelectors.neg(n4vSelectors.controls(n4vSelectors.ids.wrapper as string)));
         menuButtons?.forEach((menuButton: HTMLElement) => {
-            menuButton.addEventListener('mousedown', sunUtil.throttleEvent(this.eToggleMenu.bind(this), n4vSettings.delay.slow, { trailing: false }));
+            menuButton.addEventListener('mousedown', mintUtil.throttleEvent(this.eToggleMenu.bind(this), n4vSettings.delay.slow, { trailing: false }));
         });
 
-        this.el.mobileButton?.addEventListener('mousedown', sunUtil.throttleEvent(this.eToggleMobileMenu.bind(this), n4vSettings.delay.slow, { trailing: false }));
+        this.el.mobileButton?.addEventListener('mousedown', mintUtil.throttleEvent(this.eToggleMobileMenu.bind(this), n4vSettings.delay.slow, { trailing: false }));
     }
 
     /**
@@ -95,7 +95,7 @@ export default class n4vBar {
                 if (this.el.body) {
                     this.el.body.style.overflow = 'hidden';
                 }
-            }, n4vSettings.from === sunSide.Left ? n4vSettings.delay.default : n4vSettings.delay.instant);
+            }, n4vSettings.from === mintSide.Left ? n4vSettings.delay.default : n4vSettings.delay.instant);
             this.el.wrapper?.classList.add(n4vSelectors.getClass('open'));
         } else {
             if (this.el.body) {
@@ -125,9 +125,9 @@ export default class n4vBar {
         if (button && menu) {
             button.setAttribute('aria-expanded', ariaExpanded);
             if (open) {
-                sunUtil.show(menu);
+                mintUtil.show(menu);
             } else {
-                sunUtil.hide(menu);
+                mintUtil.hide(menu);
                 this.closeSubMenus(button);
             }
         }
