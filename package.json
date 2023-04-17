@@ -1,7 +1,7 @@
 {
   "name": "@appartmint/n4v",
   "author": "App/Art Mint",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "license": "MIT",
   "description": "Navigation 4 Virtuosos - Accessible, Responsive Navbars",
   "keywords": [
@@ -70,10 +70,10 @@
     "test": "echo '\nRun tests here!\n'"
   },
   "dependencies": {
-    "@appartmint/util": "^0.7.0"
+    "@appartmint/util": "^0.7.1"
   },
   "devDependencies": {
-    "@appartmint/config": "^0.6.3",
+    "@appartmint/config": "^0.6.4",
     "@babel/core": "^7.19.6",
     "@babel/preset-env": "^7.19.4",
     "@types/node": "^17.0.42",
