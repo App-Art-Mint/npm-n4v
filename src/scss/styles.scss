@@ -1,0 +1,196 @@
+/// styles.scss - Styles necessary for the function of the n4v library
+/// @author App/Art Mint
+/// 
+/// @group Main
+@charset 'utf-8';
+
+/// Imports
+@use './imports/util' as *;
+
+/// CSS variables
+:root {
+    @include css-var(delay-instant, delay(instant));
+    @include css-var(delay-fast, delay(fast));
+    @include css-var(delay-med-fast, delay(med-fast));
+    @include css-var(delay-default, delay(default));
+    @include css-var(delay-med-slow, delay(med-slow));
+    @include css-var(delay-slow, delay(slow));
+}
+
+/// Styles
+#{class(sr-only)} {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    border: 0 !important;
+}
+
+#{id(header)} {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    color: css-var(fg);
+    background-color: css-var(header-bg);
+    z-index: 1000;
+
+    &#{class(js)} {
+        align-items: center;
+        flex-direction: row;
+        height: css-var(height);
+        padding: calc((css-var(height) - css-var(btn-height)) / 2);
+
+        #{controls(wrapper)} {
+            display: inline-block;
+        }
+
+        #{$has-controls + neg(controls(wrapper))} {
+            & + ul {
+                display: flex;
+                flex-direction: column;
+                height: 0;
+                overflow: hidden;
+                transition: height css-var(delay-default), margin css-var(delay-default);
+            }
+            
+            &#{$has-expanded + neg(expanded(true))} {
+                & + ul {
+                    margin: 0;
+                }
+            }
+        }
+
+        &#{class(fixed)} {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        
+        #{id(wrapper)} {
+            background: css-var(bg);
+            transition-duration: css-var(delay-default);
+            transition-property: top, right, bottom, left;
+            overflow: auto;
+        }
+    }
+
+    &.mint-right {
+        #{id(wrapper)} {
+            top: css-var(height);
+            right: -100%;
+            left: unset;
+
+            &#{class(open)} {
+                right: 0;
+            }
+        }
+    }
+
+    &.mint-bottom {
+        #{id(wrapper)} {
+            top: unset;
+            bottom: -100%;
+
+            &#{class(open)} {
+                bottom: 0;
+            }
+        }
+    }
+
+    &.mint-left {
+        #{id(wrapper)} {
+            top: css-var(height);
+            left: -100%;
+
+            &#{class(open)} {
+                left: 0;
+            }
+        }
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: css-var(height);
+        background: css-var(header-bg);
+        z-index: -1;
+    }
+    
+    nav {
+        & > ul {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+    
+    ul {
+        list-style: none;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        padding-left: 0;
+    }
+    
+    a, button {
+        display: flex;
+        align-items: center;
+        padding: calc((css-var(height) - css-var(btn-height)) / 2);
+    }
+    
+    #{controls(wrapper)} {
+        display: none;
+    }
+    
+    #{id(logo)} {
+        margin: calc((css-var(height) - css-var(btn-height)) / 2);
+        padding: 0;
+    }
+
+    #{id(wrapper)} {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: -100%;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - css-var(height));
+        transition: none;
+        z-index: -2;
+        
+        &#{class(open)} {
+            top: css-var(height);
+        }
+    }
+
+    #{id(widgets)} {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: css-var(height);
+    }
+    
+    #{class(dropdown)} {
+        background: css-var(header-bg);
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: css-var(height);
+            height: css-var(height);
+            padding: calc((css-var(height) - css-var(btn-height)) / 2);
+        }
+
+        li {
+            padding: calc((css-var(height) - css-var(btn-height)) / 2);
+            line-height: 1;
+            cursor: pointer;
+        }
+    }
+}
