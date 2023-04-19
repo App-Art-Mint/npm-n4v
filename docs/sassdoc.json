@@ -2,16 +2,16 @@
   {
     "description": "CSS variables\n",
     "commentRange": {
-      "start": 10,
-      "end": 10
+      "start": 13,
+      "end": 13
     },
     "context": {
       "type": "css",
       "name": ":root",
       "value": "@include css-var(delay-instant, delay(instant));\n    @include css-var(delay-fast, delay(fast));\n    @include css-var(delay-med-fast, delay(med-fast));\n    @include css-var(delay-default, delay(default));\n    @include css-var(delay-med-slow, delay(med-slow));\n    @include css-var(delay-slow, delay(slow));",
       "line": {
-        "start": 11,
-        "end": 196
+        "start": 14,
+        "end": 199
       }
     },
     "access": "public",
@@ -26,16 +26,16 @@
   {
     "description": "Styles\n",
     "commentRange": {
-      "start": 20,
-      "end": 20
+      "start": 23,
+      "end": 23
     },
     "context": {
       "type": "css",
       "name": "#{class(sr-only)}",
       "value": "position: absolute !important;\n    width: 1px !important;\n    height: 1px !important;\n    padding: 0 !important;\n    margin: -1px !important;\n    overflow: hidden !important;\n    clip: rect(0, 0, 0, 0) !important;\n    border: 0 !important;",
       "line": {
-        "start": 21,
-        "end": 196
+        "start": 24,
+        "end": 199
       }
     },
     "access": "public",

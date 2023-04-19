@@ -1,7 +1,7 @@
 {
   "name": "@appartmint/n4v",
   "author": "App/Art Mint",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "license": "MIT",
   "description": "Navigation 4 Virtuosos - Accessible, Responsive Navbars",
   "keywords": [
@@ -25,6 +25,7 @@
   "main": "dist/js/index.min.js",
   "types": "dist/js/index.d.ts",
   "files": [
+    "src/scss/**/*.{scss,sass}",
     "dist/**/*.{css,js,d.ts,map}"
   ],
   "directories": {

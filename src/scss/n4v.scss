@@ -4,8 +4,11 @@
 /// @group Main
 @charset 'utf-8';
 
+/// Forwards
+@forward './imports/util';
+
 /// Imports
-@use 'imports/util' as *;
+@use './imports/util' as *;
 
 /// CSS variables
 :root {
