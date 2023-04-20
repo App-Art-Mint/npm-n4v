@@ -1,50 +1,1924 @@
 [
   {
-    "description": "CSS variables\n",
+    "description": "Prefixes the provided string with the library name if it isn't already\n",
     "commentRange": {
-      "start": 13,
-      "end": 13
+      "start": 147,
+      "end": 154
     },
     "context": {
-      "type": "css",
-      "name": ":root",
-      "value": "@include css-var(delay-instant, delay(instant));\n    @include css-var(delay-fast, delay(fast));\n    @include css-var(delay-med-fast, delay(med-fast));\n    @include css-var(delay-default, delay(default));\n    @include css-var(delay-med-slow, delay(med-slow));\n    @include css-var(delay-slow, delay(slow));",
+      "type": "function",
+      "name": "prefix",
+      "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The prefix function requires a string value.';\n    }\n\n    $base: string.to-lower-case($base);\n\n    @if (string.index($base, $pre) != 1) {\n        $base: $pre + $base;\n    }\n\n    @return $base;\n",
       "line": {
-        "start": 14,
-        "end": 199
+        "start": 155,
+        "end": 167
       }
     },
-    "access": "public",
     "group": [
-      "undefined"
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "prefix(header) // -> sun-header",
+        "description": "prefix function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "base",
+        "description": "the string to be prefixed"
+      }
+    ],
+    "return": {
+      "type": "String",
+      "description": "a prefixed string"
+    },
+    "access": "public",
+    "require": [
+      {
+        "type": "variable",
+        "name": "pre"
+      },
+      {
+        "type": "variable",
+        "name": "pre"
+      }
+    ],
+    "throw": [
+      "The prefix function requires a string value."
     ],
     "file": {
-      "path": "n4v.scss",
-      "name": "n4v.scss"
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Prefixes the provided string with two dashes and the library name if it isn't already\n",
+        "context": {
+          "type": "function",
+          "name": "css-prefix",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The css-prefix function requires a string value.';\n    }\n\n    @while (string.index($base, $dash) == 1) {\n        $base: string.slice($base, 2);\n    }\n\n    @return $dash + $dash + prefix($base);\n",
+          "line": {
+            "start": 177,
+            "end": 187
+          }
+        }
+      },
+      {
+        "description": "Creates a class selector with the library prefix\n",
+        "context": {
+          "type": "function",
+          "name": "class",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The class function requires a string value.';\n    }\n\n    @return $dot + prefix($base);\n",
+          "line": {
+            "start": 229,
+            "end": 235
+          }
+        }
+      },
+      {
+        "description": "Creates an id selector with the library prefix\n",
+        "context": {
+          "type": "function",
+          "name": "id",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The id function requires a string value.';\n    }\n    @if (type-of($op) != 'string') {\n        @error 'The controls function requires a string value for param 2.';\n    }\n    @if not($op == '=' or $op == '~=' or $op == '|=' or $op == '^=' or $op == '$=' or $op == '*=') {\n        @error 'The controls function requires a valid attribute comparison operator for param 2.';\n    }\n\n    @if ($op == '=') {\n        @return $hash + prefix($base);\n    }\n    @return '[id' + $op + prefix($base) + ']';\n",
+          "line": {
+            "start": 246,
+            "end": 261
+          }
+        }
+      },
+      {
+        "description": "Creates an id selector with the library prefix\n",
+        "context": {
+          "type": "function",
+          "name": "id",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The id function requires a string value.';\n    }\n    @if (type-of($op) != 'string') {\n        @error 'The controls function requires a string value for param 2.';\n    }\n    @if not($op == '=' or $op == '~=' or $op == '|=' or $op == '^=' or $op == '$=' or $op == '*=') {\n        @error 'The controls function requires a valid attribute comparison operator for param 2.';\n    }\n\n    @if ($op == '=') {\n        @return $hash + prefix($base);\n    }\n    @return '[id' + $op + prefix($base) + ']';\n",
+          "line": {
+            "start": 246,
+            "end": 261
+          }
+        }
+      },
+      {
+        "description": "Creates an aria-controls selector with the library prefix\n",
+        "context": {
+          "type": "function",
+          "name": "controls",
+          "code": "\n    @if (type-of($id) != 'string') {\n        @error 'The controls function requires a string value for param 1.';\n    }\n    @if (type-of($op) != 'string') {\n        @error 'The controls function requires a string value for param 2.';\n    }\n    @if not($op == '=' or $op == '~=' or $op == '|=' or $op == '^=' or $op == '$=' or $op == '*=') {\n        @error 'The controls function requires a valid attribute comparison operator for param 2.';\n    }\n\n    @return '[aria-controls' + $op + prefix($id) + ']';\n",
+          "line": {
+            "start": 272,
+            "end": 284
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Prefixes the provided string with two dashes and the library name if it isn't already\n",
+    "commentRange": {
+      "start": 169,
+      "end": 176
+    },
+    "context": {
+      "type": "function",
+      "name": "css-prefix",
+      "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The css-prefix function requires a string value.';\n    }\n\n    @while (string.index($base, $dash) == 1) {\n        $base: string.slice($base, 2);\n    }\n\n    @return $dash + $dash + prefix($base);\n",
+      "line": {
+        "start": 177,
+        "end": 187
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "css-prefix(background) // -> --sun-background",
+        "description": "css-prefix function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "base",
+        "description": "the string to be prefixed"
+      }
+    ],
+    "return": {
+      "type": "String",
+      "description": "a prefixed string"
+    },
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "prefix"
+      },
+      {
+        "type": "variable",
+        "name": "dash"
+      },
+      {
+        "type": "variable",
+        "name": "dash"
+      },
+      {
+        "type": "variable",
+        "name": "dash"
+      }
+    ],
+    "throw": [
+      "The css-prefix function requires a string value."
+    ],
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Creates a CSS-var call for the prefixed `$base`\n",
+        "context": {
+          "type": "function",
+          "name": "css-var",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The css-var function requires a string value.';\n    }\n\n    @return var(css-prefix($base));\n",
+          "line": {
+            "start": 197,
+            "end": 203
+          }
+        }
+      },
+      {
+        "description": "Creates a prefixed CSS var definition\n",
+        "context": {
+          "type": "mixin",
+          "name": "css-var",
+          "code": "\n    #{css-prefix($key)}: #{$val};\n",
+          "line": {
+            "start": 443,
+            "end": 445
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Creates a CSS-var call for the prefixed `$base`\n",
+    "commentRange": {
+      "start": 189,
+      "end": 196
+    },
+    "context": {
+      "type": "function",
+      "name": "css-var",
+      "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The css-var function requires a string value.';\n    }\n\n    @return var(css-prefix($base));\n",
+      "line": {
+        "start": 197,
+        "end": 203
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "css-var(background) // -> var(--sun-background)",
+        "description": "css-var function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "base",
+        "description": "the CSS-var to create a call for"
+      }
+    ],
+    "return": {
+      "type": "String",
+      "description": "a CSS-var call"
+    },
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "css-prefix"
+      }
+    ],
+    "throw": [
+      "The css-var function requires a string value."
+    ],
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Creates a prefixed CSS var reference\n",
+        "context": {
+          "type": "mixin",
+          "name": "css-var-ref",
+          "code": "\n    @include css-var($key1, css-var($key2));\n",
+          "line": {
+            "start": 456,
+            "end": 458
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Negates a provided CSS-selector\n",
+    "commentRange": {
+      "start": 205,
+      "end": 212
+    },
+    "context": {
+      "type": "function",
+      "name": "neg",
+      "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The neg function requires a string value.';\n    }\n\n    @return ':not(' + $base + ')';\n",
+      "line": {
+        "start": 213,
+        "end": 219
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "neg(.sun-open) // -> :not(.sun-open)",
+        "description": "neg function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "base",
+        "description": "the CSS-selector to negate"
+      }
+    ],
+    "return": {
+      "type": "String",
+      "description": "a negated CSS-selector"
+    },
+    "access": "public",
+    "require": [],
+    "throw": [
+      "The neg function requires a string value."
+    ],
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
     }
   },
   {
-    "description": "Styles\n",
+    "description": "Creates a class selector with the library prefix\n",
     "commentRange": {
-      "start": 23,
-      "end": 23
+      "start": 221,
+      "end": 228
     },
     "context": {
-      "type": "css",
-      "name": "#{class(sr-only)}",
-      "value": "position: absolute !important;\n    width: 1px !important;\n    height: 1px !important;\n    padding: 0 !important;\n    margin: -1px !important;\n    overflow: hidden !important;\n    clip: rect(0, 0, 0, 0) !important;\n    border: 0 !important;",
+      "type": "function",
+      "name": "class",
+      "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The class function requires a string value.';\n    }\n\n    @return $dot + prefix($base);\n",
       "line": {
-        "start": 24,
-        "end": 199
+        "start": 229,
+        "end": 235
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "class(open) // -> .sun-open",
+        "description": "class function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "base",
+        "description": "the name of the class"
+      }
+    ],
+    "return": {
+      "type": "String",
+      "description": "a class selector"
+    },
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "prefix"
+      },
+      {
+        "type": "variable",
+        "name": "dot"
+      }
+    ],
+    "throw": [
+      "The class function requires a string value."
+    ],
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    },
+    "usedBy": [
+      {
+        "description": "TODO: Document this\n",
+        "context": {
+          "type": "mixin",
+          "name": "states",
+          "code": "\n    @each $state in $states {\n        @if (type-of($state) != 'string') {\n            @error 'The states mixin requires a string for each state argument.';\n        }\n        @if not($state == 'hover' or $state == 'focus' or $state == 'active' or $state == 'visited' or $state == 'disabled') {\n            @error 'The states mixin requires a string of \"hover\", \"focus\", \"active\", \"visited\", or \"disabled\" for each state argument.';\n        }\n    }\n\n    @if (index($states, 'hover') != null) {\n        &:hover {\n            @content;\n        }\n    }\n    @if (index($states, 'focus') != null) {\n        &:focus {\n            @content;\n        }\n    }\n    @if (index($states, 'active') != null) {\n        &:active, &#{class(active)} {\n            @content;\n        }\n    }\n    @if (index($states, 'visited') != null) {\n        &:visited {\n            @content;\n        }\n    }\n    @if (index($states, 'disabled') != null) {\n        &:disabled {\n            @content;\n        }\n    }\n",
+          "line": {
+            "start": 678,
+            "end": 713
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Creates an id selector with the library prefix\n",
+    "commentRange": {
+      "start": 237,
+      "end": 245
+    },
+    "context": {
+      "type": "function",
+      "name": "id",
+      "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The id function requires a string value.';\n    }\n    @if (type-of($op) != 'string') {\n        @error 'The controls function requires a string value for param 2.';\n    }\n    @if not($op == '=' or $op == '~=' or $op == '|=' or $op == '^=' or $op == '$=' or $op == '*=') {\n        @error 'The controls function requires a valid attribute comparison operator for param 2.';\n    }\n\n    @if ($op == '=') {\n        @return $hash + prefix($base);\n    }\n    @return '[id' + $op + prefix($base) + ']';\n",
+      "line": {
+        "start": 246,
+        "end": 261
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "id(header) // -> #sun-header",
+        "description": "id function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "base",
+        "description": "the name of the id"
+      },
+      {
+        "type": "String",
+        "name": "op",
+        "description": "the comparison operator"
+      }
+    ],
+    "return": {
+      "type": "String",
+      "description": "an id selector"
+    },
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "prefix"
+      },
+      {
+        "type": "function",
+        "name": "prefix"
+      },
+      {
+        "type": "variable",
+        "name": "hash"
+      }
+    ],
+    "throw": [
+      "The id function requires a string value.",
+      "The controls function requires a string value for param 2.",
+      "The controls function requires a valid attribute comparison operator for param 2."
+    ],
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "Creates an aria-controls selector with the library prefix\n",
+    "commentRange": {
+      "start": 263,
+      "end": 271
+    },
+    "context": {
+      "type": "function",
+      "name": "controls",
+      "code": "\n    @if (type-of($id) != 'string') {\n        @error 'The controls function requires a string value for param 1.';\n    }\n    @if (type-of($op) != 'string') {\n        @error 'The controls function requires a string value for param 2.';\n    }\n    @if not($op == '=' or $op == '~=' or $op == '|=' or $op == '^=' or $op == '$=' or $op == '*=') {\n        @error 'The controls function requires a valid attribute comparison operator for param 2.';\n    }\n\n    @return '[aria-controls' + $op + prefix($id) + ']';\n",
+      "line": {
+        "start": 272,
+        "end": 284
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "controls(header) // -> [aria-controls=sun-header]",
+        "description": "controls function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "id",
+        "description": "the id of the controlled element"
+      },
+      {
+        "type": "String",
+        "name": "op",
+        "description": "the comparison operator"
+      }
+    ],
+    "return": {
+      "type": "String",
+      "description": "an aria-controls selector"
+    },
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "prefix"
+      }
+    ],
+    "throw": [
+      "The controls function requires a string value for param 1.",
+      "The controls function requires a string value for param 2.",
+      "The controls function requires a valid attribute comparison operator for param 2."
+    ],
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "Creates an aria-expanded selector\n",
+    "commentRange": {
+      "start": 286,
+      "end": 293
+    },
+    "context": {
+      "type": "function",
+      "name": "expanded",
+      "code": "\n    @if (type-of($bool) == 'string') {\n        $bool: string.to-lower-case($bool);\n\n        @if not($bool == 'true' or $bool == 'false') {\n            @error 'The expanded function requires a boolean value.';\n        }\n    } @else if (type-of($bool) != 'bool') {\n        @error 'The expanded function requires a boolean value.';\n    }\n    \n    @return '[aria-expanded=' + $bool + ']';\n",
+      "line": {
+        "start": 294,
+        "end": 306
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "expanded(true) // -> [aria-expanded=true]",
+        "description": "expanded function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "Bool",
+        "name": "bool",
+        "description": "the value of the selector"
+      }
+    ],
+    "return": {
+      "type": "String",
+      "description": "an aria-expanded selector"
+    },
+    "access": "public",
+    "require": [],
+    "throw": [
+      "The expanded function requires a boolean value."
+    ],
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "Creates an aria-hidden selector\n",
+    "commentRange": {
+      "start": 308,
+      "end": 315
+    },
+    "context": {
+      "type": "function",
+      "name": "hidden",
+      "code": "\n    @if (type-of($bool) == 'string') {\n        $bool: string.to-lower-case($bool);\n\n        @if not($bool == 'true' or $bool == 'false') {\n            @error 'The hidden function requires a boolean value. Received: ' + $bool;\n        }\n    } @else if (type-of($bool) != 'bool') {\n        @error 'The hidden function requires a boolean value. Received: ' + $bool;\n    }\n    \n    @return '[aria-hidden=' + $bool + ']';\n",
+      "line": {
+        "start": 316,
+        "end": 328
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "hidden(true) // -> [aria-hidden=true]",
+        "description": "hidden function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "Bool",
+        "name": "bool",
+        "description": "the value of the selector"
+      }
+    ],
+    "return": {
+      "type": "String",
+      "description": "an aria-hidden selector"
+    },
+    "access": "public",
+    "require": [],
+    "throw": [
+      "The hidden function requires a boolean value. Received: "
+    ],
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "Converts a number to ms\n",
+    "commentRange": {
+      "start": 330,
+      "end": 337
+    },
+    "context": {
+      "type": "function",
+      "name": "ms",
+      "code": "\n    @if (type-of($val) != 'number') {\n        @error 'The ms function requires a number value.';\n    }\n\n    @return $val * 1ms;\n",
+      "line": {
+        "start": 338,
+        "end": 344
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "ms(100) // -> 100ms",
+        "description": "ms function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "Number",
+        "name": "val",
+        "description": "the number of ms to return"
+      }
+    ],
+    "return": {
+      "type": "Number",
+      "description": "the number as ms"
+    },
+    "access": "public",
+    "require": [],
+    "throw": [
+      "The ms function requires a number value."
+    ],
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Returns the requested delay value as ms\n",
+        "context": {
+          "type": "function",
+          "name": "delay",
+          "code": "\n    @if not(map-has-key($delay, $key)) {\n        @error 'The delay function requires one of the following values: #{map-keys($delay)}';\n    }\n\n    @return ms(map-get($delay, $key));\n",
+          "line": {
+            "start": 410,
+            "end": 416
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Converts a number to px\n",
+    "commentRange": {
+      "start": 346,
+      "end": 353
+    },
+    "context": {
+      "type": "function",
+      "name": "px",
+      "code": "\n    @if (type-of($val) != 'number') {\n        @error 'The px function requires a number value.';\n    }\n\n    @return $val * 1px;\n",
+      "line": {
+        "start": 354,
+        "end": 360
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "px(100) // -> 100px",
+        "description": "px function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "Number",
+        "name": "val",
+        "description": "the number of px to return"
+      }
+    ],
+    "return": {
+      "type": "Number",
+      "description": "the number as px"
+    },
+    "access": "public",
+    "require": [],
+    "throw": [
+      "The px function requires a number value."
+    ],
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Returns the requested breakpoint value as px\n",
+        "context": {
+          "type": "function",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $key)) {\n        @error 'The break function requires one of the following values: #{map-keys($break)}';\n    }\n\n    @return px(map-get($break, $key));\n",
+          "line": {
+            "start": 426,
+            "end": 432
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Removes the unit from the given value\n",
+    "commentRange": {
+      "start": 362,
+      "end": 369
+    },
+    "context": {
+      "type": "function",
+      "name": "strip-unit",
+      "code": "\n    @if (type-of($val) != 'number') {\n        @error 'The strip-unit function requires a number value.';\n    }\n\n    @return math.div($val, $val * 0 + 1);\n",
+      "line": {
+        "start": 370,
+        "end": 376
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "strip-unit(100px) // -> 100",
+        "description": "strip-unit function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "Number",
+        "name": "val",
+        "description": "the value to strip"
+      }
+    ],
+    "return": {
+      "type": "Number",
+      "description": "the number without units"
+    },
+    "access": "public",
+    "require": [],
+    "throw": [
+      "The strip-unit function requires a number value."
+    ],
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Returns the percentage of the given values\n",
+        "context": {
+          "type": "function",
+          "name": "percent",
+          "code": "\n    @if (type-of($dividend) != 'number' or type-of($divisor) != 'number' or type-of($padding) != 'number') {\n        @error 'The percent function requires number parameters.';\n    }\n    @if ($divisor == 0) {\n        @error 'The percent function requires a non-zero value for param 2.';\n    }\n    @if (strip-unit($padding) != 0) {\n        @return calc((($dividend * 100%) - $padding) / $divisor) + '%';\n    }\n    @return math.div($dividend * 100%, $divisor);\n",
+          "line": {
+            "start": 389,
+            "end": 400
+          }
+        }
+      },
+      {
+        "description": "Generates a property with a fluid value between specified screen sizes\n",
+        "context": {
+          "type": "mixin",
+          "name": "fluid",
+          "code": "\n    $u1: unit($min-vw);\n    $u2: unit($max-vw);\n    $u3: unit($min-size);\n    $u4: unit($max-size);\n\n    @if (type-of($prop) != 'string') {\n        @error 'The fluid mixin requires a string for the $prop argument.';\n    }\n    @if not(type-of($u1) == 'string' and type-of($u2) == 'string' and type-of($u3) == 'string' and type-of($u4) == 'string') {\n        @error 'The fluid mixin requires numbers for the width and size arguments.';\n    }\n    @if not($u1 == $u2 and $u1 == $u3 and $u1 == $u4) {\n        @error 'The fluid mixin requires width and size arguments with the same units.';\n    }\n\n    // See if you can get rid of this wrapping & selector\n    & {\n        #{$prop}: $min-size;\n        @media (min-width: $min-vw) {\n            #{$prop}: calc(#{$min-size} + #{strip-unit($max-size - $min-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));\n        }\n        @media (min-width: $max-vw) {\n            #{$prop}: $max-size;\n        }\n    }\n",
+          "line": {
+            "start": 573,
+            "end": 599
+          }
+        }
+      },
+      {
+        "description": "Generates a property with a fluid value between specified screen sizes\n",
+        "context": {
+          "type": "mixin",
+          "name": "fluid",
+          "code": "\n    $u1: unit($min-vw);\n    $u2: unit($max-vw);\n    $u3: unit($min-size);\n    $u4: unit($max-size);\n\n    @if (type-of($prop) != 'string') {\n        @error 'The fluid mixin requires a string for the $prop argument.';\n    }\n    @if not(type-of($u1) == 'string' and type-of($u2) == 'string' and type-of($u3) == 'string' and type-of($u4) == 'string') {\n        @error 'The fluid mixin requires numbers for the width and size arguments.';\n    }\n    @if not($u1 == $u2 and $u1 == $u3 and $u1 == $u4) {\n        @error 'The fluid mixin requires width and size arguments with the same units.';\n    }\n\n    // See if you can get rid of this wrapping & selector\n    & {\n        #{$prop}: $min-size;\n        @media (min-width: $min-vw) {\n            #{$prop}: calc(#{$min-size} + #{strip-unit($max-size - $min-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));\n        }\n        @media (min-width: $max-vw) {\n            #{$prop}: $max-size;\n        }\n    }\n",
+          "line": {
+            "start": 573,
+            "end": 599
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Returns the percentage of the given values\n",
+    "commentRange": {
+      "start": 378,
+      "end": 388
+    },
+    "context": {
+      "type": "function",
+      "name": "percent",
+      "code": "\n    @if (type-of($dividend) != 'number' or type-of($divisor) != 'number' or type-of($padding) != 'number') {\n        @error 'The percent function requires number parameters.';\n    }\n    @if ($divisor == 0) {\n        @error 'The percent function requires a non-zero value for param 2.';\n    }\n    @if (strip-unit($padding) != 0) {\n        @return calc((($dividend * 100%) - $padding) / $divisor) + '%';\n    }\n    @return math.div($dividend * 100%, $divisor);\n",
+      "line": {
+        "start": 389,
+        "end": 400
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "percent(100, 200) // -> 50%",
+        "description": "percent function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "Number",
+        "name": "dividend",
+        "description": "the value that will be devided"
+      },
+      {
+        "type": "Number",
+        "name": "divisor",
+        "description": "the value that will devided by"
+      }
+    ],
+    "return": {
+      "type": "Number",
+      "description": "the percentage of the given values"
+    },
+    "throw": [
+      "The percent function requires number parameters.",
+      "The percent function requires a non-zero value for param 2."
+    ],
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "strip-unit"
+      }
+    ],
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "Returns the requested delay value as ms\n",
+    "commentRange": {
+      "start": 402,
+      "end": 409
+    },
+    "context": {
+      "type": "function",
+      "name": "delay",
+      "code": "\n    @if not(map-has-key($delay, $key)) {\n        @error 'The delay function requires one of the following values: #{map-keys($delay)}';\n    }\n\n    @return ms(map-get($delay, $key));\n",
+      "line": {
+        "start": 410,
+        "end": 416
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "delay(default) // -> 300ms",
+        "description": "delay function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "Number",
+        "name": "key",
+        "description": "the key of the delay to use"
+      }
+    ],
+    "return": {
+      "type": "Number",
+      "description": "the delay value as ms"
+    },
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "ms"
+      },
+      {
+        "type": "variable",
+        "name": "delay"
+      },
+      {
+        "type": "variable",
+        "name": "delay"
+      },
+      {
+        "type": "variable",
+        "name": "delay"
+      }
+    ],
+    "throw": [
+      "The delay function requires one of the following values: #{map-keys($delay)}"
+    ],
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "Returns the requested breakpoint value as px\n",
+    "commentRange": {
+      "start": 418,
+      "end": 425
+    },
+    "context": {
+      "type": "function",
+      "name": "break",
+      "code": "\n    @if not(map-has-key($break, $key)) {\n        @error 'The break function requires one of the following values: #{map-keys($break)}';\n    }\n\n    @return px(map-get($break, $key));\n",
+      "line": {
+        "start": 426,
+        "end": 432
+      }
+    },
+    "group": [
+      "functions"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "break(md) // -> 1024px",
+        "description": "break function"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "Number",
+        "name": "key",
+        "description": "the key of the breakpoint to use"
+      }
+    ],
+    "return": {
+      "type": "Number",
+      "description": "the breakpoint value as px"
+    },
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "px"
+      },
+      {
+        "type": "variable",
+        "name": "break"
+      },
+      {
+        "type": "variable",
+        "name": "break"
+      },
+      {
+        "type": "variable",
+        "name": "break"
+      }
+    ],
+    "throw": [
+      "The break function requires one of the following values: #{map-keys($break)}"
+    ],
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Wraps the provided content in a media query\n",
+        "context": {
+          "type": "mixin",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $min) and (type-of($max) == 'null' or map-has-key($break, $max))) {\n        @error 'The break mixin requires one or two of the following values: #{map-keys($break)}';\n    }\n\n    @if (map-has-key($break, $max)) {\n        @media (min-width: break($min)) and (max-width: break($max)) {\n            @content;\n        }\n    } @else {\n        @media (min-width: break($min)) {\n            @content;\n        }\n    }\n",
+          "line": {
+            "start": 471,
+            "end": 485
+          }
+        }
+      },
+      {
+        "description": "Wraps the provided content in a media query\n",
+        "context": {
+          "type": "mixin",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $min) and (type-of($max) == 'null' or map-has-key($break, $max))) {\n        @error 'The break mixin requires one or two of the following values: #{map-keys($break)}';\n    }\n\n    @if (map-has-key($break, $max)) {\n        @media (min-width: break($min)) and (max-width: break($max)) {\n            @content;\n        }\n    } @else {\n        @media (min-width: break($min)) {\n            @content;\n        }\n    }\n",
+          "line": {
+            "start": 471,
+            "end": 485
+          }
+        }
+      },
+      {
+        "description": "Wraps the provided content in a media query\n",
+        "context": {
+          "type": "mixin",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $min) and (type-of($max) == 'null' or map-has-key($break, $max))) {\n        @error 'The break mixin requires one or two of the following values: #{map-keys($break)}';\n    }\n\n    @if (map-has-key($break, $max)) {\n        @media (min-width: break($min)) and (max-width: break($max)) {\n            @content;\n        }\n    } @else {\n        @media (min-width: break($min)) {\n            @content;\n        }\n    }\n",
+          "line": {
+            "start": 471,
+            "end": 485
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Delay variables\n",
+    "commentRange": {
+      "start": 101,
+      "end": 108
+    },
+    "context": {
+      "type": "variable",
+      "name": "delay",
+      "value": "(\n    instant: $delay-base + $delay-step * 0,\n    fast: $delay-base + $delay-step * 1,\n    med-fast: $delay-base + $delay-step * 2,\n    default: $delay-base + $delay-step * 3,\n    med-slow: $delay-base + $delay-step * 4,\n    slow: $delay-base + $delay-step * 5\n)",
+      "scope": "default",
+      "line": {
+        "start": 109,
+        "end": 116
+      }
+    },
+    "group": [
+      "maps"
+    ],
+    "property": [
+      {
+        "type": "Number",
+        "name": "$delay.instant",
+        "default": "0",
+        "description": "Instant: the quickest delay; close or equal to 0"
+      },
+      {
+        "type": "Number",
+        "name": "$delay.fast",
+        "default": "100",
+        "description": "Fast: delays that happen quickly"
+      },
+      {
+        "type": "Number",
+        "name": "$delay.med-fast",
+        "default": "200",
+        "description": "Med-Fast: delays that happen faster"
+      },
+      {
+        "type": "Number",
+        "name": "$delay.default",
+        "default": "300",
+        "description": "Default: delays that are average"
+      },
+      {
+        "type": "Number",
+        "name": "$delay.med-slow",
+        "default": "400",
+        "description": "Med-Slow: delays that happen slower"
+      },
+      {
+        "type": "Number",
+        "name": "$delay.slow",
+        "default": "500",
+        "description": "Slow: delays that happen slowly"
+      }
+    ],
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Returns the requested delay value as ms\n",
+        "context": {
+          "type": "function",
+          "name": "delay",
+          "code": "\n    @if not(map-has-key($delay, $key)) {\n        @error 'The delay function requires one of the following values: #{map-keys($delay)}';\n    }\n\n    @return ms(map-get($delay, $key));\n",
+          "line": {
+            "start": 410,
+            "end": 416
+          }
+        }
+      },
+      {
+        "description": "Returns the requested delay value as ms\n",
+        "context": {
+          "type": "function",
+          "name": "delay",
+          "code": "\n    @if not(map-has-key($delay, $key)) {\n        @error 'The delay function requires one of the following values: #{map-keys($delay)}';\n    }\n\n    @return ms(map-get($delay, $key));\n",
+          "line": {
+            "start": 410,
+            "end": 416
+          }
+        }
+      },
+      {
+        "description": "Returns the requested delay value as ms\n",
+        "context": {
+          "type": "function",
+          "name": "delay",
+          "code": "\n    @if not(map-has-key($delay, $key)) {\n        @error 'The delay function requires one of the following values: #{map-keys($delay)}';\n    }\n\n    @return ms(map-get($delay, $key));\n",
+          "line": {
+            "start": 410,
+            "end": 416
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Breakpoint variables\n",
+    "commentRange": {
+      "start": 118,
+      "end": 124
+    },
+    "context": {
+      "type": "variable",
+      "name": "break",
+      "value": "(\n    xs: 480,\n    sm: 768,\n    md: 1024,\n    lg: 1200,\n    xl: 1440\n)",
+      "scope": "default",
+      "line": {
+        "start": 125,
+        "end": 131
+      }
+    },
+    "group": [
+      "maps"
+    ],
+    "property": [
+      {
+        "type": "Number",
+        "name": "$break.xs",
+        "default": "480",
+        "description": "Extra-Small: mobile devices"
+      },
+      {
+        "type": "Number",
+        "name": "$break.sm",
+        "default": "768",
+        "description": "Small: small tablets, landscape mobiles"
+      },
+      {
+        "type": "Number",
+        "name": "$break.md",
+        "default": "1024",
+        "description": "Medium: small desktops, large tablets"
+      },
+      {
+        "type": "Number",
+        "name": "$break.lg",
+        "default": "1200",
+        "description": "Large: large desktops, landscape tablets"
+      },
+      {
+        "type": "Number",
+        "name": "$break.xl",
+        "default": "1440",
+        "description": "Extra-Large: larger desktops"
+      }
+    ],
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Returns the requested breakpoint value as px\n",
+        "context": {
+          "type": "function",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $key)) {\n        @error 'The break function requires one of the following values: #{map-keys($break)}';\n    }\n\n    @return px(map-get($break, $key));\n",
+          "line": {
+            "start": 426,
+            "end": 432
+          }
+        }
+      },
+      {
+        "description": "Returns the requested breakpoint value as px\n",
+        "context": {
+          "type": "function",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $key)) {\n        @error 'The break function requires one of the following values: #{map-keys($break)}';\n    }\n\n    @return px(map-get($break, $key));\n",
+          "line": {
+            "start": 426,
+            "end": 432
+          }
+        }
+      },
+      {
+        "description": "Returns the requested breakpoint value as px\n",
+        "context": {
+          "type": "function",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $key)) {\n        @error 'The break function requires one of the following values: #{map-keys($break)}';\n    }\n\n    @return px(map-get($break, $key));\n",
+          "line": {
+            "start": 426,
+            "end": 432
+          }
+        }
+      },
+      {
+        "description": "Wraps the provided content in a media query\n",
+        "context": {
+          "type": "mixin",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $min) and (type-of($max) == 'null' or map-has-key($break, $max))) {\n        @error 'The break mixin requires one or two of the following values: #{map-keys($break)}';\n    }\n\n    @if (map-has-key($break, $max)) {\n        @media (min-width: break($min)) and (max-width: break($max)) {\n            @content;\n        }\n    } @else {\n        @media (min-width: break($min)) {\n            @content;\n        }\n    }\n",
+          "line": {
+            "start": 471,
+            "end": 485
+          }
+        }
+      },
+      {
+        "description": "Wraps the provided content in a media query\n",
+        "context": {
+          "type": "mixin",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $min) and (type-of($max) == 'null' or map-has-key($break, $max))) {\n        @error 'The break mixin requires one or two of the following values: #{map-keys($break)}';\n    }\n\n    @if (map-has-key($break, $max)) {\n        @media (min-width: break($min)) and (max-width: break($max)) {\n            @content;\n        }\n    } @else {\n        @media (min-width: break($min)) {\n            @content;\n        }\n    }\n",
+          "line": {
+            "start": 471,
+            "end": 485
+          }
+        }
+      },
+      {
+        "description": "Wraps the provided content in a media query\n",
+        "context": {
+          "type": "mixin",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $min) and (type-of($max) == 'null' or map-has-key($break, $max))) {\n        @error 'The break mixin requires one or two of the following values: #{map-keys($break)}';\n    }\n\n    @if (map-has-key($break, $max)) {\n        @media (min-width: break($min)) and (max-width: break($max)) {\n            @content;\n        }\n    } @else {\n        @media (min-width: break($min)) {\n            @content;\n        }\n    }\n",
+          "line": {
+            "start": 471,
+            "end": 485
+          }
+        }
+      },
+      {
+        "description": "Wraps the provided content in a media query\n",
+        "context": {
+          "type": "mixin",
+          "name": "break",
+          "code": "\n    @if not(map-has-key($break, $min) and (type-of($max) == 'null' or map-has-key($break, $max))) {\n        @error 'The break mixin requires one or two of the following values: #{map-keys($break)}';\n    }\n\n    @if (map-has-key($break, $max)) {\n        @media (min-width: break($min)) and (max-width: break($max)) {\n            @content;\n        }\n    } @else {\n        @media (min-width: break($min)) {\n            @content;\n        }\n    }\n",
+          "line": {
+            "start": 471,
+            "end": 485
+          }
+        }
+      },
+      {
+        "description": "Creates utility selectors for a given property at each breakpoint\n",
+        "context": {
+          "type": "mixin",
+          "name": "break-util",
+          "code": "\n    @if (type-of($prop) != 'string') {\n        @error 'The break-util mixin requires a string for the $prop argument.';\n    }\n\n    & {\n        #{$prop}: #{$val};\n\n        @each $key, $width in $break {\n            &-#{$key} {\n                #{$prop}: #{$none};\n\n                @include break($key) {\n                    #{$prop}: #{$val};\n                }\n            }\n\n            &-to-#{$key} {\n                #{$prop}: #{$val};\n\n                @include break($key) {\n                    #{$prop}: #{$none};\n                }\n            }\n        }\n    }\n",
+          "line": {
+            "start": 525,
+            "end": 551
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Creates a prefixed CSS var definition\n",
+    "commentRange": {
+      "start": 434,
+      "end": 442
+    },
+    "context": {
+      "type": "mixin",
+      "name": "css-var",
+      "code": "\n    #{css-prefix($key)}: #{$val};\n",
+      "line": {
+        "start": 443,
+        "end": 445
+      }
+    },
+    "group": [
+      "mixins"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "@include css-var(bg, black) // -> --sun-bg: black;",
+        "description": "css-var mixin"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "key",
+        "description": "the key of the CSS var"
+      },
+      {
+        "type": "Any",
+        "name": "val",
+        "description": "the value of the CSS var"
+      }
+    ],
+    "output": "a prefixed CSS var definition",
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "css-prefix"
+      }
+    ],
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Creates a prefixed CSS var reference\n",
+        "context": {
+          "type": "mixin",
+          "name": "css-var-ref",
+          "code": "\n    @include css-var($key1, css-var($key2));\n",
+          "line": {
+            "start": 456,
+            "end": 458
+          }
+        }
+      },
+      {
+        "description": "Generates css varibles for lighter, darker, or both variations\n",
+        "context": {
+          "type": "mixin",
+          "name": "shades",
+          "code": "\n    @if (type-of($name) != 'string') {\n        @error 'The shades mixin requires a string for the $name argument.';\n    }\n    @if (type-of($color) != 'color') {\n        @error 'The shades mixin requires a color for the $color argument.';\n    }\n    @if not($type == lighten or $type == darken or $type == both) {\n        @error 'The shades mixin requires a string of \"lighten\", \"darken\", or \"both\" for the $type argument.';\n    }\n    @if (type-of($number) != 'number') {\n        @error 'The shades mixin requires a number for the $number argument.';\n    }\n    @if (type-of($alpha) == 'string') {\n        $bool: string.to-lower-case($bool);\n\n        @if not($bool == 'true' or $bool == 'false') {\n            @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n        }\n    } @else if (type-of($alpha) != 'bool') {\n        @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n    }\n\n    @include css-var(#{$name}, $color);\n\n    @if ($alpha) {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: $i * math.div($amount, 100%)));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: ($num-light - $i) * math.div($amount, 100%)));\n            }\n        }\n    } @else {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, $i * $amount));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, $i * $amount));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, ($num-light - $i) * $amount));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, ($i - $num-light) * $amount));\n            }\n        }\n    }\n",
+          "line": {
+            "start": 611,
+            "end": 675
+          }
+        }
+      },
+      {
+        "description": "Generates css varibles for lighter, darker, or both variations\n",
+        "context": {
+          "type": "mixin",
+          "name": "shades",
+          "code": "\n    @if (type-of($name) != 'string') {\n        @error 'The shades mixin requires a string for the $name argument.';\n    }\n    @if (type-of($color) != 'color') {\n        @error 'The shades mixin requires a color for the $color argument.';\n    }\n    @if not($type == lighten or $type == darken or $type == both) {\n        @error 'The shades mixin requires a string of \"lighten\", \"darken\", or \"both\" for the $type argument.';\n    }\n    @if (type-of($number) != 'number') {\n        @error 'The shades mixin requires a number for the $number argument.';\n    }\n    @if (type-of($alpha) == 'string') {\n        $bool: string.to-lower-case($bool);\n\n        @if not($bool == 'true' or $bool == 'false') {\n            @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n        }\n    } @else if (type-of($alpha) != 'bool') {\n        @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n    }\n\n    @include css-var(#{$name}, $color);\n\n    @if ($alpha) {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: $i * math.div($amount, 100%)));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: ($num-light - $i) * math.div($amount, 100%)));\n            }\n        }\n    } @else {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, $i * $amount));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, $i * $amount));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, ($num-light - $i) * $amount));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, ($i - $num-light) * $amount));\n            }\n        }\n    }\n",
+          "line": {
+            "start": 611,
+            "end": 675
+          }
+        }
+      },
+      {
+        "description": "Generates css varibles for lighter, darker, or both variations\n",
+        "context": {
+          "type": "mixin",
+          "name": "shades",
+          "code": "\n    @if (type-of($name) != 'string') {\n        @error 'The shades mixin requires a string for the $name argument.';\n    }\n    @if (type-of($color) != 'color') {\n        @error 'The shades mixin requires a color for the $color argument.';\n    }\n    @if not($type == lighten or $type == darken or $type == both) {\n        @error 'The shades mixin requires a string of \"lighten\", \"darken\", or \"both\" for the $type argument.';\n    }\n    @if (type-of($number) != 'number') {\n        @error 'The shades mixin requires a number for the $number argument.';\n    }\n    @if (type-of($alpha) == 'string') {\n        $bool: string.to-lower-case($bool);\n\n        @if not($bool == 'true' or $bool == 'false') {\n            @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n        }\n    } @else if (type-of($alpha) != 'bool') {\n        @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n    }\n\n    @include css-var(#{$name}, $color);\n\n    @if ($alpha) {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: $i * math.div($amount, 100%)));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: ($num-light - $i) * math.div($amount, 100%)));\n            }\n        }\n    } @else {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, $i * $amount));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, $i * $amount));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, ($num-light - $i) * $amount));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, ($i - $num-light) * $amount));\n            }\n        }\n    }\n",
+          "line": {
+            "start": 611,
+            "end": 675
+          }
+        }
+      },
+      {
+        "description": "Generates css varibles for lighter, darker, or both variations\n",
+        "context": {
+          "type": "mixin",
+          "name": "shades",
+          "code": "\n    @if (type-of($name) != 'string') {\n        @error 'The shades mixin requires a string for the $name argument.';\n    }\n    @if (type-of($color) != 'color') {\n        @error 'The shades mixin requires a color for the $color argument.';\n    }\n    @if not($type == lighten or $type == darken or $type == both) {\n        @error 'The shades mixin requires a string of \"lighten\", \"darken\", or \"both\" for the $type argument.';\n    }\n    @if (type-of($number) != 'number') {\n        @error 'The shades mixin requires a number for the $number argument.';\n    }\n    @if (type-of($alpha) == 'string') {\n        $bool: string.to-lower-case($bool);\n\n        @if not($bool == 'true' or $bool == 'false') {\n            @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n        }\n    } @else if (type-of($alpha) != 'bool') {\n        @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n    }\n\n    @include css-var(#{$name}, $color);\n\n    @if ($alpha) {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: $i * math.div($amount, 100%)));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: ($num-light - $i) * math.div($amount, 100%)));\n            }\n        }\n    } @else {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, $i * $amount));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, $i * $amount));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, ($num-light - $i) * $amount));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, ($i - $num-light) * $amount));\n            }\n        }\n    }\n",
+          "line": {
+            "start": 611,
+            "end": 675
+          }
+        }
+      },
+      {
+        "description": "Generates css varibles for lighter, darker, or both variations\n",
+        "context": {
+          "type": "mixin",
+          "name": "shades",
+          "code": "\n    @if (type-of($name) != 'string') {\n        @error 'The shades mixin requires a string for the $name argument.';\n    }\n    @if (type-of($color) != 'color') {\n        @error 'The shades mixin requires a color for the $color argument.';\n    }\n    @if not($type == lighten or $type == darken or $type == both) {\n        @error 'The shades mixin requires a string of \"lighten\", \"darken\", or \"both\" for the $type argument.';\n    }\n    @if (type-of($number) != 'number') {\n        @error 'The shades mixin requires a number for the $number argument.';\n    }\n    @if (type-of($alpha) == 'string') {\n        $bool: string.to-lower-case($bool);\n\n        @if not($bool == 'true' or $bool == 'false') {\n            @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n        }\n    } @else if (type-of($alpha) != 'bool') {\n        @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n    }\n\n    @include css-var(#{$name}, $color);\n\n    @if ($alpha) {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: $i * math.div($amount, 100%)));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: ($num-light - $i) * math.div($amount, 100%)));\n            }\n        }\n    } @else {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, $i * $amount));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, $i * $amount));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, ($num-light - $i) * $amount));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, ($i - $num-light) * $amount));\n            }\n        }\n    }\n",
+          "line": {
+            "start": 611,
+            "end": 675
+          }
+        }
+      },
+      {
+        "description": "Generates css varibles for lighter, darker, or both variations\n",
+        "context": {
+          "type": "mixin",
+          "name": "shades",
+          "code": "\n    @if (type-of($name) != 'string') {\n        @error 'The shades mixin requires a string for the $name argument.';\n    }\n    @if (type-of($color) != 'color') {\n        @error 'The shades mixin requires a color for the $color argument.';\n    }\n    @if not($type == lighten or $type == darken or $type == both) {\n        @error 'The shades mixin requires a string of \"lighten\", \"darken\", or \"both\" for the $type argument.';\n    }\n    @if (type-of($number) != 'number') {\n        @error 'The shades mixin requires a number for the $number argument.';\n    }\n    @if (type-of($alpha) == 'string') {\n        $bool: string.to-lower-case($bool);\n\n        @if not($bool == 'true' or $bool == 'false') {\n            @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n        }\n    } @else if (type-of($alpha) != 'bool') {\n        @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n    }\n\n    @include css-var(#{$name}, $color);\n\n    @if ($alpha) {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: $i * math.div($amount, 100%)));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: ($num-light - $i) * math.div($amount, 100%)));\n            }\n        }\n    } @else {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, $i * $amount));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, $i * $amount));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, ($num-light - $i) * $amount));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, ($i - $num-light) * $amount));\n            }\n        }\n    }\n",
+          "line": {
+            "start": 611,
+            "end": 675
+          }
+        }
+      },
+      {
+        "description": "Generates css varibles for lighter, darker, or both variations\n",
+        "context": {
+          "type": "mixin",
+          "name": "shades",
+          "code": "\n    @if (type-of($name) != 'string') {\n        @error 'The shades mixin requires a string for the $name argument.';\n    }\n    @if (type-of($color) != 'color') {\n        @error 'The shades mixin requires a color for the $color argument.';\n    }\n    @if not($type == lighten or $type == darken or $type == both) {\n        @error 'The shades mixin requires a string of \"lighten\", \"darken\", or \"both\" for the $type argument.';\n    }\n    @if (type-of($number) != 'number') {\n        @error 'The shades mixin requires a number for the $number argument.';\n    }\n    @if (type-of($alpha) == 'string') {\n        $bool: string.to-lower-case($bool);\n\n        @if not($bool == 'true' or $bool == 'false') {\n            @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n        }\n    } @else if (type-of($alpha) != 'bool') {\n        @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n    }\n\n    @include css-var(#{$name}, $color);\n\n    @if ($alpha) {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: $i * math.div($amount, 100%)));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: ($num-light - $i) * math.div($amount, 100%)));\n            }\n        }\n    } @else {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, $i * $amount));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, $i * $amount));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, ($num-light - $i) * $amount));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, ($i - $num-light) * $amount));\n            }\n        }\n    }\n",
+          "line": {
+            "start": 611,
+            "end": 675
+          }
+        }
+      },
+      {
+        "description": "Generates css varibles for lighter, darker, or both variations\n",
+        "context": {
+          "type": "mixin",
+          "name": "shades",
+          "code": "\n    @if (type-of($name) != 'string') {\n        @error 'The shades mixin requires a string for the $name argument.';\n    }\n    @if (type-of($color) != 'color') {\n        @error 'The shades mixin requires a color for the $color argument.';\n    }\n    @if not($type == lighten or $type == darken or $type == both) {\n        @error 'The shades mixin requires a string of \"lighten\", \"darken\", or \"both\" for the $type argument.';\n    }\n    @if (type-of($number) != 'number') {\n        @error 'The shades mixin requires a number for the $number argument.';\n    }\n    @if (type-of($alpha) == 'string') {\n        $bool: string.to-lower-case($bool);\n\n        @if not($bool == 'true' or $bool == 'false') {\n            @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n        }\n    } @else if (type-of($alpha) != 'bool') {\n        @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n    }\n\n    @include css-var(#{$name}, $color);\n\n    @if ($alpha) {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: $i * math.div($amount, 100%)));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: ($num-light - $i) * math.div($amount, 100%)));\n            }\n        }\n    } @else {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, $i * $amount));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, $i * $amount));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, ($num-light - $i) * $amount));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, ($i - $num-light) * $amount));\n            }\n        }\n    }\n",
+          "line": {
+            "start": 611,
+            "end": 675
+          }
+        }
+      },
+      {
+        "description": "Generates css varibles for lighter, darker, or both variations\n",
+        "context": {
+          "type": "mixin",
+          "name": "shades",
+          "code": "\n    @if (type-of($name) != 'string') {\n        @error 'The shades mixin requires a string for the $name argument.';\n    }\n    @if (type-of($color) != 'color') {\n        @error 'The shades mixin requires a color for the $color argument.';\n    }\n    @if not($type == lighten or $type == darken or $type == both) {\n        @error 'The shades mixin requires a string of \"lighten\", \"darken\", or \"both\" for the $type argument.';\n    }\n    @if (type-of($number) != 'number') {\n        @error 'The shades mixin requires a number for the $number argument.';\n    }\n    @if (type-of($alpha) == 'string') {\n        $bool: string.to-lower-case($bool);\n\n        @if not($bool == 'true' or $bool == 'false') {\n            @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n        }\n    } @else if (type-of($alpha) != 'bool') {\n        @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n    }\n\n    @include css-var(#{$name}, $color);\n\n    @if ($alpha) {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: $i * math.div($amount, 100%)));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: ($num-light - $i) * math.div($amount, 100%)));\n            }\n        }\n    } @else {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, $i * $amount));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, $i * $amount));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, ($num-light - $i) * $amount));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, ($i - $num-light) * $amount));\n            }\n        }\n    }\n",
+          "line": {
+            "start": 611,
+            "end": 675
+          }
+        }
+      },
+      {
+        "description": "Generates css varibles for lighter, darker, or both variations\n",
+        "context": {
+          "type": "mixin",
+          "name": "shades",
+          "code": "\n    @if (type-of($name) != 'string') {\n        @error 'The shades mixin requires a string for the $name argument.';\n    }\n    @if (type-of($color) != 'color') {\n        @error 'The shades mixin requires a color for the $color argument.';\n    }\n    @if not($type == lighten or $type == darken or $type == both) {\n        @error 'The shades mixin requires a string of \"lighten\", \"darken\", or \"both\" for the $type argument.';\n    }\n    @if (type-of($number) != 'number') {\n        @error 'The shades mixin requires a number for the $number argument.';\n    }\n    @if (type-of($alpha) == 'string') {\n        $bool: string.to-lower-case($bool);\n\n        @if not($bool == 'true' or $bool == 'false') {\n            @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n        }\n    } @else if (type-of($alpha) != 'bool') {\n        @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n    }\n\n    @include css-var(#{$name}, $color);\n\n    @if ($alpha) {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: $i * math.div($amount, 100%)));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: ($num-light - $i) * math.div($amount, 100%)));\n            }\n        }\n    } @else {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, $i * $amount));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, $i * $amount));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, ($num-light - $i) * $amount));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, ($i - $num-light) * $amount));\n            }\n        }\n    }\n",
+          "line": {
+            "start": 611,
+            "end": 675
+          }
+        }
+      },
+      {
+        "description": "Generates css varibles for lighter, darker, or both variations\n",
+        "context": {
+          "type": "mixin",
+          "name": "shades",
+          "code": "\n    @if (type-of($name) != 'string') {\n        @error 'The shades mixin requires a string for the $name argument.';\n    }\n    @if (type-of($color) != 'color') {\n        @error 'The shades mixin requires a color for the $color argument.';\n    }\n    @if not($type == lighten or $type == darken or $type == both) {\n        @error 'The shades mixin requires a string of \"lighten\", \"darken\", or \"both\" for the $type argument.';\n    }\n    @if (type-of($number) != 'number') {\n        @error 'The shades mixin requires a number for the $number argument.';\n    }\n    @if (type-of($alpha) == 'string') {\n        $bool: string.to-lower-case($bool);\n\n        @if not($bool == 'true' or $bool == 'false') {\n            @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n        }\n    } @else if (type-of($alpha) != 'bool') {\n        @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n    }\n\n    @include css-var(#{$name}, $color);\n\n    @if ($alpha) {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: $i * math.div($amount, 100%)));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: ($num-light - $i) * math.div($amount, 100%)));\n            }\n        }\n    } @else {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, $i * $amount));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, $i * $amount));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, ($num-light - $i) * $amount));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, ($i - $num-light) * $amount));\n            }\n        }\n    }\n",
+          "line": {
+            "start": 611,
+            "end": 675
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Creates a prefixed CSS var reference\n",
+    "commentRange": {
+      "start": 447,
+      "end": 455
+    },
+    "context": {
+      "type": "mixin",
+      "name": "css-var-ref",
+      "code": "\n    @include css-var($key1, css-var($key2));\n",
+      "line": {
+        "start": 456,
+        "end": 458
+      }
+    },
+    "group": [
+      "mixins"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "@include css-var-ref(fill, bg) // -> --sun-fill: var(--sun-bg);",
+        "description": "css-var-ref mixin"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "key1",
+        "description": "the key of the new CSS var to define"
+      },
+      {
+        "type": "String",
+        "name": "key2",
+        "description": "the key of the referenced CSS var"
+      }
+    ],
+    "output": "a prefixed CSS var reference",
+    "access": "public",
+    "require": [
+      {
+        "type": "mixin",
+        "name": "css-var"
+      },
+      {
+        "type": "function",
+        "name": "css-var"
+      }
+    ],
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "Wraps the provided content in a media query\n",
+    "commentRange": {
+      "start": 460,
+      "end": 470
+    },
+    "context": {
+      "type": "mixin",
+      "name": "break",
+      "code": "\n    @if not(map-has-key($break, $min) and (type-of($max) == 'null' or map-has-key($break, $max))) {\n        @error 'The break mixin requires one or two of the following values: #{map-keys($break)}';\n    }\n\n    @if (map-has-key($break, $max)) {\n        @media (min-width: break($min)) and (max-width: break($max)) {\n            @content;\n        }\n    } @else {\n        @media (min-width: break($min)) {\n            @content;\n        }\n    }\n",
+      "line": {
+        "start": 471,
+        "end": 485
+      }
+    },
+    "group": [
+      "mixins"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "@include break(md) {    // ->   @media (min-width: 1024px) {\n    display: none;      //          display: none;\n}                       //      }",
+        "description": "break mixin"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "min",
+        "description": "the key of the breakpoint to use with min-width"
+      },
+      {
+        "type": "String",
+        "name": "max",
+        "description": "the key of the breakpoint to use with max-width"
+      }
+    ],
+    "output": "the provided content wrapped in a media query",
+    "access": "public",
+    "content": "",
+    "require": [
+      {
+        "type": "function",
+        "name": "break"
+      },
+      {
+        "type": "function",
+        "name": "break"
+      },
+      {
+        "type": "function",
+        "name": "break"
+      },
+      {
+        "type": "variable",
+        "name": "break"
+      },
+      {
+        "type": "variable",
+        "name": "break"
+      },
+      {
+        "type": "variable",
+        "name": "break"
+      },
+      {
+        "type": "variable",
+        "name": "break"
+      }
+    ],
+    "throw": [
+      "The break mixin requires one or two of the following values: #{map-keys($break)}"
+    ],
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Creates utility selectors for a given property at each breakpoint\n",
+        "context": {
+          "type": "mixin",
+          "name": "break-util",
+          "code": "\n    @if (type-of($prop) != 'string') {\n        @error 'The break-util mixin requires a string for the $prop argument.';\n    }\n\n    & {\n        #{$prop}: #{$val};\n\n        @each $key, $width in $break {\n            &-#{$key} {\n                #{$prop}: #{$none};\n\n                @include break($key) {\n                    #{$prop}: #{$val};\n                }\n            }\n\n            &-to-#{$key} {\n                #{$prop}: #{$val};\n\n                @include break($key) {\n                    #{$prop}: #{$none};\n                }\n            }\n        }\n    }\n",
+          "line": {
+            "start": 525,
+            "end": 551
+          }
+        }
+      },
+      {
+        "description": "Creates utility selectors for a given property at each breakpoint\n",
+        "context": {
+          "type": "mixin",
+          "name": "break-util",
+          "code": "\n    @if (type-of($prop) != 'string') {\n        @error 'The break-util mixin requires a string for the $prop argument.';\n    }\n\n    & {\n        #{$prop}: #{$val};\n\n        @each $key, $width in $break {\n            &-#{$key} {\n                #{$prop}: #{$none};\n\n                @include break($key) {\n                    #{$prop}: #{$val};\n                }\n            }\n\n            &-to-#{$key} {\n                #{$prop}: #{$val};\n\n                @include break($key) {\n                    #{$prop}: #{$none};\n                }\n            }\n        }\n    }\n",
+          "line": {
+            "start": 525,
+            "end": 551
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Creates utility selectors for a given property at each breakpoint\n",
+    "commentRange": {
+      "start": 487,
+      "end": 524
+    },
+    "context": {
+      "type": "mixin",
+      "name": "break-util",
+      "code": "\n    @if (type-of($prop) != 'string') {\n        @error 'The break-util mixin requires a string for the $prop argument.';\n    }\n\n    & {\n        #{$prop}: #{$val};\n\n        @each $key, $width in $break {\n            &-#{$key} {\n                #{$prop}: #{$none};\n\n                @include break($key) {\n                    #{$prop}: #{$val};\n                }\n            }\n\n            &-to-#{$key} {\n                #{$prop}: #{$val};\n\n                @include break($key) {\n                    #{$prop}: #{$none};\n                }\n            }\n        }\n    }\n",
+      "line": {
+        "start": 525,
+        "end": 551
+      }
+    },
+    "group": [
+      "mixins"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "@include break-util(display, flex);     // ->   & {\n                                        //          display: flex;\n                                        //      \n                                        //          &-xs {\n                                        //              display: none;\n                                        //              @include break(xs) {\n                                        //                  display: flex;\n                                        //              }\n                                        //          }\n                                        //          &-to-xs {\n                                        //              display: flex;\n                                        //              @include break(xs) {\n                                        //                  display: none;\n                                        //              }\n                                        //          }\n                                        //          ...\n                                        //          &-xl {\n                                        //              display: none;\n                                        //              @include break(xl) {\n                                        //                  display: flex;\n                                        //              }\n                                        //          }\n                                        //          &-to-xl {\n                                        //              display: flex;\n                                        //              @include break(xl) {\n                                        //                  display: none;\n                                        //              }\n                                        //          }\n                                        //      }",
+        "description": "break-util mixin"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "prop",
+        "description": "the property to toggle"
+      },
+      {
+        "type": "Any",
+        "name": "val",
+        "description": "the active value of the property"
+      },
+      {
+        "type": "Any",
+        "name": "none",
+        "description": "the inactive value of the property"
+      }
+    ],
+    "output": "utility selectors for the given property at each breakpoint",
+    "access": "public",
+    "require": [
+      {
+        "type": "mixin",
+        "name": "break"
+      },
+      {
+        "type": "mixin",
+        "name": "break"
+      },
+      {
+        "type": "variable",
+        "name": "break"
+      }
+    ],
+    "throw": [
+      "The break-util mixin requires a string for the $prop argument."
+    ],
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "Generates a property with a fluid value between specified screen sizes\n",
+    "commentRange": {
+      "start": 553,
+      "end": 572
+    },
+    "context": {
+      "type": "mixin",
+      "name": "fluid",
+      "code": "\n    $u1: unit($min-vw);\n    $u2: unit($max-vw);\n    $u3: unit($min-size);\n    $u4: unit($max-size);\n\n    @if (type-of($prop) != 'string') {\n        @error 'The fluid mixin requires a string for the $prop argument.';\n    }\n    @if not(type-of($u1) == 'string' and type-of($u2) == 'string' and type-of($u3) == 'string' and type-of($u4) == 'string') {\n        @error 'The fluid mixin requires numbers for the width and size arguments.';\n    }\n    @if not($u1 == $u2 and $u1 == $u3 and $u1 == $u4) {\n        @error 'The fluid mixin requires width and size arguments with the same units.';\n    }\n\n    // See if you can get rid of this wrapping & selector\n    & {\n        #{$prop}: $min-size;\n        @media (min-width: $min-vw) {\n            #{$prop}: calc(#{$min-size} + #{strip-unit($max-size - $min-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));\n        }\n        @media (min-width: $max-vw) {\n            #{$prop}: $max-size;\n        }\n    }\n",
+      "line": {
+        "start": 573,
+        "end": 599
+      }
+    },
+    "group": [
+      "mixins"
+    ],
+    "example": [
+      {
+        "type": "scss",
+        "code": "@include fluid(font-size, 480px, 1024px, 18px, 16px);   // ->   & {\n                                                        //          font-size: 16px;\n                                                        //          @media (min-width: 480px) {\n                                                        //              font-size: calc(16px + 2 * ((100vw - 480px) / 544));\n                                                        //          }\n                                                        //          @media (min-width: 1024px) {\n                                                        //              font-size: 18px;\n                                                        //          }\n                                                        //      }",
+        "description": "fluid mixin"
+      }
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "prop",
+        "description": "the property whose value will be fluid"
+      },
+      {
+        "type": "String",
+        "name": "min-vw",
+        "description": "the minimum screen width of the fluid property"
+      },
+      {
+        "type": "String",
+        "name": "max-vw",
+        "description": "the maximum screen width of the fluid property"
+      },
+      {
+        "type": "String",
+        "name": "min-size",
+        "description": "the minimum value of the fluid property"
+      },
+      {
+        "type": "String",
+        "name": "max-size",
+        "description": "the maximum value of the fluid property"
+      }
+    ],
+    "output": "the definitions for the property at different screen sizes",
+    "access": "public",
+    "require": [
+      {
+        "type": "function",
+        "name": "strip-unit"
+      },
+      {
+        "type": "function",
+        "name": "strip-unit"
+      }
+    ],
+    "throw": [
+      "The fluid mixin requires a string for the $prop argument.",
+      "The fluid mixin requires numbers for the width and size arguments.",
+      "The fluid mixin requires width and size arguments with the same units."
+    ],
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "Generates css varibles for lighter, darker, or both variations\n",
+    "commentRange": {
+      "start": 601,
+      "end": 610
+    },
+    "context": {
+      "type": "mixin",
+      "name": "shades",
+      "code": "\n    @if (type-of($name) != 'string') {\n        @error 'The shades mixin requires a string for the $name argument.';\n    }\n    @if (type-of($color) != 'color') {\n        @error 'The shades mixin requires a color for the $color argument.';\n    }\n    @if not($type == lighten or $type == darken or $type == both) {\n        @error 'The shades mixin requires a string of \"lighten\", \"darken\", or \"both\" for the $type argument.';\n    }\n    @if (type-of($number) != 'number') {\n        @error 'The shades mixin requires a number for the $number argument.';\n    }\n    @if (type-of($alpha) == 'string') {\n        $bool: string.to-lower-case($bool);\n\n        @if not($bool == 'true' or $bool == 'false') {\n            @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n        }\n    } @else if (type-of($alpha) != 'bool') {\n        @error 'The shades mixin requires a boolean value for the $alpha argument. Received: ' + $bool;\n    }\n\n    @include css-var(#{$name}, $color);\n\n    @if ($alpha) {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: $i * math.div($amount, 100%)));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: -$i * math.div($amount, 100%)));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, color.adjust($color, $alpha: ($num-light - $i) * math.div($amount, 100%)));\n            }\n        }\n    } @else {\n        @if ($type == lighten) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, $i * $amount));\n            }\n        } @else if ($type == darken) {\n            @for $i from 0 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, $i * $amount));\n            }\n        } @else if ($type == both) {\n            $num-light: floor(math.div($number, 2));\n            @for $i from 0 through $num-light - 1 {\n                @include css-var(#{$name}-#{$i}, lighten($color, ($num-light - $i) * $amount));\n            }\n            @include css-var(#{$name}-#{$num-light}, $color);\n            @for $i from $num-light + 1 through $number - 1 {\n                @include css-var(#{$name}-#{$i}, darken($color, ($i - $num-light) * $amount));\n            }\n        }\n    }\n",
+      "line": {
+        "start": 611,
+        "end": 675
+      }
+    },
+    "group": [
+      "mixins"
+    ],
+    "parameter": [
+      {
+        "type": "String",
+        "name": "name",
+        "description": "the name of the color"
+      },
+      {
+        "type": "Color",
+        "name": "color",
+        "description": "the color to generate variations for"
+      },
+      {
+        "type": "String",
+        "name": "type",
+        "description": "the type of variation to generate"
+      },
+      {
+        "type": "Number",
+        "name": "number",
+        "description": "the number of variations to generate"
+      },
+      {
+        "type": "String",
+        "name": "amount",
+        "description": "the amount to vary the color by"
+      },
+      {
+        "type": "Boolean",
+        "name": "alpha",
+        "description": "whether to generate alpha variations"
+      }
+    ],
+    "output": "css variables for different shades of the source color",
+    "access": "public",
+    "require": [
+      {
+        "type": "mixin",
+        "name": "css-var"
+      },
+      {
+        "type": "mixin",
+        "name": "css-var"
+      },
+      {
+        "type": "mixin",
+        "name": "css-var"
+      },
+      {
+        "type": "mixin",
+        "name": "css-var"
+      },
+      {
+        "type": "mixin",
+        "name": "css-var"
+      },
+      {
+        "type": "mixin",
+        "name": "css-var"
+      },
+      {
+        "type": "mixin",
+        "name": "css-var"
+      },
+      {
+        "type": "mixin",
+        "name": "css-var"
+      },
+      {
+        "type": "mixin",
+        "name": "css-var"
+      },
+      {
+        "type": "mixin",
+        "name": "css-var"
+      },
+      {
+        "type": "mixin",
+        "name": "css-var"
+      }
+    ],
+    "throw": [
+      "The shades mixin requires a string for the $name argument.",
+      "The shades mixin requires a color for the $color argument.",
+      "The shades mixin requires a string of ",
+      "The shades mixin requires a number for the $number argument.",
+      "The shades mixin requires a boolean value for the $alpha argument. Received: "
+    ],
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "TODO: Document this\n",
+    "commentRange": {
+      "start": 677,
+      "end": 677
+    },
+    "context": {
+      "type": "mixin",
+      "name": "states",
+      "code": "\n    @each $state in $states {\n        @if (type-of($state) != 'string') {\n            @error 'The states mixin requires a string for each state argument.';\n        }\n        @if not($state == 'hover' or $state == 'focus' or $state == 'active' or $state == 'visited' or $state == 'disabled') {\n            @error 'The states mixin requires a string of \"hover\", \"focus\", \"active\", \"visited\", or \"disabled\" for each state argument.';\n        }\n    }\n\n    @if (index($states, 'hover') != null) {\n        &:hover {\n            @content;\n        }\n    }\n    @if (index($states, 'focus') != null) {\n        &:focus {\n            @content;\n        }\n    }\n    @if (index($states, 'active') != null) {\n        &:active, &#{class(active)} {\n            @content;\n        }\n    }\n    @if (index($states, 'visited') != null) {\n        &:visited {\n            @content;\n        }\n    }\n    @if (index($states, 'disabled') != null) {\n        &:disabled {\n            @content;\n        }\n    }\n",
+      "line": {
+        "start": 678,
+        "end": 713
       }
     },
     "access": "public",
+    "content": "",
     "group": [
       "undefined"
     ],
+    "require": [
+      {
+        "type": "function",
+        "name": "class"
+      }
+    ],
+    "throw": [
+      "The states mixin requires a string for each state argument.",
+      "The states mixin requires a string of "
+    ],
     "file": {
-      "path": "n4v.scss",
-      "name": "n4v.scss"
+      "path": "imports/util.scss",
+      "name": "util.scss"
     }
   },
   {
@@ -141,6 +2015,619 @@
     "file": {
       "path": "theme.scss",
       "name": "theme.scss"
+    }
+  },
+  {
+    "description": "util.scss - Variables, Functions, and Mixins to import elsewhere\n",
+    "commentRange": {
+      "start": 1,
+      "end": 4
+    },
+    "context": {
+      "type": "css",
+      "name": "/// Imports\n@use 'sass:color';\n@use 'sass:math';\n@use 'sass:string';\n\n/// Library name\n/// @group Variables\n/// @type String\n$lib: n4v !default;\n\n/// Dash - variable name separator\n/// @group Variables\n/// @type String\n$dash: #{'-'};\n\n/// Prefix added to selectors\n/// @group Variables\n/// @type String\n$pre: #{$lib}#{$dash};\n\n/// Dot - added to classes\n/// @group Variables\n/// @type String\n$dot: #{'.'};\n\n/// Hash - added to ids\n/// @group Variables\n/// @type String\n$hash: #{'#'};\n\n/// CSS-selector for disabled elements\n/// @group Variables\n/// @type String\n$disabled: #{'[disabled]'};\n\n/// CSS-selector for elements with an aria-controls attribute\n/// @group Variables\n/// @type String\n$has-controls: #{'[aria-controls]'};\n\n/// CSS-selector for elements with an aria-expanded attribute\n/// @group Variables\n/// @type String\n$has-expanded: #{'[aria-expanded]'};\n\n/// CSS-selector for elements with an aria-hidden attribute\n/// @group Variables\n/// @type String\n$has-hidden: #{'[aria-hidden]'};\n\n/// CSS-selector for elements with an href attribute\n/// @group Variables\n/// @type String\n$has-link: #{'[href]'};\n\n/// CSS-selector for elements with a routerLink attribute\n/// @group Variables\n/// @type String\n$has-router-link: #{'[routerLink]'};\n\n/// CSS-selector for elements with an id attribute\n/// @group Variables\n/// @type String\n$has-id: #{'[id]'};\n\n/// CSS-selector for elements that aren't tabbable (i.e. tabindex is negative)\n/// @group Variables\n/// @type String\n$not-tabbable: #{'[tabindex^=\"-\"]'};\n\n/// CSS-selector for elements that are tabbable (i.e. tabindex isn't negative)\n/// @group Variables\n/// @type String\n$tabbable: #{'[tabindex]'}#{neg($not-tabbable)};\n\n/// CSS-selector for submenu buttons\n/// @group Variables\n/// @type String\n$sub-menu-buttons: #{'button'}#{$has-controls};\n\n/// CSS-selector for submenus\n/// @group Variables\n/// @type String\n$sub-menu: #{$sub-menu-buttons}#{' + ul'}#{$has-id};\n\n/// Value added to all delay variables\n/// @group Variables\n/// @type Number\n$delay-base: 0 !default;\n\n/// Value added to all delay variables\n/// @group Variables\n/// @type Number\n$delay-step: 100 !default;\n\n/// Delay variables\n/// @group Maps\n/// @prop",
+      "value": "Number",
+      "line": {
+        "start": 103,
+        "end": 714
+      }
+    },
+    "author": [
+      "App Art Mint LLC"
+    ],
+    "group": [
+      "util"
+    ],
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "Library name\n",
+    "commentRange": {
+      "start": 11,
+      "end": 13
+    },
+    "context": {
+      "type": "variable",
+      "name": "lib",
+      "value": "n4v",
+      "scope": "default",
+      "line": {
+        "start": 14,
+        "end": 14
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "Dash - variable name separator\n",
+    "commentRange": {
+      "start": 16,
+      "end": 18
+    },
+    "context": {
+      "type": "variable",
+      "name": "dash",
+      "value": "#{'-'}",
+      "scope": "private",
+      "line": {
+        "start": 19,
+        "end": 19
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Prefixes the provided string with two dashes and the library name if it isn't already\n",
+        "context": {
+          "type": "function",
+          "name": "css-prefix",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The css-prefix function requires a string value.';\n    }\n\n    @while (string.index($base, $dash) == 1) {\n        $base: string.slice($base, 2);\n    }\n\n    @return $dash + $dash + prefix($base);\n",
+          "line": {
+            "start": 177,
+            "end": 187
+          }
+        }
+      },
+      {
+        "description": "Prefixes the provided string with two dashes and the library name if it isn't already\n",
+        "context": {
+          "type": "function",
+          "name": "css-prefix",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The css-prefix function requires a string value.';\n    }\n\n    @while (string.index($base, $dash) == 1) {\n        $base: string.slice($base, 2);\n    }\n\n    @return $dash + $dash + prefix($base);\n",
+          "line": {
+            "start": 177,
+            "end": 187
+          }
+        }
+      },
+      {
+        "description": "Prefixes the provided string with two dashes and the library name if it isn't already\n",
+        "context": {
+          "type": "function",
+          "name": "css-prefix",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The css-prefix function requires a string value.';\n    }\n\n    @while (string.index($base, $dash) == 1) {\n        $base: string.slice($base, 2);\n    }\n\n    @return $dash + $dash + prefix($base);\n",
+          "line": {
+            "start": 177,
+            "end": 187
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Prefix added to selectors\n",
+    "commentRange": {
+      "start": 21,
+      "end": 23
+    },
+    "context": {
+      "type": "variable",
+      "name": "pre",
+      "value": "#{$lib}#{$dash}",
+      "scope": "private",
+      "line": {
+        "start": 24,
+        "end": 24
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Prefixes the provided string with the library name if it isn't already\n",
+        "context": {
+          "type": "function",
+          "name": "prefix",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The prefix function requires a string value.';\n    }\n\n    $base: string.to-lower-case($base);\n\n    @if (string.index($base, $pre) != 1) {\n        $base: $pre + $base;\n    }\n\n    @return $base;\n",
+          "line": {
+            "start": 155,
+            "end": 167
+          }
+        }
+      },
+      {
+        "description": "Prefixes the provided string with the library name if it isn't already\n",
+        "context": {
+          "type": "function",
+          "name": "prefix",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The prefix function requires a string value.';\n    }\n\n    $base: string.to-lower-case($base);\n\n    @if (string.index($base, $pre) != 1) {\n        $base: $pre + $base;\n    }\n\n    @return $base;\n",
+          "line": {
+            "start": 155,
+            "end": 167
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Dot - added to classes\n",
+    "commentRange": {
+      "start": 26,
+      "end": 28
+    },
+    "context": {
+      "type": "variable",
+      "name": "dot",
+      "value": "#{'.'}",
+      "scope": "private",
+      "line": {
+        "start": 29,
+        "end": 29
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Creates a class selector with the library prefix\n",
+        "context": {
+          "type": "function",
+          "name": "class",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The class function requires a string value.';\n    }\n\n    @return $dot + prefix($base);\n",
+          "line": {
+            "start": 229,
+            "end": 235
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "Hash - added to ids\n",
+    "commentRange": {
+      "start": 31,
+      "end": 33
+    },
+    "context": {
+      "type": "variable",
+      "name": "hash",
+      "value": "#{'#'}",
+      "scope": "private",
+      "line": {
+        "start": 34,
+        "end": 34
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    },
+    "usedBy": [
+      {
+        "description": "Creates an id selector with the library prefix\n",
+        "context": {
+          "type": "function",
+          "name": "id",
+          "code": "\n    @if (type-of($base) != 'string') {\n        @error 'The id function requires a string value.';\n    }\n    @if (type-of($op) != 'string') {\n        @error 'The controls function requires a string value for param 2.';\n    }\n    @if not($op == '=' or $op == '~=' or $op == '|=' or $op == '^=' or $op == '$=' or $op == '*=') {\n        @error 'The controls function requires a valid attribute comparison operator for param 2.';\n    }\n\n    @if ($op == '=') {\n        @return $hash + prefix($base);\n    }\n    @return '[id' + $op + prefix($base) + ']';\n",
+          "line": {
+            "start": 246,
+            "end": 261
+          }
+        }
+      }
+    ]
+  },
+  {
+    "description": "CSS-selector for disabled elements\n",
+    "commentRange": {
+      "start": 36,
+      "end": 38
+    },
+    "context": {
+      "type": "variable",
+      "name": "disabled",
+      "value": "#{'[disabled]'}",
+      "scope": "private",
+      "line": {
+        "start": 39,
+        "end": 39
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "CSS-selector for elements with an aria-controls attribute\n",
+    "commentRange": {
+      "start": 41,
+      "end": 43
+    },
+    "context": {
+      "type": "variable",
+      "name": "has-controls",
+      "value": "#{'[aria-controls]'}",
+      "scope": "private",
+      "line": {
+        "start": 44,
+        "end": 44
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "CSS-selector for elements with an aria-expanded attribute\n",
+    "commentRange": {
+      "start": 46,
+      "end": 48
+    },
+    "context": {
+      "type": "variable",
+      "name": "has-expanded",
+      "value": "#{'[aria-expanded]'}",
+      "scope": "private",
+      "line": {
+        "start": 49,
+        "end": 49
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "CSS-selector for elements with an aria-hidden attribute\n",
+    "commentRange": {
+      "start": 51,
+      "end": 53
+    },
+    "context": {
+      "type": "variable",
+      "name": "has-hidden",
+      "value": "#{'[aria-hidden]'}",
+      "scope": "private",
+      "line": {
+        "start": 54,
+        "end": 54
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "CSS-selector for elements with an href attribute\n",
+    "commentRange": {
+      "start": 56,
+      "end": 58
+    },
+    "context": {
+      "type": "variable",
+      "name": "has-link",
+      "value": "#{'[href]'}",
+      "scope": "private",
+      "line": {
+        "start": 59,
+        "end": 59
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "CSS-selector for elements with a routerLink attribute\n",
+    "commentRange": {
+      "start": 61,
+      "end": 63
+    },
+    "context": {
+      "type": "variable",
+      "name": "has-router-link",
+      "value": "#{'[routerLink]'}",
+      "scope": "private",
+      "line": {
+        "start": 64,
+        "end": 64
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "CSS-selector for elements with an id attribute\n",
+    "commentRange": {
+      "start": 66,
+      "end": 68
+    },
+    "context": {
+      "type": "variable",
+      "name": "has-id",
+      "value": "#{'[id]'}",
+      "scope": "private",
+      "line": {
+        "start": 69,
+        "end": 69
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "CSS-selector for elements that aren't tabbable (i.e. tabindex is negative)\n",
+    "commentRange": {
+      "start": 71,
+      "end": 73
+    },
+    "context": {
+      "type": "variable",
+      "name": "not-tabbable",
+      "value": "#{'[tabindex^=\"-\"]'}",
+      "scope": "private",
+      "line": {
+        "start": 74,
+        "end": 74
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "CSS-selector for elements that are tabbable (i.e. tabindex isn't negative)\n",
+    "commentRange": {
+      "start": 76,
+      "end": 78
+    },
+    "context": {
+      "type": "variable",
+      "name": "tabbable",
+      "value": "#{'[tabindex]'}#{neg($not-tabbable)}",
+      "scope": "private",
+      "line": {
+        "start": 79,
+        "end": 79
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "CSS-selector for submenu buttons\n",
+    "commentRange": {
+      "start": 81,
+      "end": 83
+    },
+    "context": {
+      "type": "variable",
+      "name": "sub-menu-buttons",
+      "value": "#{'button'}#{$has-controls}",
+      "scope": "private",
+      "line": {
+        "start": 84,
+        "end": 84
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "CSS-selector for submenus\n",
+    "commentRange": {
+      "start": 86,
+      "end": 88
+    },
+    "context": {
+      "type": "variable",
+      "name": "sub-menu",
+      "value": "#{$sub-menu-buttons}#{' + ul'}#{$has-id}",
+      "scope": "private",
+      "line": {
+        "start": 89,
+        "end": 89
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "String",
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "Value added to all delay variables\n",
+    "commentRange": {
+      "start": 91,
+      "end": 93
+    },
+    "context": {
+      "type": "variable",
+      "name": "delay-base",
+      "value": "0",
+      "scope": "default",
+      "line": {
+        "start": 94,
+        "end": 94
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "Number",
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "Value added to all delay variables\n",
+    "commentRange": {
+      "start": 96,
+      "end": 98
+    },
+    "context": {
+      "type": "variable",
+      "name": "delay-step",
+      "value": "100",
+      "scope": "default",
+      "line": {
+        "start": 99,
+        "end": 99
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "Number",
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
+    }
+  },
+  {
+    "description": "True if Bootstrap5 is used in the project\n",
+    "commentRange": {
+      "start": 133,
+      "end": 135
+    },
+    "context": {
+      "type": "variable",
+      "name": "bootstrap5",
+      "value": "false",
+      "scope": "default",
+      "line": {
+        "start": 136,
+        "end": 136
+      }
+    },
+    "group": [
+      "variables"
+    ],
+    "type": "Boolean",
+    "access": "public",
+    "file": {
+      "path": "imports/util.scss",
+      "name": "util.scss"
     }
   }
 ]
