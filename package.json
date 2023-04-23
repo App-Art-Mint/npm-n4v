@@ -1,7 +1,7 @@
 {
   "name": "@appartmint/n4v",
   "author": "App/Art Mint",
-  "version": "0.8.6",
+  "version": "0.8.7",
   "license": "MIT",
   "description": "Navigation 4 Virtuosos - Accessible, Responsive Navbars",
   "keywords": [
@@ -70,9 +70,6 @@
     "watch:tsdoc": "npm run build:tsdoc -- --watch",
     "test": "echo '\nRun tests here!\n'"
   },
-  "dependencies": {
-    "@appartmint/util": "^0.7.1"
-  },
   "devDependencies": {
     "@appartmint/config": "^0.6.4",
     "@babel/core": "^7.19.6",
@@ -109,5 +106,8 @@
     "webpack-node-externals": "^3.0.0",
     "webpack-remove-empty-scripts": "^1.0.1",
     "webpack-shebang-plugin": "^1.1.8"
+  },
+  "dependencies": {
+    "@appartmint/util": "^0.7.2"
   }
 }
